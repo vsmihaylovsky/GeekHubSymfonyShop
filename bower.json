@@ -1,0 +1,24 @@
+{
+  "name": "html",
+  "authors": [
+    "Victor Tkachenko <tkachenko.victor.ukr@gmail.com>"
+  ],
+  "description": "E-Commerce Web Site",
+  "main": "",
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.0",
+    "bootstrap": "^3.3.6"
+  }
+}
