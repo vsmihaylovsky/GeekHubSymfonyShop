@@ -47,11 +47,11 @@ class Product
      */
     private $type;
 
-    /**
-     * @var array
-     *
-     */
-    private $category;
+//    /**
+//     * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
+//     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+//     */
+//    private $category;
 
     /**
      * @ORM\OneToMany(targetEntity="Product", mappedBy="parent")
@@ -59,20 +59,18 @@ class Product
     private $children;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Product", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
     private $parent;
 
     /**
-     * @var array
-     *
+     * @ORM\ManyToMany(targetEntity="Attribute", inversedBy="products")
+     * @ORM\JoinTable(name="products_attributes")
      */
     private $attributes;
 
     /**
-     * @var array
-     *
+     * @ORM\OneToMany(targetEntity="AttributeValue", mappedBy="products")
      */
     private $attributeValues;
 
@@ -141,9 +139,15 @@ class Product
      */
     private $deletedAt;
 
-
+    /**
+     * *******************************************************
+     * Constructor
+     * *******************************************************
+     */
     public function __construct() {
         $this->children = new ArrayCollection();
+        $this->attributes = new ArrayCollection();
+        $this->attributeValues = new ArrayCollection();
     }
 
     /**
@@ -433,36 +437,12 @@ class Product
     }
 
     /**
-     * Set category
-     *
-     * @param array $category
-     * @return Product
-     */
-    public function setCategory($category)
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * Get category
-     *
-     * @return array 
-     */
-    public function getCategory()
-    {
-        return $this->category;
-    }
-
-
-    /**
      * Add children
      *
      * @param \AppBundle\Entity\Product $children
      * @return Product
      */
-    public function addChild(\AppBundle\Entity\Product $children)
+    public function addChild(Product $children)
     {
         $this->children[] = $children;
 
@@ -510,5 +490,97 @@ class Product
     public function getParent()
     {
         return $this->parent;
+    }
+
+//    /**
+//     * Set category
+//     *
+//     * @param \AppBundle\Entity\Category $category
+//     *
+//     * @return Product
+//     */
+//    public function setCategory(Category $category = null)
+//    {
+//        $this->category = $category;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Get category
+//     *
+//     * @return \AppBundle\Entity\Category
+//     */
+//    public function getCategory()
+//    {
+//        return $this->category;
+//    }
+
+    /**
+     * Add attributeValue
+     *
+     * @param \AppBundle\Entity\AttributeValue $attributeValue
+     *
+     * @return Product
+     */
+    public function addAttributeValue(AttributeValue $attributeValue)
+    {
+        $this->attributeValues[] = $attributeValue;
+
+        return $this;
+    }
+
+    /**
+     * Remove attributeValue
+     *
+     * @param \AppBundle\Entity\AttributeValue $attributeValue
+     */
+    public function removeAttributeValue(AttributeValue $attributeValue)
+    {
+        $this->attributeValues->removeElement($attributeValue);
+    }
+
+    /**
+     * Get attributeValues
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAttributeValues()
+    {
+        return $this->attributeValues;
+    }
+
+    /**
+     * Add attribute
+     *
+     * @param \AppBundle\Entity\Attribute $attribute
+     *
+     * @return Product
+     */
+    public function addAttribute(Attribute $attribute)
+    {
+        $this->attributes[] = $attribute;
+
+        return $this;
+    }
+
+    /**
+     * Remove attribute
+     *
+     * @param \AppBundle\Entity\Attribute $attribute
+     */
+    public function removeAttribute(Attribute $attribute)
+    {
+        $this->attributes->removeElement($attribute);
+    }
+
+    /**
+     * Get attributes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAttributes()
+    {
+        return $this->attributes;
     }
 }
