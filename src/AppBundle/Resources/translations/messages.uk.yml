@@ -1,2 +1,28 @@
 mainmenu:
   home: Головна
+products:
+  page.name: Товари
+  table:
+    name: Назва
+    type: Тип
+    description: Опис
+    qty: Кількість
+    price: Ціна
+    priceSpecial: Спецціна
+    rating: Рейтинг
+    available: Доступність
+    createdAt: Створений
+    updatedAt: Змінений
+    deletedAt: Видалений
+DataTable:
+    lengthMenu: Показувати _MENU_ записів на сторінку
+    zeroRecords: Нічого не знайдено - вибачте
+    info: Показано сторінку _PAGE_ з _PAGES_
+    infoEmpty: Записи не доступні
+    infoFiltered: (відфільровано загалом зі _MAX_ записів)
+    search: Шукати:
+    paginate:
+      first: Перший
+      last: Останній
+      next: Наступний
+      previous: Попередній
