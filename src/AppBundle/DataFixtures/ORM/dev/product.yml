@@ -1,0 +1,14 @@
+AppBundle\Entity\Product:
+  product{1..100}:
+    name (unique): <sentence(2, true)>
+    type: <identity((($fake('current')<=10)?'configurable':'simple'))>
+    parent: 50%? @product<identity($fake('numberBetween', null, 1, 10))>
+    description: <text(200)>
+    qty: <numberBetween(1, 100)>
+    price: <randomFloat(2, 0, 100)>
+    priceSpecial: <randomFloat(2, 0, $price)>
+    rating: <randomFloat(2, 0, 5)>
+    available: <randomElement(array ('0','1'))>
+    createdAt: <dateTimeBetween('-1 years', 'now')>
+    updatedAt: 30%? <dateTimeBetween($createdAt, 'now')>
+    deletedAt: 5%? <dateTimeBetween($createdAt, 'now')>

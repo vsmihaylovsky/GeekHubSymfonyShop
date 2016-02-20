@@ -1,0 +1,14 @@
+AppBundle\Entity\Product:
+  product{1..10}:
+    name: <lexify('Test product ???')>
+    type: <identity((($fake('current')==1)?'configurable':'simple'))>
+    parent: 50%? @product1
+    description: 'test description'
+    qty: 10
+    price: 14.99
+    priceSpecial: 7.99
+    rating: 5
+    available: 1
+    createdAt: <dateTimeBetween('-1 years', 'now')>
+    updatedAt: 30%? <dateTimeBetween($createdAt, 'now')>
+    deletedAt: 5%? <dateTimeBetween($createdAt, 'now')>
