@@ -22,7 +22,7 @@ class AttributeOption
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Attribute", inversedBy="attributeOptions")
+     * @ORM\ManyToOne(targetEntity="Attribute", inversedBy="options")
      * @ORM\JoinColumn(name="attribute_id", referencedColumnName="id")
      */
     private $attribute;

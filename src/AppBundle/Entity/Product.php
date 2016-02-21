@@ -59,6 +59,7 @@ class Product
     private $children;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Product", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
     private $parent;
@@ -70,7 +71,7 @@ class Product
     private $attributes;
 
     /**
-     * @ORM\OneToMany(targetEntity="AttributeValue", mappedBy="products")
+     * @ORM\OneToMany(targetEntity="AttributeValue", mappedBy="product")
      */
     private $attributeValues;
 
