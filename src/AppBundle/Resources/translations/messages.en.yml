@@ -1,8 +1,14 @@
 mainmenu:
   home: Home
-products:
-  page.name: Products
-  table:
+
+page:
+  name:
+   products: Products
+   attributes: Attributes
+   attributes.edit: Attributes Edit
+
+table:
+  products:
     name: Name
     type: Type
     description: Description
@@ -14,6 +20,11 @@ products:
     createdAt: Created
     updatedAt: Updated
     deletedAt: Deleted
+  attributes:
+    name: Name
+    type: Type
+    filterable: Filterable
+
 DataTable:
     lengthMenu: Display _MENU_ records per page
     zeroRecords: Nothing found - sorry

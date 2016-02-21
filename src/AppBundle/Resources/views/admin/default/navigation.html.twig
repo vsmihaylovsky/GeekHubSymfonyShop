@@ -239,7 +239,18 @@
                     <a href="{{ path('admin_homepage') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>
                 <li>
-                    <a href="{{ path('admin_products') }}"><i class="fa fa-edit fa-fw"></i> {{ 'products.page.name'|trans }}</a>
+                    <a href="{{ path('admin_products') }}"><i class="fa fa-edit fa-fw"></i> {{ 'page.name.products'|trans }}</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-edit fa-fw"></i> {{ 'page.name.attributes'|trans }}<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="{{ path('admin_attributes') }}">{{ 'page.name.attributes'|trans }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_attribute_edit') }}">{{ 'page.name.attributes.edit'|trans }}</a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>

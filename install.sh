@@ -45,6 +45,8 @@ function database_update
 
 function load_fixtures
 {
+	database_update
+
 	echo -e "\n\033[1m\033[34m Loading fixtures \033[0m"
 
 	case ${input_argument} in

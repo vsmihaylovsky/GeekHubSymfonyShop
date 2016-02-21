@@ -41,9 +41,9 @@ class Attribute
     /**
      * @var bool
      *
-     * @ORM\Column(name="filtrable", type="boolean")
+     * @ORM\Column(name="filterable", type="boolean")
      */
-    private $filtrable;
+    private $filterable;
 
     /**
      * @ORM\ManyToMany(targetEntity="Product", mappedBy="attributes")
@@ -124,27 +124,27 @@ class Attribute
     }
 
     /**
-     * Set filtrable
+     * Set filterable
      *
-     * @param boolean $filtrable
+     * @param boolean $filterable
      *
      * @return Attribute
      */
-    public function setFiltrable($filtrable)
+    public function setFilterable($filterable)
     {
-        $this->filtrable = $filtrable;
+        $this->filterable = $filterable;
 
         return $this;
     }
 
     /**
-     * Get filtrable
+     * Get filterable
      *
      * @return bool
      */
-    public function getFiltrable()
+    public function getFilterable()
     {
-        return $this->filtrable;
+        return $this->filterable;
     }
 
     /**

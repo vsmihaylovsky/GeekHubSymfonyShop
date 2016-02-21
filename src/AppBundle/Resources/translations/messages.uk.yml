@@ -1,8 +1,15 @@
 mainmenu:
   home: Головна
-products:
-  page.name: Товари
-  table:
+
+page:
+  name:
+   products: Товари
+   attributes: Атрибути
+   attributes.edit: Редагування атрибутів
+
+
+table:
+  products:
     name: Назва
     type: Тип
     description: Опис
@@ -14,6 +21,11 @@ products:
     createdAt: Створений
     updatedAt: Змінений
     deletedAt: Видалений
+  attributes:
+    name: Назва
+    type: Тип
+    filterable: Як фільтр
+
 DataTable:
     lengthMenu: Показувати _MENU_ записів на сторінку
     zeroRecords: Нічого не знайдено - вибачте
