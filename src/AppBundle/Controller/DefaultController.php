@@ -57,7 +57,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/login", name="login")
+     * @Route("/login1", name="login1")
      * @Template("AppBundle:shop:login.html.twig")
      */
     public function loginAction(Request $request)
