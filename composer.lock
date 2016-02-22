@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "66f15716eb85a75a9211e0e607ab2be6",
-    "content-hash": "8d3502b0c58b3d156f4775cb7a755cd2",
+    "hash": "8b43851953d1c3285802b6cb81aa2eb5",
+    "content-hash": "00fe241e6a59b9243bd979683d5e97e1",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -927,6 +927,136 @@
             "time": "2014-01-12 16:20:24"
         },
         {
+            "name": "jms/i18n-routing-bundle",
+            "version": "2.0.0",
+            "target-dir": "JMS/I18nRoutingBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/schmittjoh/JMSI18nRoutingBundle.git",
+                "reference": "9e87d4da564069ffe67234c4326e138236519fc2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/schmittjoh/JMSI18nRoutingBundle/zipball/9e87d4da564069ffe67234c4326e138236519fc2",
+                "reference": "9e87d4da564069ffe67234c4326e138236519fc2",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/framework-bundle": "~2.3|~3.0"
+            },
+            "require-dev": {
+                "jms/di-extra-bundle": "~1.1",
+                "phpunit/phpunit": "~4",
+                "sensio/framework-extra-bundle": "*",
+                "symfony/symfony": "~2.3|~3.0"
+            },
+            "suggest": {
+                "jms/translation-bundle": "If you want to use the RouteTranslation extractor"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "JMS\\I18nRoutingBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache2"
+            ],
+            "authors": [
+                {
+                    "name": "Johannes M. Schmitt",
+                    "email": "schmittjoh@gmail.com"
+                },
+                {
+                    "name": "Albert Casademont",
+                    "email": "albertcasademont@gmail.com"
+                }
+            ],
+            "description": "This bundle allows you to create i18n routes. Fork of the jms/i18n-routing-bundle",
+            "homepage": "http://jmsyst.com/bundles/JMSI18nRoutingBundle",
+            "keywords": [
+                "multilanguage",
+                "routing",
+                "translation"
+            ],
+            "time": "2015-12-01 23:14:47"
+        },
+        {
+            "name": "jms/translation-bundle",
+            "version": "1.1.0",
+            "target-dir": "JMS/TranslationBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/schmittjoh/JMSTranslationBundle.git",
+                "reference": "6f03035a38badaf8c48767c7664c3196df1eebdf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/schmittjoh/JMSTranslationBundle/zipball/6f03035a38badaf8c48767c7664c3196df1eebdf",
+                "reference": "6f03035a38badaf8c48767c7664c3196df1eebdf",
+                "shasum": ""
+            },
+            "require": {
+                "nikic/php-parser": "0.9.1",
+                "symfony/console": "*",
+                "symfony/framework-bundle": "~2.1"
+            },
+            "conflict": {
+                "twig/twig": "1.10.2"
+            },
+            "require-dev": {
+                "jms/di-extra-bundle": ">=1.1",
+                "sensio/framework-extra-bundle": "*",
+                "symfony/browser-kit": "*",
+                "symfony/class-loader": "*",
+                "symfony/css-selector": "*",
+                "symfony/finder": "*",
+                "symfony/form": "*",
+                "symfony/process": "*",
+                "symfony/security": "*",
+                "symfony/twig-bundle": "*",
+                "symfony/validator": "*",
+                "symfony/yaml": "*"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "JMS\\TranslationBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache2"
+            ],
+            "authors": [
+                {
+                    "name": "Johannes Schmitt",
+                    "email": "schmittjoh@gmail.com",
+                    "homepage": "https://github.com/schmittjoh",
+                    "role": "Developer of wrapped JMSSerializerBundle"
+                }
+            ],
+            "description": "Puts the Symfony2 Translation Component on steroids",
+            "homepage": "http://jmsyst.com/bundles/JMSTranslationBundle",
+            "keywords": [
+                "extract",
+                "extraction",
+                "i18n",
+                "interface",
+                "multilanguage",
+                "translation",
+                "ui",
+                "webinterface"
+            ],
+            "time": "2013-06-08 14:08:19"
+        },
+        {
             "name": "monolog/monolog",
             "version": "1.17.2",
             "source": {
@@ -1002,6 +1132,45 @@
                 "psr-3"
             ],
             "time": "2015-10-14 12:51:02"
+        },
+        {
+            "name": "nikic/php-parser",
+            "version": "v0.9.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nikic/PHP-Parser.git",
+                "reference": "b1cc9ce676b4350b23d0fafc8244d08eee2fe287"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/b1cc9ce676b4350b23d0fafc8244d08eee2fe287",
+                "reference": "b1cc9ce676b4350b23d0fafc8244d08eee2fe287",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PHPParser": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD"
+            ],
+            "authors": [
+                {
+                    "name": "Nikita Popov"
+                }
+            ],
+            "description": "A PHP parser written in PHP",
+            "keywords": [
+                "parser",
+                "php"
+            ],
+            "time": "2012-04-23 22:52:11"
         },
         {
             "name": "paragonie/random_compat",

@@ -59,8 +59,7 @@
                                 <li><a href="{{ path('fos_user_profile_edit') }}"><i class="fa fa-user"></i> {{ app.user.username }}</a></li>
                                 <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-unlock"></i> Logout</a></li>
                             {% else %}
-                                <li><a href="{{ path('fos_user_security_login') }}"><i class="fa fa-lock"></i> Login</a></li>
-                                <li><a href="{{ path('fos_user_registration_register') }}"><i class="fa fa-user-plus"></i> Registration</a></li>
+                                <li><a href="{{ path('fos_user_security_login') }}"><i class="fa fa-lock"></i> Login/Registration</a></li>
                             {% endif %}
                         </ul>
                     </div>
