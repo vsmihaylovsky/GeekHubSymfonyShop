@@ -3,7 +3,9 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Attribute;
+use AppBundle\Entity\AttributeOption;
 use AppBundle\Form\Type\AttributeType;
+use Doctrine\Common\Collections\ArrayCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -49,18 +51,28 @@ class AttributeController extends Controller
      */
     public function attributeEditAction($id, $action, Request $request)
     {
+//        TODO: Add check on unique options for attribute
+
         $em = $this->getDoctrine()->getManager();
+        $originalOptions = new ArrayCollection();
+
         if ($action == "edit") {
-            $role = $em->getRepository('AppBundle:Attribute')
+            $attribute = $em->getRepository('AppBundle:Attribute')
                 ->find($id);
             $title = 'Edit attribute id: '.$id;
+
+
+            foreach ($attribute->getOptions() as $option) {
+                $originalOptions->add($option);
+            }
         }
         else {
-            $role = new Attribute();
+            $attribute = new Attribute();
+            $attribute->addOption(new AttributeOption());
             $title = 'Create new attribute';
         }
 
-        $form = $this->createForm(AttributeType::class, $role, [
+        $form = $this->createForm(AttributeType::class, $attribute, [
             'em' => $em,
             'action' => $this->generateUrl('admin_attribute_edit', ['action' => $action, 'id' => $id]),
             'method' => Request::METHOD_POST,
@@ -70,7 +82,12 @@ class AttributeController extends Controller
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);
             if ($form->isValid()) {
-                $em->persist($role);
+                foreach ($originalOptions as $option) {
+                    if (false === $attribute->getOptions()->contains($option)) {
+                         $em->remove($option);
+                    }
+                }
+                $em->persist($attribute);
                 $em->flush();
 
                 return $this->redirectToRoute('admin_attribute_edit');

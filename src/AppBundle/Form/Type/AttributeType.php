@@ -4,6 +4,7 @@ namespace AppBundle\Form\Type;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -39,7 +40,14 @@ class AttributeType extends AbstractType
                     ],
                     'choices_as_values' => true
                 )
-            );
+            )
+            ->add('options', CollectionType::class, array(
+                'entry_type'    => AttributeOptionType::class,
+                'allow_add'     => true,
+                'allow_delete'  => true,
+                'by_reference'  => false,
+                'label'         => 'Option',
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

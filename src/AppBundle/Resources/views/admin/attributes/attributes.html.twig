@@ -27,6 +27,7 @@
                                 <th>{{ 'table.attributes.name'|trans }}</th>
                                 <th>{{ 'table.attributes.type'|trans }}</th>
                                 <th>{{ 'table.attributes.filterable'|trans }}</th>
+                                <th>{{ 'table.attributes.edit'|trans }}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -36,13 +37,18 @@
                                         <td>{{ attribute.name }}</td>
                                         <td>{{ attribute.type }}</td>
                                         <td>{{ attribute.filterable }}</td>
+                                        <td>
+                                            <a href="{{ path('admin_attribute_edit', {'action': 'edit', 'id': attribute.id}) }}">
+                                                {{ 'table.attributes.edit'|trans }}
+                                            </a>
+                                        </td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
                     </div>
                     <div class="well">
-
+                        <a href="{{ path('admin_attribute_edit') }}" class="btn btn-default" style="text-align: center;">{{ 'table.attributes.addNew'|trans }}</a>
                     </div>
                 </div>
             </div>

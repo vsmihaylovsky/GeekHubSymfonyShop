@@ -51,7 +51,7 @@ class Attribute
     private $products;
 
     /**
-     * @ORM\OneToMany(targetEntity="AttributeOption", mappedBy="attribute")
+     * @ORM\OneToMany(targetEntity="AttributeOption", mappedBy="attribute", cascade={"persist"})
      */
     private $options;
 
@@ -156,6 +156,8 @@ class Attribute
      */
     public function addOption(AttributeOption $option)
     {
+        $option->setAttribute($this);
+
         $this->options[] = $option;
 
         return $this;

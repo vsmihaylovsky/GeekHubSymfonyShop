@@ -24,6 +24,8 @@ table:
     name: Name
     type: Type
     filterable: Filterable
+    edit: Edit
+    addNew: Add new attribute
 
 DataTable:
     lengthMenu: Display _MENU_ records per page

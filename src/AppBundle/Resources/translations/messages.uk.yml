@@ -25,6 +25,8 @@ table:
     name: Назва
     type: Тип
     filterable: Як фільтр
+    edit: Редагувати
+    addNew: Додати новий атрибут
 
 DataTable:
     lengthMenu: Показувати _MENU_ записів на сторінку
