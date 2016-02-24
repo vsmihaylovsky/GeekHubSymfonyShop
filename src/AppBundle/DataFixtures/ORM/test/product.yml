@@ -1,8 +1,8 @@
 AppBundle\Entity\Product:
   product{1..10}:
     name: <lexify('Test product ???')>
-    type: <identity((($fake('current')==1)?'configurable':'simple'))>
-    parent: 50%? @product1
+#    type: <identity((($fake('current')==1)?'configurable':'simple'))>
+#    parent: 50%? @product1
     description: 'test description'
     qty: 10
     price: 14.99

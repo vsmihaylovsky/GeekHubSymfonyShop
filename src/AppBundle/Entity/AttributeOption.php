@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * AttributeOption
  *
- * @ORM\Table(name="attribute_option")
+ * @ORM\Table(name="attribute_options")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AttributeOptionRepository")
  */
 class AttributeOption

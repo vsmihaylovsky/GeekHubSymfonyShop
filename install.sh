@@ -39,7 +39,8 @@ function gulp_run
 function database_update
 {
 	echo -e "\n\033[1m\033[34m Updating database \033[0m"
-	app/console doctrine:schema:drop --force
+    app/console doctrine:database:drop --force
+    app/console doctrine:database:create
 	app/console doctrine:schema:update --force
 }
 

@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Attribute
  *
- * @ORM\Table(name="attribute")
+ * @ORM\Table(name="attributes")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AttributeRepository")
  */
 class Attribute
@@ -45,10 +45,15 @@ class Attribute
      */
     private $filterable;
 
+//    /**
+//     * @ORM\ManyToMany(targetEntity="Product", mappedBy="attributes")
+//     */
+//    private $products;
+
     /**
-     * @ORM\ManyToMany(targetEntity="Product", mappedBy="attributes")
+     * @ORM\ManyToMany(targetEntity="Category", mappedBy="attributes")
      */
-    private $products;
+    private $categories;
 
     /**
      * @ORM\OneToMany(targetEntity="AttributeOption", mappedBy="attribute", cascade={"persist"})
@@ -62,7 +67,8 @@ class Attribute
      */
     public function __construct() {
         $this->options = new ArrayCollection();
-        $this->products = new ArrayCollection();
+//        $this->products = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     /**
@@ -183,29 +189,29 @@ class Attribute
         return $this->options;
     }
 
-    /**
-     * Add product
-     *
-     * @param \AppBundle\Entity\Product $product
-     *
-     * @return Attribute
-     */
-    public function addProduct(Product $product)
-    {
-        $this->products[] = $product;
-
-        return $this;
-    }
-
-    /**
-     * Remove product
-     *
-     * @param \AppBundle\Entity\Product $product
-     */
-    public function removeProduct(Product $product)
-    {
-        $this->products->removeElement($product);
-    }
+//    /**
+//     * Add product
+//     *
+//     * @param \AppBundle\Entity\Product $product
+//     *
+//     * @return Attribute
+//     */
+//    public function addProduct(Product $product)
+//    {
+//        $this->products[] = $product;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Remove product
+//     *
+//     * @param \AppBundle\Entity\Product $product
+//     */
+//    public function removeProduct(Product $product)
+//    {
+//        $this->products->removeElement($product);
+//    }
 
     /**
      * Get products
@@ -215,5 +221,39 @@ class Attribute
     public function getProducts()
     {
         return $this->products;
+    }
+
+    /**
+     * Add category
+     *
+     * @param \AppBundle\Entity\Category $category
+     *
+     * @return Attribute
+     */
+    public function addCategory(Category $category)
+    {
+        $this->categories[] = $category;
+
+        return $this;
+    }
+
+    /**
+     * Remove category
+     *
+     * @param \AppBundle\Entity\Category $category
+     */
+    public function removeCategory(Category $category)
+    {
+        $this->categories->removeElement($category);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 }
