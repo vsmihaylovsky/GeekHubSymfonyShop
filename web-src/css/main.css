@@ -1403,7 +1403,11 @@ h2.title {
 
 }
 
-.login-form h2, .signup-form h2 {
+.profile-form {
+
+}
+
+.login-form h2, .signup-form h2, .profile-form h2 {
     color: #696763;
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
@@ -1411,7 +1415,7 @@ h2.title {
     margin-bottom: 30px;
 }
 
-.login-form form input, .signup-form form input {
+.login-form form input, .signup-form form input, .profile-form form input {
     background: #F0F0E9;
     border: medium none;
     color: #696763;
@@ -1441,7 +1445,7 @@ h2.title {
     margin-top: 23px;
 }
 
-.login-form form button, .signup-form form button {
+.login-form form button, .signup-form form button, .profile-form form button {
     background: #FE980F;
     border: medium none;
     border-radius: 0;

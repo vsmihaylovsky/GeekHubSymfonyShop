@@ -6,17 +6,17 @@
             <div class="row">
                 <div class="col-sm-4 col-sm-offset-1">
                     <div class="login-form"><!--login form-->
-                        <h2>Login to your account</h2>
+                        <h2> {{ 'security.login_form_header'|trans }}</h2>
                         {% block login_form %}
                         {% endblock login_form %}
                     </div><!--/login form-->
                 </div>
                 <div class="col-sm-1">
-                    <h2 class="or">OR</h2>
+                    <h2 class="or">{{ 'security.login_register_or'|trans }}</h2>
                 </div>
                 <div class="col-sm-4">
                     <div class="signup-form"><!--sign up form-->
-                        <h2>New User Registration!</h2>
+                        <h2> {{ 'security.register_form_header'|trans }}</h2>
                         {% block register_form %}
                         {% endblock register_form %}
                     </div><!--/sign up form-->

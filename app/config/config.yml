@@ -71,6 +71,12 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: AppBundle\Entity\User
+    registration:
+        confirmation:
+            enabled: true
+    from_email:
+        address:        noreply@shop.my
+        sender_name:    e-shop
 
 jms_i18n_routing:
     default_locale: %locale%

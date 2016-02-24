@@ -7,11 +7,11 @@
     {#{{ 'security.login.username_email'|trans }}#}
     {#</label>#}
     <input type="text" id="username" name="_username" value="{{ last_username }}" required="required"
-           placeholder="{{ 'security.login.username_email'|trans }}"/>
+           placeholder="{{ 'security.username_email'|trans }}"/>
 
     {#<label for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>#}
     <input type="password" id="password" name="_password" required="required"
-           placeholder="{{ 'security.login.password'|trans }}"/>
+           placeholder="{{ 'security.password'|trans }}"/>
     <span>
         <label for="remember_me">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}</label>
         <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
