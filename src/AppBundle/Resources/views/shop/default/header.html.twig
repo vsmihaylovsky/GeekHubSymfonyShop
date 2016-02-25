@@ -52,11 +52,15 @@
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
                             <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
                             <li><a href="{{ path('checkout') }}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                             <li><a href="{{ path('cart') }}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                            <li><a href="{{ path('login') }}"><i class="fa fa-lock"></i> Login</a></li>
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                <li><a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-user"></i> {{ app.user.username }}</a></li>
+                                <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-unlock"></i> {{ 'mainmenu.logout'|trans }}</a></li>
+                            {% else %}
+                                <li><a href="{{ path('fos_user_security_login') }}"><i class="fa fa-lock"></i> {{ 'mainmenu.login_registration'|trans }}</a></li>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>
@@ -85,7 +89,7 @@
                                     <li><a href="{{ path('details') }}">Product Details</a></li>
                                     <li><a href="{{ path('checkout') }}">Checkout</a></li>
                                     <li><a href="{{ path('cart') }}">Cart</a></li>
-                                    <li><a href="{{ path('login') }}">Login</a></li>
+                                    <li><a href="{{ path('login1') }}">Login</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
