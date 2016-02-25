@@ -6,6 +6,8 @@ page:
    products: Products
    attributes: Attributes
    attributes.edit: Attributes Edit
+   categories: Categories
+   categories.edit: Categories Edit
 
 table:
   products:

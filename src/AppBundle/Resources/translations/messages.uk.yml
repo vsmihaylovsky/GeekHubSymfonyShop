@@ -6,7 +6,8 @@ page:
    products: Товари
    attributes: Атрибути
    attributes.edit: Редагування атрибутів
-
+   categories: Категорії
+   categories.edit: Редагування категорії
 
 table:
   products:
