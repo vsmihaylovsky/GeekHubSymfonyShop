@@ -17,10 +17,13 @@
         <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
     </span>
 
+    <a class="fr" href="{{ path('fos_user_resetting_request') }}">Forgot password ?</a>
+
     <button type="submit" id="_submit" name="_submit"
             class="btn btn-default">{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}</button>
     {#<input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />#}
 </form>
+
 <br>
 <a class="btn btn-block btn-social btn-facebook" href="{{ path('hwi_oauth_service_redirect', {'service': 'facebook'}) }}">
     <span class="fa fa-facebook"></span> {{ 'security.login.facebook'|trans }}
