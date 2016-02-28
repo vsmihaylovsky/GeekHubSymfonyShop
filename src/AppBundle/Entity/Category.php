@@ -67,7 +67,7 @@ class Category
     private $children;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Attribute", inversedBy="products")
+     * @ORM\ManyToMany(targetEntity="Attribute", inversedBy="categories")
      * @ORM\JoinTable(name="categories_attributes")
      */
     private $attributes;

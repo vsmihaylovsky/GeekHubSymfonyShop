@@ -1,6 +1,7 @@
 AppBundle\Entity\Product:
   product{1..100}:
     name (unique): <sentence(2, true)>
+    category: @category*
 #    type: <identity((($fake('current')<=10)?'configurable':'simple'))>
 #    parent: 50%? @product<identity($fake('numberBetween', null, 1, 10))>
     description: <text(200)>

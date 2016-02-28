@@ -189,6 +189,17 @@ class Attribute
         return $this->options;
     }
 
+    public function getOptionsAsArray()
+    {
+        $options = [];
+        foreach($this->options as $option) {
+            /** @var AttributeOption $option */
+            $options[$option->getAttributeOption()] = $option->getId();
+        }
+
+        return $options;
+    }
+
 //    /**
 //     * Add product
 //     *

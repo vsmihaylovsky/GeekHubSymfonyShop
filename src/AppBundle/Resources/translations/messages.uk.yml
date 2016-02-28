@@ -4,15 +4,20 @@ mainmenu:
 page:
   name:
    products: Товари
+   products.edit: Редагування продуктів
    attributes: Атрибути
    attributes.edit: Редагування атрибутів
    categories: Категорії
    categories.edit: Редагування категорії
+  warning:
+    youMustSaveProductFirst: Ви повинні спершу зберегти продукт.
 
 table:
+  edit: Редагувати
   products:
     name: Назва
     type: Тип
+    category: Категорія
     description: Опис
     qty: Кількість
     price: Ціна
@@ -22,12 +27,19 @@ table:
     createdAt: Створений
     updatedAt: Змінений
     deletedAt: Видалений
+    addNew: Додати новий продукт
   attributes:
     name: Назва
     type: Тип
     filterable: Як фільтр
     edit: Редагувати
     addNew: Додати новий атрибут
+  categories:
+    title: Назва
+    parent: Вкладена в
+    created: Створена
+    edit: Редагувати
+    addNew: Додати нову категорію
 
 DataTable:
     lengthMenu: Показувати _MENU_ записів на сторінку
@@ -41,3 +53,26 @@ DataTable:
       last: Останній
       next: Наступний
       previous: Попередній
+
+Name: Назва
+Enter product name: Введіть назву продукта
+Category: Категорія
+Choose category: Віберіть категорію
+Description: Опис
+Price: Ціна
+Price special: Спеціальна ціна
+Qty: Кількість
+Available: Доступність
+Save: Зберегти
+Title: Назва
+Enter category title: Введіть назву категорії
+Parent: Входить до
+without parent category: коренева
+Attributes: Атрибути
+Enter attribute name: Введіть назву артибута
+Type: Тип
+select: список
+text: текс
+Filterable: Чи фільтрується
+Attribute option: Опції атрибута
+Enter option: Введіть опцію

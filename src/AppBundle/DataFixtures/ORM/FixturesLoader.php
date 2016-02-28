@@ -28,10 +28,13 @@ class LoadUserData implements FixtureInterface
 
         if ($env == 'test') {
             return [
+                __DIR__.'/test/category.yml',
                 __DIR__.'/test/product.yml',
             ];
         }
         return [
+            __DIR__.'/dev/attribute.yml',
+            __DIR__.'/dev/category.yml',
             __DIR__.'/dev/product.yml',
         ];
     }
