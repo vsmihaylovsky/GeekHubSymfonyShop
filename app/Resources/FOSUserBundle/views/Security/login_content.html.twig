@@ -20,6 +20,14 @@
     <button type="submit" id="_submit" name="_submit"
             class="btn btn-default">{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}</button>
     {#<input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />#}
-
-    {% render(controller('HWIOAuthBundle:Connect:connect')) %}
 </form>
+<br>
+<a class="btn btn-block btn-social btn-facebook" href="{{ path('hwi_oauth_service_redirect', {'service': 'facebook'}) }}">
+    <span class="fa fa-facebook"></span> {{ 'security.login.facebook'|trans }}
+</a>
+<a class="btn btn-block btn-social btn-google" href="{{ path('hwi_oauth_service_redirect', {'service': 'google'}) }}">
+    <span class="fa fa-google"></span> {{ 'security.login.google'|trans }}
+</a>
+<a class="btn btn-block btn-social btn-vk" href="{{ path('hwi_oauth_service_redirect', {'service': 'vkontakte'}) }}">
+    <span class="fa fa-vk"></span> {{ 'security.login.vk'|trans }}
+</a>

@@ -12,3 +12,7 @@ security:
     login_form_header: Login to your account
     register_form_header: New user registration
     login_register_or: OR
+    login:
+        facebook: Login with Facebook
+        google: Login with Google
+        vk: Login with VK
