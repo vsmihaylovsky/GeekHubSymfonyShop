@@ -34,6 +34,12 @@ class AttributeValue
     private $attribute;
 
     /**
+     * @ORM\OneToOne(targetEntity="AttributeOption")
+     * @ORM\JoinColumn(name="attribute_option_id", referencedColumnName="id", nullable=true)
+     */
+    private $attributeOption;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="attributeValue", type="string", length=255)
@@ -59,7 +65,13 @@ class AttributeValue
      */
     public function setAttributeValue($attributeValue)
     {
-        $this->attributeValue = $attributeValue;
+        if ($attributeValue instanceof AttributeOption) {
+            $this->attributeValue = $attributeValue->getAttributeOption();
+            $this->attributeOption = $attributeValue;
+        }
+        else {
+            $this->attributeValue = $attributeValue;
+        }
 
         return $this;
     }
@@ -120,5 +132,29 @@ class AttributeValue
     public function getAttribute()
     {
         return $this->attribute;
+    }
+
+    /**
+     * Set attributeOption
+     *
+     * @param \AppBundle\Entity\AttributeOption $attributeOption
+     *
+     * @return AttributeValue
+     */
+    public function setAttributeOption(AttributeOption $attributeOption = null)
+    {
+        $this->attributeOption = $attributeOption;
+
+        return $this;
+    }
+
+    /**
+     * Get attributeOption
+     *
+     * @return \AppBundle\Entity\AttributeOption
+     */
+    public function getAttributeOption()
+    {
+        return $this->attributeOption;
     }
 }

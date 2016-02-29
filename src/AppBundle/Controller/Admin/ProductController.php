@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Attribute;
+use AppBundle\Entity\AttributeValue;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
 use AppBundle\Form\Type\ProductType;
@@ -10,6 +11,7 @@ use AppBundle\Form\Type\ProductAttributesType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -92,6 +94,7 @@ class ProductController extends Controller
         ];
     }
 
+//    TODO: delete this controller
     /**
      * @param $id
      * @param Request $request
@@ -167,61 +170,79 @@ class ProductController extends Controller
         ];
     }
 
-//    /**
-//     * @param $id
-//     * @param Request $request
-//     * @Route("/attributes_test/{id}", name="admin_product_attributes_test",
-//     *     defaults={"id": 0},
-//     *     requirements={"id": "\d+"})
-//     * @Method({"GET", "POST"})
-//     * @Template("AppBundle:admin/products/form:attributes.html.twig")
-//     *
-//     * @return Response
-//     */
-//    public function productAttributesTestAction($id, Request $request)
-//    {
-//        $em = $this->getDoctrine()->getManager();
-//
-//        $product = $em->getRepository('AppBundle:Product')
-//            ->find($id);
-//
-//        /** @var Category $category*/
-//        $category = $product->getCategory();
-//        $categoryId = $category->getId();
-//        $categoryTitle = $category->getTitle();
-//        $attributes = $category->getAttributes();
-//
-//        $title = 'Edit product id: '.$id;
-//
-//        $form = $this->createForm(ProductAttributesType::class, $product, [
-//            'em'     => $em,
-//            'action' => $this->generateUrl('admin_product_attributes_test', ['id' => $id]),
-//            'method' => Request::METHOD_POST,
-//        ])
-//            ->add('test', CollectionType::class, array(
-//                'entry_type'   => TextType::class,
-//                'mapped'       => false,
-//            ))
-//            ->add('test2', TextType::class, array(
-//                'mapped'       => false,
-//            ))
-//            ->add('save', SubmitType::class, array('label' => 'Save'));
-//
-//        if ($request->getMethod() == 'POST') {
-//            $form->handleRequest($request);
-//            if ($form->isValid()) {
-////                $em->persist($product);
-////                $em->flush();
-////
-////                return $this->redirectToRoute('admin_product_edit', ['action' => 'edit', 'id' => $id]);
-//            }
-//        }
-//
-//        $formData = $form->createView();
-//
-//        return [
-//            'title' => $title,
-//            'form'  => $formData,
-//        ];
-//    }
+//    TODO: rename, clean code, correct relation between product and attributeValue, because have an error on persist
+    /**
+     * @param $id
+     * @param Request $request
+     * @Route("/attributes_test/{id}", name="admin_product_attributes_test",
+     *     defaults={"id": 0},
+     *     requirements={"id": "\d+"})
+     * @Method({"GET", "POST"})
+     * @Template("AppBundle:admin/products/form:attributes.html.twig")
+     *
+     * @return Response
+     */
+    public function productAttributesTestAction($id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $product = $em->getRepository('AppBundle:Product')
+            ->find($id);
+
+        /** @var Category $category*/
+        /** @var Product $product*/
+        $category = $product->getCategory();
+        $categoryId = $category->getId();
+        $categoryTitle = $category->getTitle();
+        $attributes = $category->getAttributes();
+        $attrValues = $product->getAttributeValues();
+
+        if (count($attrValues) == 0) {
+            foreach ($attributes as $attribute) {
+                /** @var AttributeValue $attrValue */
+                $attrValue = new AttributeValue();
+                /** @var Attribute $attribute */
+                $attrValue->setAttribute($attribute);
+                $attrValue->setProduct($product);
+                $product->addAttributeValue($attrValue);
+            }
+        }
+        else $countAttr = count($attrValues);
+
+        $title = 'Edit product id: '.$id;
+
+//        TODO: create formType
+        $formBuilder = $this->createFormBuilder($product);
+        $formBuilder->setAction($this->generateUrl('admin_product_attributes_test', ['id' => $id]));
+        $formBuilder->setMethod('POST');
+        $formBuilder->add('attributeValues', CollectionType::class, array(
+            'entry_type'   => ProductAttributesType::class,
+            'label'        => 'Attributes'
+        ));
+        $formBuilder->add('save', SubmitType::class, array(
+                'label'     => 'Save',
+                'attr'      => [
+                    'class' => 'btn btn-default'
+                ],
+            )
+        );
+        $form = $formBuilder->getForm();
+
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $em->persist($product);
+                $em->flush();
+
+                return $this->redirectToRoute('admin_product_edit', ['action' => 'edit', 'id' => $id]);
+            }
+        }
+
+        $formData = $form->createView();
+
+        return [
+            'title' => $title,
+            'form'  => $formData,
+        ];
+    }
 }
