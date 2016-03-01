@@ -31,13 +31,12 @@ class ProductAttributesType extends AbstractType
             $form = $event->getForm();
 
             if ($attribute->getType() == 'select') {
-                $form->add('attributeValue', ChoiceType::class, array(
+                $form->add('attributeOption', ChoiceType::class, array(
                     'choices'           => $options,
-                    'preferred_choices' => [$eventData->getAttributeOption()],
                     'choices_as_values' => true,
                     'choice_label'      => 'attributeOption',
                     'label'             => $attribute->getName(),
-//                    'placeholder'       => 'choose value',
+                    'placeholder'       => 'choose value',
                     ));
             }
             else {

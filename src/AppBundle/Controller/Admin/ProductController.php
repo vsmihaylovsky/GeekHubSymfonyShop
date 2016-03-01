@@ -94,7 +94,7 @@ class ProductController extends Controller
         ];
     }
 
-//    TODO: rename, clean code, correct relation between product and attributeValue, because didn't choose saved data
+//    TODO: rename, clean code
     /**
      * @param $id
      * @param Request $request
@@ -121,6 +121,7 @@ class ProductController extends Controller
         $attributes = $category->getAttributes();
         $attrValues = $product->getAttributeValues();
 
+//        TODO: needs validation of count attributes if added new to group
         if (count($attrValues) == 0) {
             foreach ($attributes as $attribute) {
                 /** @var AttributeValue $attrValue */

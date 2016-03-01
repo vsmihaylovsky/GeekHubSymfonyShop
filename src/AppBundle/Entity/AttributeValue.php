@@ -42,7 +42,7 @@ class AttributeValue
     /**
      * @var string
      *
-     * @ORM\Column(name="attributeValue", type="string", length=255)
+     * @ORM\Column(name="attribute_value", type="string", length=255)
      */
     private $attributeValue;
 
@@ -65,12 +65,7 @@ class AttributeValue
      */
     public function setAttributeValue($attributeValue)
     {
-        if ($attributeValue instanceof AttributeOption) {
-            $this->attributeValue = $attributeValue->getAttributeOption();
-            $this->attributeOption = $attributeValue;
-        } else {
-            $this->attributeValue = $attributeValue;
-        }
+        $this->attributeValue = $attributeValue;
 
         return $this;
     }
@@ -143,6 +138,7 @@ class AttributeValue
     public function setAttributeOption(AttributeOption $attributeOption = null)
     {
         $this->attributeOption = $attributeOption;
+        $this->attributeValue = $attributeOption->getAttributeOption();
 
         return $this;
     }
