@@ -110,28 +110,28 @@ a#scrollUp i {
     -o-transition: all 0.9s ease 0s;
 }
 
-.fa-facebook:hover {
-    background: #0083C9;
+li .fa-facebook:hover {
+    background: #3B5998;
 }
 
-.fa-vk:hover {
-    background-color: #4C75A3;
+li .fa-vk:hover {
+    background-color: #587EA3;
 }
 
-.fa-twitter:hover {
+li .fa-twitter:hover {
     background: #5BBCEC;
 }
 
-.fa-linkedin:hover {
+li .fa-linkedin:hover {
     background: #FF4518;
 }
 
-.fa-dribbble:hover {
+li .fa-dribbble:hover {
     background: #90C9DC;
 }
 
-.fa-google-plus:hover {
-    background: #CE3C2D;
+li .fa-google-plus:hover {
+    background: #DD4B39;
 }
 
 .header-middle .container .row {

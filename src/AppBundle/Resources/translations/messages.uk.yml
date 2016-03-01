@@ -12,3 +12,7 @@ security:
     login_form_header: Увійти у свій аккаунт
     register_form_header: Реєстрація нового користувача
     login_register_or: Або
+    login:
+        facebook: Увійти за допомогою Facebook
+        google: Увійти за допомогою Google
+        vk: Увійти за допомогою VK
