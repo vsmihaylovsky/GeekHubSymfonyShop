@@ -94,7 +94,7 @@ class ProductController extends Controller
         ];
     }
 
-//    TODO: delete this controller
+//    TODO: rename, clean code, correct relation between product and attributeValue, because didn't choose saved data
     /**
      * @param $id
      * @param Request $request
@@ -107,82 +107,6 @@ class ProductController extends Controller
      * @return Response
      */
     public function productAttributesAction($id, Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $product = $em->getRepository('AppBundle:Product')
-            ->find($id);
-
-        /** @var Category $category*/
-        $category = $product->getCategory();
-        $categoryId = $category->getId();
-        $categoryTitle = $category->getTitle();
-        $attributes = $category->getAttributes();
-
-        $title = 'Edit product id: '.$id;
-
-        $formBuilder = $this->createFormBuilder($product);
-        $formBuilder->setAction($this->generateUrl('admin_product_attributes', ['id' => $id]));
-        $formBuilder->setMethod('POST');
-
-        foreach ($attributes as $attribute) {
-            /** @var Attribute $attribute*/
-            if ($attribute->getType() == 'select') {
-                $formBuilder->add('attribute_'.$attribute->getId(), ChoiceType::class, [
-                    'choices'           => $attribute->getOptionsAsArray(),
-                    'label'             => $attribute->getName(),
-                    'choices_as_values' => true,
-                    'mapped'            => false,
-                ]);
-            }
-            else {
-                $formBuilder->add('attribute_'.$attribute->getId(), TextType::class, [
-                    'label'  => $attribute->getName(),
-                    'mapped' => false,
-                ]);
-            }
-        }
-
-        $formBuilder->add('save', SubmitType::class, array(
-                    'label'     => 'Save',
-                    'attr'      => [
-                        'class' => 'btn btn-default'
-                    ],
-                )
-            );
-        $form = $formBuilder->getForm();
-
-        if ($request->getMethod() == 'POST') {
-            $form->handleRequest($request);
-            if ($form->isValid()) {
-//                $em->persist($product);
-//                $em->flush();
-//
-//                return $this->redirectToRoute('admin_product_edit', ['action' => 'edit', 'id' => $id]);
-            }
-        }
-
-        $formData = $form->createView();
-
-        return [
-            'title' => $title,
-            'form'  => $formData,
-        ];
-    }
-
-//    TODO: rename, clean code, correct relation between product and attributeValue, because have an error on persist
-    /**
-     * @param $id
-     * @param Request $request
-     * @Route("/attributes_test/{id}", name="admin_product_attributes_test",
-     *     defaults={"id": 0},
-     *     requirements={"id": "\d+"})
-     * @Method({"GET", "POST"})
-     * @Template("AppBundle:admin/products/form:attributes.html.twig")
-     *
-     * @return Response
-     */
-    public function productAttributesTestAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -213,7 +137,7 @@ class ProductController extends Controller
 
 //        TODO: create formType
         $formBuilder = $this->createFormBuilder($product);
-        $formBuilder->setAction($this->generateUrl('admin_product_attributes_test', ['id' => $id]));
+        $formBuilder->setAction($this->generateUrl('admin_product_attributes', ['id' => $id]));
         $formBuilder->setMethod('POST');
         $formBuilder->add('attributeValues', CollectionType::class, array(
             'entry_type'   => ProductAttributesType::class,

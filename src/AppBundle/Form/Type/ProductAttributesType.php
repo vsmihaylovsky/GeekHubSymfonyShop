@@ -37,7 +37,7 @@ class ProductAttributesType extends AbstractType
                     'choices_as_values' => true,
                     'choice_label'      => 'attributeOption',
                     'label'             => $attribute->getName(),
-                    'placeholder'       => 'choose value',
+//                    'placeholder'       => 'choose value',
                     ));
             }
             else {

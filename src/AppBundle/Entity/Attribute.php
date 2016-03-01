@@ -61,6 +61,11 @@ class Attribute
     private $options;
 
     /**
+     * @ORM\OneToMany(targetEntity="AttributeValue", mappedBy="attribute")
+     */
+    private $attributeValues;
+
+    /**
      * *******************************************************
      * Constructor
      * *******************************************************
@@ -266,5 +271,39 @@ class Attribute
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * Add attributeValue
+     *
+     * @param \AppBundle\Entity\AttributeValue $attributeValue
+     *
+     * @return Attribute
+     */
+    public function addAttributeValue(\AppBundle\Entity\AttributeValue $attributeValue)
+    {
+        $this->attributeValues[] = $attributeValue;
+
+        return $this;
+    }
+
+    /**
+     * Remove attributeValue
+     *
+     * @param \AppBundle\Entity\AttributeValue $attributeValue
+     */
+    public function removeAttributeValue(\AppBundle\Entity\AttributeValue $attributeValue)
+    {
+        $this->attributeValues->removeElement($attributeValue);
+    }
+
+    /**
+     * Get attributeValues
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAttributeValues()
+    {
+        return $this->attributeValues;
     }
 }

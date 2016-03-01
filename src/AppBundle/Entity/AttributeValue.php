@@ -28,13 +28,13 @@ class AttributeValue
     private $product;
 
     /**
-     * @ORM\OneToOne(targetEntity="Attribute")
+     * @ORM\ManyToOne(targetEntity="Attribute", inversedBy="attributeValues")
      * @ORM\JoinColumn(name="attribute_id", referencedColumnName="id")
      */
     private $attribute;
 
     /**
-     * @ORM\OneToOne(targetEntity="AttributeOption")
+     * @ORM\ManyToOne(targetEntity="AttributeOption", inversedBy="attributeValues")
      * @ORM\JoinColumn(name="attribute_option_id", referencedColumnName="id", nullable=true)
      */
     private $attributeOption;
@@ -68,8 +68,7 @@ class AttributeValue
         if ($attributeValue instanceof AttributeOption) {
             $this->attributeValue = $attributeValue->getAttributeOption();
             $this->attributeOption = $attributeValue;
-        }
-        else {
+        } else {
             $this->attributeValue = $attributeValue;
         }
 

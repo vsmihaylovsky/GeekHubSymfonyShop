@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -34,6 +35,10 @@ class AttributeOption
      */
     private $attributeOption;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AttributeValue", mappedBy="attributeOption")
+     */
+    private $attributeValues;
 
     /**
      * Get id
@@ -91,5 +96,46 @@ class AttributeOption
     public function getAttribute()
     {
         return $this->attribute;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->attributeValues = new ArrayCollection();
+    }
+
+    /**
+     * Add attributeValue
+     *
+     * @param \AppBundle\Entity\AttributeValue $attributeValue
+     *
+     * @return AttributeOption
+     */
+    public function addAttributeValue(AttributeValue $attributeValue)
+    {
+        $this->attributeValues[] = $attributeValue;
+
+        return $this;
+    }
+
+    /**
+     * Remove attributeValue
+     *
+     * @param \AppBundle\Entity\AttributeValue $attributeValue
+     */
+    public function removeAttributeValue(AttributeValue $attributeValue)
+    {
+        $this->attributeValues->removeElement($attributeValue);
+    }
+
+    /**
+     * Get attributeValues
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAttributeValues()
+    {
+        return $this->attributeValues;
     }
 }
