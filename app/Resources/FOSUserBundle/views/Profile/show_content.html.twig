@@ -5,8 +5,10 @@
                 <div class="col-sm-4 col-sm-offset-4">
                     <p>{{ 'profile.show.username'|trans({}, 'FOSUserBundle') }}: {{ user.username }}</p>
                     <p>{{ 'profile.show.email'|trans({}, 'FOSUserBundle') }}: {{ user.email }}</p>
+                    {% if is_granted('self_edit', user) %}
                     <a class="btn btn-default" href="{{ path('fos_user_profile_edit') }}" role="button"> {{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}</a>
                     <a class="btn btn-default" href="{{ path('fos_user_resetting_request') }}" role="button"> {{ 'change_password.submit'|trans({}, 'FOSUserBundle') }}</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
