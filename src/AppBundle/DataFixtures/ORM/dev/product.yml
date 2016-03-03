@@ -1,10 +1,13 @@
+AppBundle\Entity\ProductPicture:
+  productPicture{1..12}:
+    path: "product<current()>.jpg"
+
 AppBundle\Entity\Product:
-  product{1..100}:
+  product{1..10}:
     name (unique): <sentence(2, true)>
     category: @category*
-#    type: <identity((($fake('current')<=10)?'configurable':'simple'))>
-#    parent: 50%? @product<identity($fake('numberBetween', null, 1, 10))>
     description: <text(200)>
+    pictures: 2x @productPicture*
     qty: <numberBetween(1, 100)>
     price: <randomFloat(2, 0, 100)>
     priceSpecial: <randomFloat(2, 0, $price)>
