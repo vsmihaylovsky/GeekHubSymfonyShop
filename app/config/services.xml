@@ -19,6 +19,15 @@
             </argument>
         </service>
 
+        <service id="app.article"
+                 class="AppBundle\Security\UserVoter"
+                 public="false"
+        >
+            <argument type="service" id="security.access.decision_manager"/>
+
+            <tag name="security.voter"/>
+        </service>
+
     </services>
 
 </container>
