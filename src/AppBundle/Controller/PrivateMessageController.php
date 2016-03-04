@@ -28,7 +28,7 @@ class PrivateMessageController extends Controller
      * @Route("/new/{id}", requirements={"id": "\d+"}, name="new_private_message")
      * @ParamConverter("recipient", class="AppBundle:User")
      * @Method("GET")
-     * @Template("AppBundle:PrivateMessage:form.html.twig")
+     * @Template("AppBundle:shop/PrivateMessage:form.html.twig")
      * @param User $recipient
      * @return array
      */
@@ -51,7 +51,7 @@ class PrivateMessageController extends Controller
      * @Route("/{id}", requirements={"id": "\d+"}, name="create_private_message")
      * @ParamConverter("recipient", class="AppBundle:User")
      * @Method("POST")
-     * @Template("AppBundle:PrivateMessage:form.html.twig")
+     * @Template("AppBundle:shop/PrivateMessage:form.html.twig")
      */
     public function createAction(Request $request, User $recipient)
     {

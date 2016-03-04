@@ -57,6 +57,12 @@ class PrivateMessage
      */
     private $message;
 
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isViewed;
+
     /**
      * @ORM\Column(type="boolean")
      */
@@ -72,6 +78,7 @@ class PrivateMessage
     {
         $this->setDeletedFromSent(false);
         $this->setDeletedFromReceived(false);
+        $this->setIsViewed(false);
     }
 
     /**
@@ -151,6 +158,29 @@ class PrivateMessage
     public function getMessage()
     {
         return $this->message;
+    }
+
+    /**
+     * Set isViewed
+     *
+     * @param boolean $isViewed
+     * @return PrivateMessage
+     */
+    public function setIsViewed($isViewed)
+    {
+        $this->isViewed = $isViewed;
+
+        return $this;
+    }
+
+    /**
+     * Get isViewed
+     *
+     * @return boolean 
+     */
+    public function getIsViewed()
+    {
+        return $this->isViewed;
     }
 
     /**
