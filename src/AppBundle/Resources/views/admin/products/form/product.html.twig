@@ -3,6 +3,15 @@
 
 {% block stylesheets %}
     {{ parent() }}
+    <style>
+        .modal-footer > form {
+            float: right;
+        }
+        .modal-footer > button {
+            float: right;
+            margin-right: 10px;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -53,7 +62,10 @@
                                             {{ 'page.warning.youMustSaveProductFirst'|trans }}
                                         </div>
                                     {% else %}
-                                        <p>Form pictures will be here</p>
+                                        {{ render( controller(
+                                            'AppBundle:Admin/ProductPicture:index',
+                                            { 'id': app.request.attributes.get('id') }
+                                        )) }}
                                     {% endif %}
                                 </div>
                             </div>
@@ -67,4 +79,22 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <script>
+        $( document ).ready(function() {
+            $( "input[type='radio']" ).click(function() {
+                $( "input[type='radio']" ).removeAttr('checked');
+                $( this ).prop("checked", true);
+            });
+        });
+
+        $('#deleteModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var data = button.data('whatever');
+            var modal = $(this);
+//            modal.find('.modal-title').text('New message to ' + recipient);
+            modal.find('.modal-footer form').prop('action', data);
+//            modal.find('.modal-body input').val(recipient);
+        });
+
+    </script>
 {% endblock %}
