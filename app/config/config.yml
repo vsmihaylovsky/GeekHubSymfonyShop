@@ -90,12 +90,16 @@ liip_imagine:
         full_thumbnail:
             quality: 75
             filters:
-                thumbnail: { size: [266, 380], mode: inset }
+                thumbnail: { size: [266, 380], mode: outbound }
         random_thumbnail:
             quality: 75
             filters:
-                thumbnail: { size: [242, 213], mode: inset }
+                thumbnail: { size: [242, 213], mode: outbound }
         recomended_thumbnail:
             quality: 75
             filters:
                 thumbnail: { size: [151, 75], mode: outbound }
+        admin_thumbnail:
+            quality: 75
+            filters:
+                thumbnail: { size: [100, 100], mode: inset }

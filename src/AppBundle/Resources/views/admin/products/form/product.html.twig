@@ -11,6 +11,9 @@
             float: right;
             margin-right: 10px;
         }
+        #deleteModal .modal-body {
+            text-align: center;
+        }
     </style>
 {% endblock %}
 
@@ -81,8 +84,8 @@
     {{ parent() }}
     <script>
         $( document ).ready(function() {
-            $( "input[type='radio']" ).click(function() {
-                $( "input[type='radio']" ).removeAttr('checked');
+            $( "#dataTables-pictures input[type='radio']" ).click(function() {
+                $( "#dataTables-pictures input[type='radio']" ).removeAttr('checked');
                 $( this ).prop("checked", true);
             });
         });
@@ -91,9 +94,8 @@
             var button = $(event.relatedTarget);
             var data = button.data('whatever');
             var modal = $(this);
-//            modal.find('.modal-title').text('New message to ' + recipient);
+            modal.find('.modal-body').html(button.parent().parent().find('.td-img').html());
             modal.find('.modal-footer form').prop('action', data);
-//            modal.find('.modal-body input').val(recipient);
         });
 
     </script>

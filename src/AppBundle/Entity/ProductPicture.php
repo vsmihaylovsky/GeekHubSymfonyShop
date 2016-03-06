@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -28,6 +27,7 @@ class ProductPicture
     /**
      * @ORM\ManyToOne(targetEntity="Product", inversedBy="pictures")
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     * @Assert\NotBlank()
      */
     private $product;
 
@@ -35,6 +35,7 @@ class ProductPicture
      * @var string
      *
      * @ORM\Column(name="path", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $path;
 
@@ -42,6 +43,7 @@ class ProductPicture
      * @var bool
      *
      * @ORM\Column(name="is_main", type="boolean", nullable=true)
+     * @Assert\Choice(choices = { "1", null })
      */
     private $isMain;
 
@@ -53,8 +55,6 @@ class ProductPicture
      *     "image/png"})
      */
     private $file;
-
-    private $temp;
 
 
     /**
@@ -162,11 +162,6 @@ class ProductPicture
     public function getFile()
     {
         return $this->file;
-    }
-
-    public function getTemp()
-    {
-        return $this->temp;
     }
 
     public function getWebPath()

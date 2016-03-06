@@ -1,7 +1,7 @@
 {% form_theme isMain _self %}
 {{ form_start(isMain, {'attr': {'novalidate': 'novalidate'}}) }}
 <div class="dataTable_wrapper">
-    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-pictures">
         <thead>
         <tr>
             <th>Id</th>
@@ -12,11 +12,14 @@
         </thead>
         <tbody>
             {% for key, picture in pictures %}
-                <tr class="odd gradeX">
+                <tr class="odd gradeX t1">
                     <td>{{ picture.id }}</td>
-                    <td>{{ picture.path }}</td>
+                    <td class="td-img">
+                        <img src="{{ asset(picture.getWebPath|imagine_filter('admin_thumbnail')) }}">
+                        {#{{ picture.path }}#}
+                    </td>
                     <td align="center">{{ form_widget(attribute(isMain.pictures, key)) }}</td>
-                    <td align="center">
+                    <td align="center" class="t0">
                         <button type="button"
                                 class="btn btn-default"
                                 data-toggle="modal"
@@ -28,13 +31,16 @@
                 </tr>
             {% endfor %}
             <tr class="odd gradeX">
-                <td></td>
-                <td></td>
+                <td colspan="2"></td>
                 <td align="center">{{ form_widget(isMain.update) }}</td>
                 <td></td>
             </tr>
         </tbody>
     </table>
+</div>
+<div class="well">
+    <span class="btn btn-primary btn-file">{{ form_widget(isMain.file) }}</span>
+    <span>{{ form_widget(isMain.upload) }}</span>
 </div>
 {{ form_end(isMain) }}
 
@@ -46,7 +52,7 @@
                 <h4 class="modal-title" id="exampleModalLabel">{{ 'modal.picture.delete'|trans }}</h4>
             </div>
             <div class="modal-body">
-                    Are you sure you want to delete this picture?
+
             </div>
             <div class="modal-footer">
                 {% form_theme delete _self %}
