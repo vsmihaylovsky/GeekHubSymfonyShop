@@ -6,14 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 /**
- * @see https://github.com/l3pp4rd/DoctrineExtensions/blob/master/doc/tree.md
- *
- * @Gedmo\Tree(type="nested")
  * @ORM\Table(name="categories")
- * use repository for handy tree functions
- * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\NestedTreeRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\CategoryRepository")
  */
 class Category
 {
@@ -25,46 +20,35 @@ class Category
     private $id;
 
     /**
-     * @ORM\Column(name="title", type="string", length=64)
-     */
-    private $title;
-
-    /**
-     * @Gedmo\TreeLeft
-     * @ORM\Column(name="lft", type="integer")
-     */
-    private $lft;
-
-    /**
-     * @Gedmo\TreeLevel
-     * @ORM\Column(name="lvl", type="integer")
-     */
-    private $lvl;
-
-    /**
-     * @Gedmo\TreeRight
-     * @ORM\Column(name="rgt", type="integer")
-     */
-    private $rgt;
-
-    /**
-     * @Gedmo\TreeRoot
-     * @ORM\Column(name="root", type="integer", nullable=true)
-     */
-    private $root;
-
-    /**
-     * @Gedmo\TreeParent
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $parent;
 
+    private $parentTemp;
+
     /**
      * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
-     * @ORM\OrderBy({"lft" = "ASC"})
      */
     private $children;
+
+    /**
+     * @ORM\Column(name="has_children", type="integer", nullable=true)
+     * @Assert\Type(type="integer")
+     */
+    private $hasChildren;
+
+    /**
+     * @ORM\Column(name="has_products", type="integer", nullable=true)
+     * @Assert\Type(type="integer")
+     */
+    private $hasProducts;
+
+    /**
+     * @ORM\Column(name="title", type="string", length=64)
+     * @Assert\NotBlank()
+     */
+    private $title;
 
     /**
      * @ORM\ManyToMany(targetEntity="Attribute", inversedBy="categories")
@@ -91,6 +75,7 @@ class Category
      * *******************************************************
      */
     public function __construct() {
+        $this->children = new ArrayCollection();
         $this->attributes = new ArrayCollection();
     }
 
@@ -129,99 +114,27 @@ class Category
     }
 
     /**
-     * Set lft
+     * Set hasChildren
      *
-     * @param integer $lft
+     * @param integer $hasChildren
      *
      * @return Category
      */
-    public function setLft($lft)
+    public function setHasChildren($hasChildren)
     {
-        $this->lft = $lft;
+        $this->hasChildren = $hasChildren;
 
         return $this;
     }
 
     /**
-     * Get lft
+     * Get hasChildren
      *
      * @return integer
      */
-    public function getLft()
+    public function getHasChildren()
     {
-        return $this->lft;
-    }
-
-    /**
-     * Set lvl
-     *
-     * @param integer $lvl
-     *
-     * @return Category
-     */
-    public function setLvl($lvl)
-    {
-        $this->lvl = $lvl;
-
-        return $this;
-    }
-
-    /**
-     * Get lvl
-     *
-     * @return integer
-     */
-    public function getLvl()
-    {
-        return $this->lvl;
-    }
-
-    /**
-     * Set rgt
-     *
-     * @param integer $rgt
-     *
-     * @return Category
-     */
-    public function setRgt($rgt)
-    {
-        $this->rgt = $rgt;
-
-        return $this;
-    }
-
-    /**
-     * Get rgt
-     *
-     * @return integer
-     */
-    public function getRgt()
-    {
-        return $this->rgt;
-    }
-
-    /**
-     * Set root
-     *
-     * @param integer $root
-     *
-     * @return Category
-     */
-    public function setRoot($root)
-    {
-        $this->root = $root;
-
-        return $this;
-    }
-
-    /**
-     * Get root
-     *
-     * @return integer
-     */
-    public function getRoot()
-    {
-        return $this->root;
+        return $this->hasChildren;
     }
 
     /**
@@ -257,6 +170,9 @@ class Category
      */
     public function setParent(Category $parent = null)
     {
+        if (isset($this->parent)) {
+            $this->parentTemp = $this->parent;
+        }
         $this->parent = $parent;
 
         return $this;
@@ -270,6 +186,16 @@ class Category
     public function getParent()
     {
         return $this->parent;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \AppBundle\Entity\Category
+     */
+    public function getParentTemp()
+    {
+        return $this->parentTemp;
     }
 
     /**
@@ -372,5 +298,29 @@ class Category
     public function getProducts()
     {
         return $this->products;
+    }
+
+    /**
+     * Set hasProducts
+     *
+     * @param integer $hasProducts
+     *
+     * @return Category
+     */
+    public function setHasProducts($hasProducts)
+    {
+        $this->hasProducts = $hasProducts;
+
+        return $this;
+    }
+
+    /**
+     * Get hasProducts
+     *
+     * @return integer
+     */
+    public function getHasProducts()
+    {
+        return $this->hasProducts;
     }
 }

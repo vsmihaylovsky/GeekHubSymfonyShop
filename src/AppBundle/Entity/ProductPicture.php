@@ -148,7 +148,6 @@ class ProductPicture
     {
         $this->file = $file;
         if (isset($this->path)) {
-            $this->temp = $this->path;
             $this->path = null;
         } else {
             $this->path = 'initial';

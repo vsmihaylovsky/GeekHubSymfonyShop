@@ -1,18 +1,23 @@
 <?php
 namespace AppBundle\EventListener;
 
+use AppBundle\Entity\Category;
 use AppBundle\Entity\ProductPicture;
 use AppBundle\Services\MediaHandler;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 
 class DoctrineEventSubscriber implements EventSubscriber
 {
+    protected $doctrine;
 
     protected $mediaHandler;
 
-    public function __construct(MediaHandler $mediaHandler)
+    public function __construct(RegistryInterface $doctrine,
+                                MediaHandler $mediaHandler)
     {
+        $this->doctrine = $doctrine;
         $this->mediaHandler = $mediaHandler;
     }
 
@@ -21,6 +26,8 @@ class DoctrineEventSubscriber implements EventSubscriber
         return array(
             'prePersist',
             'preUpdate',
+            'postPersist',
+            'postUpdate',
             'postRemove'
         );
     }
@@ -49,7 +56,36 @@ class DoctrineEventSubscriber implements EventSubscriber
      */
     public function preUpdate(LifecycleEventArgs $args)
     {
+        $entity = $args->getEntity();
+    }
+    /**
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $args
+     */
+    public function postPersist(LifecycleEventArgs $args)
+    {
+        $entity = $args->getEntity();
 
+        if($entity instanceof Category) {
+            $parentCategory = $entity->getParent();
+            isset($parentCategory) ? $this->updateHasChildren($parentCategory) : '';
+            $parentCategoryTemp = $entity->getParentTemp();
+            isset($parentCategoryTemp) ? $this->updateHasChildren($parentCategoryTemp) : '';
+        }
+    }
+
+    /**
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $args
+     */
+    public function postUpdate(LifecycleEventArgs $args)
+    {
+        $entity = $args->getEntity();
+
+        if($entity instanceof Category) {
+            $parentCategory = $entity->getParent();
+            isset($parentCategory) ? $this->updateHasChildren($parentCategory) : '';
+            $parentCategoryTemp = $entity->getParentTemp();
+            isset($parentCategoryTemp) ? $this->updateHasChildren($parentCategoryTemp) : '';
+        }
     }
 
     /**
@@ -68,4 +104,12 @@ class DoctrineEventSubscriber implements EventSubscriber
         }
     }
 
+    protected function updateHasChildren($parentCategory)
+    {
+        $children = $parentCategory->getChildren()->isEmpty() ? null : 1;
+        $parentCategory->setHasChildren($children);
+        $em = $this->doctrine->getManager();
+        $em->persist($parentCategory);
+        $em->flush();
+    }
 }

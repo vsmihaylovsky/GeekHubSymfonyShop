@@ -18,8 +18,10 @@ use Symfony\Component\HttpFoundation\Response;
 class CategoryController extends Controller
 {
     /**
+     * @param Request $request
      * @Route("/categories", name="admin_categories")
      * @Template("AppBundle:admin/categories:categories.html.twig")
+     * @return Response
      */
     public function indexAction(Request $request)
     {

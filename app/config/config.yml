@@ -80,7 +80,7 @@ liip_imagine:
     resolvers:
        default:
           web_path: ~
-
+    #http://symfony.com/doc/master/bundles/LiipImagineBundle/filters.html
     filter_sets:
         cache: ~
         list_thumbnail:
