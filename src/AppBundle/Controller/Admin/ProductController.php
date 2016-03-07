@@ -2,21 +2,16 @@
 
 namespace AppBundle\Controller\Admin;
 
-use AppBundle\Entity\Attribute;
-use AppBundle\Entity\AttributeValue;
-use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
 use AppBundle\Form\Type\ProductType;
 use AppBundle\Form\Type\ProductAttributesType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -94,68 +89,44 @@ class ProductController extends Controller
         ];
     }
 
-//    TODO: rename, clean code
     /**
      * @param $id
+     * @param Product $product
      * @param Request $request
      * @Route("/attributes/{id}", name="admin_product_attributes",
      *     defaults={"id": 0},
      *     requirements={"id": "\d+"})
      * @Method({"GET", "POST"})
      * @Template("AppBundle:admin/products/form:attributes.html.twig")
+     * @ParamConverter("picture", class="AppBundle:Product")
      *
      * @return Response
      */
-    public function productAttributesAction($id, Request $request)
+    public function productAttributesAction($id, Product $product, Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $product = $em->getRepository('AppBundle:Product')
-            ->find($id);
-
-        /** @var Category $category*/
-        /** @var Product $product*/
-        $category = $product->getCategory();
-        $categoryId = $category->getId();
-        $categoryTitle = $category->getTitle();
-        $attributes = $category->getAttributes();
-        $attrValues = $product->getAttributeValues();
-
-//        TODO: needs validation of count attributes if added new to group
-        if (count($attrValues) == 0) {
-            foreach ($attributes as $attribute) {
-                /** @var AttributeValue $attrValue */
-                $attrValue = new AttributeValue();
-                /** @var Attribute $attribute */
-                $attrValue->setAttribute($attribute);
-                $attrValue->setProduct($product);
-                $product->addAttributeValue($attrValue);
-            }
-        }
-        else $countAttr = count($attrValues);
-
         $title = 'Edit product id: '.$id;
 
-//        TODO: create formType
-        $formBuilder = $this->createFormBuilder($product);
-        $formBuilder->setAction($this->generateUrl('admin_product_attributes', ['id' => $id]));
-        $formBuilder->setMethod('POST');
-        $formBuilder->add('attributeValues', CollectionType::class, array(
-            'entry_type'   => ProductAttributesType::class,
-            'label'        => 'Attributes'
-        ));
-        $formBuilder->add('save', SubmitType::class, array(
+        $product = $this->container->get('app.attributes_handler')->updateAttributeSet($product);
+
+        $form = $this->createFormBuilder($product)
+            ->setAction($this->generateUrl('admin_product_attributes', ['id' => $id]))
+            ->setMethod('POST')
+            ->add('attributeValues', CollectionType::class, array(
+                'entry_type'   => ProductAttributesType::class,
+                'label'        => 'Attributes',
+            ))
+            ->add('save', SubmitType::class, array(
                 'label'     => 'Save',
                 'attr'      => [
                     'class' => 'btn btn-default'
                 ],
-            )
-        );
-        $form = $formBuilder->getForm();
+            ))
+            ->getForm();
 
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);
             if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
                 $em->persist($product);
                 $em->flush();
 

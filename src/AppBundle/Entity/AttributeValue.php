@@ -138,7 +138,7 @@ class AttributeValue
     public function setAttributeOption(AttributeOption $attributeOption = null)
     {
         $this->attributeOption = $attributeOption;
-        $this->attributeValue = $attributeOption->getAttributeOption();
+        if ($attributeOption != null) $this->attributeValue = $attributeOption->getAttributeOption();
 
         return $this;
     }

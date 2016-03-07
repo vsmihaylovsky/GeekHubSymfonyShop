@@ -8,6 +8,9 @@
         <service id="app.media_handler" class="AppBundle\Services\MediaHandler">
             <argument type="service" id="liip_imagine.cache.manager"/>
         </service>
+        <service id="app.attributes_handler" class="AppBundle\Services\AttributesHandler">
+            <argument type="service" id="doctrine"/>
+        </service>
         <service id="app.doctrine_subscriber" class="AppBundle\EventListener\DoctrineEventSubscriber">
             <tag name="doctrine.event_subscriber" connection="default" />
             <argument type="service" id="doctrine"/>

@@ -27,7 +27,7 @@ class CategoryController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $categories = $em->getRepository('AppBundle:Category')
-            ->findAll();
+            ->getFirstLevel();
 
         return [
             'categories'  => $categories,
