@@ -32,6 +32,7 @@
                                     <th>{{ 'table.products.rating'|trans }}</th>
                                     <th>{{ 'table.products.available'|trans }}</th>
                                     <th>{{ 'table.products.createdAt'|trans }}</th>
+                                    <th>{{ 'table.products.deletedAt'|trans }}</th>
                                     <th>{{ 'table.edit'|trans }}</th>
                                 </tr>
                                 </thead>
@@ -47,6 +48,11 @@
                                             <td>{{ product.rating }}</td>
                                             <td>{{ product.available }}</td>
                                             <td>{{ product.createdAt|date("d.m.Y") }}</td>
+                                            <td>
+                                                {% if product.deletedAt is not null %}
+                                                    {{ product.deletedAt|date("d.m.Y") }}
+                                                {% endif %}
+                                            </td>
                                             <td>
                                                 <a href="{{ path('admin_product_edit', {'action': 'edit', 'id': product.id}) }}">
                                                     {{ 'table.edit'|trans }}
@@ -92,6 +98,14 @@
                     }
                 }
             });
+        });
+
+        $('#deleteModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var data = button.data('whatever');
+            var modal = $(this);
+//            modal.find('.modal-body').html(button.parent().parent().find('.td-img').html());
+            modal.find('.modal-footer form').prop('action', data);
         });
     </script>
 {% endblock %}

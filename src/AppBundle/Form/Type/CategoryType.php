@@ -2,6 +2,7 @@
 namespace AppBundle\Form\Type;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -26,7 +27,12 @@ class CategoryType extends AbstractType
                 )
             )
             ->add('parent', EntityType::class, array(
-                'class' => 'AppBundle:Category',
+                'class'         => 'AppBundle:Category',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->where('c.hasProducts is null')
+                        ->orderBy('c.title', 'ASC');
+                },
                 'choice_label'  => 'title',
                 'placeholder'   => 'without parent category',
                 'empty_data'    => null,

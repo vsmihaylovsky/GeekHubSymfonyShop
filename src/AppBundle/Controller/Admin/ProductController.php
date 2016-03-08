@@ -3,8 +3,10 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Product;
+use AppBundle\Form\Type\DeleteType;
 use AppBundle\Form\Type\ProductType;
 use AppBundle\Form\Type\ProductAttributesType;
+use Faker\Provider\DateTime;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -32,6 +34,7 @@ class ProductController extends Controller
 
         return [
             'products'  => $products,
+            'delete' => $this->createForm(DeleteType::class, null, [])->createView(),
         ];
     }
 
@@ -86,6 +89,7 @@ class ProductController extends Controller
         return [
             'title' => $title,
             'form'  => $formData,
+            'delete' => $this->createForm(DeleteType::class, null, [])->createView(),
         ];
     }
 
@@ -140,5 +144,27 @@ class ProductController extends Controller
             'title' => $title,
             'form'  => $formData,
         ];
+    }
+
+    /**
+     * @param Product $product
+     * @param Request $request
+     * @Route("/product/delete/{id}", name="admin_product_delete",
+     *     requirements={
+     *      "id": "\d+"
+     *     })
+     * @Method({"POST"})
+     * @ParamConverter("Product", class="AppBundle:Product")
+     * @Template("AppBundle:admin:messages.html.twig")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteCategoryAction(Product $product, Request $request)
+    {
+        $product->setDeletedAt(new \DateTime('now'));
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($product);
+        $em->flush();
+
+        return $this->redirectToRoute('admin_products');
     }
 }

@@ -18,13 +18,21 @@ class CategoryRepository extends EntityRepository
             ->select('c, children')
             ->leftJoin('c.children', 'children')
             ->where('c.parent is null')
-            ->andWhere('c.hasProducts is null')
             ->orderBy('c.title', 'ASC')
             ->getQuery()
             ->getResult();
     }
 
-    public function getLastLevel()
+    public function getLastLevelsForCategories()
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.hasProducts is null')
+            ->orderBy('c.title', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getLastLevelsForProducts()
     {
         return $this->createQueryBuilder('c')
             ->where('c.hasChildren is null')

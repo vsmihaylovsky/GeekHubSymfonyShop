@@ -4,6 +4,8 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Category;
 use AppBundle\Form\Type\CategoryType;
+use AppBundle\Form\Type\DeleteType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -31,6 +33,7 @@ class CategoryController extends Controller
 
         return [
             'categories'  => $categories,
+            'delete' => $this->createForm(DeleteType::class, null, [])->createView(),
         ];
     }
 
@@ -80,14 +83,48 @@ class CategoryController extends Controller
             }
         }
 
-        $formData = $form->createView();
-
         return [
-            'title' => $title,
-            'form'  => $formData,
+            'title'  => $title,
+            'form'   => $form->createView(),
         ];
     }
 
+    /**
+     * @param Category $category
+     * @param Request $request
+     * @Route("/category/delete/{id}", name="admin_category_delete",
+     *     requirements={
+     *      "id": "\d+"
+     *     })
+     * @Method({"POST"})
+     * @ParamConverter("category", class="AppBundle:Category")
+     * @Template("AppBundle:admin:messages.html.twig")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteCategoryAction(Category $category, Request $request)
+    {
+        $countProducts = $category->getProducts()->count();
+        if ($countProducts > 0) {
+            $message = "Cannot delete category '"
+                . $category->getTitle()
+                . "', because it has "
+                . $countProducts . " products.";
+        } else {
+            $formDelete = $this->createForm(DeleteType::class, null, []);
 
+            $formDelete->handleRequest($request);
+            if ($formDelete->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->remove($category);
+                $em->flush();
+            }
+
+            return $this->redirectToRoute('admin_categories');
+        }
+
+        return [
+            'message'  => $message,
+        ];
+    }
 
 }
