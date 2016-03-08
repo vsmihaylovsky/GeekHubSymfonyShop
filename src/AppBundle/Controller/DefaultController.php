@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/{_locale}", name="homepage", defaults={"_locale": "%locale%"}, requirements={"_locale": "%app.locales%"})
+     * @Route("/", name="homepage")
      * @Template("AppBundle:shop:index.html.twig")
      */
     public function indexAction(Request $request)
@@ -57,7 +57,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/login", name="login")
+     * @Route("/login1", name="login1")
      * @Template("AppBundle:shop:login.html.twig")
      */
     public function loginAction(Request $request)

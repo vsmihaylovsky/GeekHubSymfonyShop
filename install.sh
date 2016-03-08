@@ -77,6 +77,8 @@ function clear_cache
             app/console cache:clear -e prod
             app/console cache:clear -e dev
             app/console cache:clear -e test
+            rm -rf app/cache/*
+            rm -rf app/logs/*
     esac
 }
 

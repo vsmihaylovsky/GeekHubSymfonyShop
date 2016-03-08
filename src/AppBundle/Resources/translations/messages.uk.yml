@@ -1,5 +1,21 @@
 mainmenu:
-  home: Головна
+    home: Головна
+    logout: Вихід
+    login_registration: Вхід/Реєстрація
+
+security:
+    username: Ім'я користувача
+    email: Електронна адреса
+    username_email: Ім'я користувача або електронна адреса
+    password: Пароль
+    password_confirmation: Підтвердіть пароль
+    login_form_header: Увійти у свій аккаунт
+    register_form_header: Реєстрація нового користувача
+    login_register_or: Або
+    login:
+        facebook: Увійти за допомогою Facebook
+        google: Увійти за допомогою Google
+        vk: Увійти за допомогою VK
 
 page:
   name:
