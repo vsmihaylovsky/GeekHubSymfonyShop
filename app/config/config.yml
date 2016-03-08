@@ -133,3 +133,39 @@ hwi_oauth:
 #            scope:         "email"
 #            options:
 #                display: popup #dialog is optimized for popup window
+
+stof_doctrine_extensions:
+    default_locale: en_US
+    orm:
+        default:
+            sluggable: true
+            timestampable: true
+            tree: true
+
+liip_imagine:
+    resolvers:
+       default:
+          web_path: ~
+    #http://symfony.com/doc/master/bundles/LiipImagineBundle/filters.html
+    filter_sets:
+        cache: ~
+        list_thumbnail:
+            quality: 75
+            filters:
+                thumbnail: { size: [242, 225], mode: outbound }
+        full_thumbnail:
+            quality: 75
+            filters:
+                thumbnail: { size: [266, 380], mode: outbound }
+        random_thumbnail:
+            quality: 75
+            filters:
+                thumbnail: { size: [242, 213], mode: outbound }
+        recomended_thumbnail:
+            quality: 75
+            filters:
+                thumbnail: { size: [151, 75], mode: outbound }
+        admin_thumbnail:
+            quality: 75
+            filters:
+                thumbnail: { size: [100, 100], mode: inset }

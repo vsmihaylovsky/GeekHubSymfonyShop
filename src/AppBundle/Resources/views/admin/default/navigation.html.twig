@@ -236,7 +236,16 @@
                     <!-- /input-group -->
                 </li>
                 <li>
-                    <a href="{{ url('admin_homepage') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                    <a href="{{ path('admin_homepage') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                </li>
+                <li>
+                    <a href="{{ path('admin_products') }}"><i class="fa fa-edit fa-fw"></i> {{ 'page.name.products'|trans }}</a>
+                </li>
+                <li>
+                    <a href="{{ path('admin_categories') }}"><i class="fa fa-edit fa-fw"></i> {{ 'page.name.categories'|trans }}</a>
+                </li>
+                <li>
+                    <a href="{{ path('admin_attributes') }}"><i class="fa fa-edit fa-fw"></i> {{ 'page.name.attributes'|trans }}</a>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
@@ -251,10 +260,10 @@
                     <!-- /.nav-second-level -->
                 </li>
                 <li>
-                    <a href="{{ url('admin_tables') }}"><i class="fa fa-table fa-fw"></i> Tables</a>
+                    <a href="{{ path('admin_tables') }}"><i class="fa fa-table fa-fw"></i> Tables</a>
                 </li>
                 <li>
-                    <a href="{{ url('admin_forms') }}"><i class="fa fa-edit fa-fw"></i> Forms</a>
+                    <a href="{{ path('admin_forms') }}"><i class="fa fa-edit fa-fw"></i> Forms</a>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
