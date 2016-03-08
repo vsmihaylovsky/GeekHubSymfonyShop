@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @Route("/{_locale}/admin", defaults={"_locale": "%locale%"}, requirements={"_locale": "%app.locales%"})
+ * @Route("/admin")
  */
 class ProductController extends Controller
 {
@@ -158,7 +158,7 @@ class ProductController extends Controller
      * @Template("AppBundle:admin:messages.html.twig")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteCategoryAction(Product $product, Request $request)
+    public function deleteProductAction(Product $product, Request $request)
     {
         $product->setDeletedAt(new \DateTime('now'));
         $em = $this->getDoctrine()->getManager();
