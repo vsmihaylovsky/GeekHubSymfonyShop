@@ -5,27 +5,40 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-3">
-                        <div class="sidebar-nav">
-                            <div class="navbar navbar-default" role="navigation">
-                                <div class="navbar-header">
-                                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
-                                        <span class="sr-only">Toggle navigation</span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                    </button>
-                                    <span class="visible-xs navbar-brand">User menu</span>
-                                </div>
-                                <div class="navbar-collapse collapse sidebar-navbar-collapse">
-                                    <ul class="nav navbar-nav">
-                                        <li class="active"><a href="{{ path('fos_user_profile_show') }}"> User info</a></li>
-                                        <li><h4>Messages</h4></li>
-                                        <li><a href="#">Received <span class="badge">8</span></a></li>
-                                        <li><a href="#">Sent</a></li>
-                                    </ul>
-                                </div><!--/.nav-collapse -->
+                    <div class="sidebar-nav">
+                        <div class="navbar navbar-default" role="navigation">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                        data-target=".sidebar-navbar-collapse">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <span class="visible-xs navbar-brand">User menu</span>
                             </div>
+                            <div class="navbar-collapse collapse sidebar-navbar-collapse">
+                                <ul class="nav navbar-nav">
+                                    {% set active_route = app.request.get('_route') %}
+                                    {% set unreadPrivateMessagesCount = getUnreadPrivateMessagesCount() %}
+                                    <li {% if active_route == 'fos_user_profile_show' %}class="active"{% endif %}>
+                                        <a href="{{ path('fos_user_profile_show') }}"> User info</a>
+                                    </li>
+                                    <li><h4>Messages</h4></li>
+                                    <li {% if active_route == 'show_received_private_message' %}class="active"{% endif %}>
+                                        <a href="{{ path('show_received_private_message') }}"> Received
+                                            {% if unreadPrivateMessagesCount != 0 %}
+                                                <span class="badge">{{ unreadPrivateMessagesCount }}</span>
+                                            {% endif %}
+                                        </a>
+                                    </li>
+                                    <li {% if active_route == 'show_sent_private_message' %}class="active"{% endif %}>
+                                        <a href="{{ path('show_sent_private_message') }}"> Sent</a>
+                                    </li>
+                                </ul>
+                            </div><!--/.nav-collapse -->
                         </div>
+                    </div>
                 </div>
                 <div class="col-sm-9 padding-right">
                     {% block content %}{% endblock %}

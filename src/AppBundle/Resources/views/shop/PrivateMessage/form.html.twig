@@ -1,14 +1,12 @@
-{% extends 'AppBundle:shop:1-column.html.twig' %}
+{% extends 'AppBundle:shop:user-info.html.twig' %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4 col-sm-offset-4">
-                {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+    {#{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}#}
 
-                {{ form(form) }}
-            </div>
+    <section id="form"><!--form-->
+        <div class="shop-form">
+            <h2> Message for: {{ recipient.username }}</h2>
+            {{ form(form) }}
         </div>
-    </div>
-
+    </section>
 {% endblock %}

@@ -15,6 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity
  * @ORM\Table(name="private_message")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\PrivateMessageRepository")
  */
 class PrivateMessage
 {
@@ -26,13 +27,13 @@ class PrivateMessage
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumn(name="sender_id", referencedColumnName="id")
      */
     private $sender;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumn(name="recipient_id", referencedColumnName="id")
      */
     private $recipient;

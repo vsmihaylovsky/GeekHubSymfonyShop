@@ -41,7 +41,11 @@ class PrivateMessageController extends Controller
         ])
             ->add('save', SubmitType::class, ['label' => 'Send']);
 
-        return ['form' => $form->createView()];
+        return
+            [
+                'form' => $form->createView(),
+                'recipient' => $recipient
+            ];
     }
 
     /**
@@ -80,6 +84,42 @@ class PrivateMessageController extends Controller
             return $this->redirect($this->generateUrl('homepage'));
         }
 
-        return ['form' => $form->createView()];
+        return
+            [
+                'form' => $form->createView(),
+                'recipient' => $recipient
+            ];
+    }
+
+    /**
+     * @Route("/received", name="show_received_private_message")
+     * @Method("GET")
+     * @Template("AppBundle:shop/PrivateMessage:received.html.twig")
+     * @return array
+     */
+    public function showReceivedAction()
+    {
+        $recipient = $this->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+        $allReceivedPrivateMessages = $em->getRepository('AppBundle:PrivateMessage')->getAllReceivedPrivateMessages($recipient);
+
+        return ['allReceivedPrivateMessages' => $allReceivedPrivateMessages];
+    }
+
+    /**
+     * @Route("/sent", name="show_sent_private_message")
+     * @Method("GET")
+     * @Template("AppBundle:shop/PrivateMessage:sent.html.twig")
+     * @return array
+     */
+    public function showSentAction()
+    {
+        $sender = $this->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+        $allSentPrivateMessages = $em->getRepository('AppBundle:PrivateMessage')->getAllSentPrivateMessages($sender);
+
+        return ['allSentPrivateMessages' => $allSentPrivateMessages];
     }
 }
