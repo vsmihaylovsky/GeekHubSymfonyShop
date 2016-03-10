@@ -5,7 +5,7 @@
 
     <section id="form"><!--form-->
         <div class="shop-form">
-            <h2> Message for: {{ recipient.username }}</h2>
+            <h2> {{ 'private_message.message_for'|trans }}: {{ recipient.username }}</h2>
             {{ form(form) }}
         </div>
     </section>

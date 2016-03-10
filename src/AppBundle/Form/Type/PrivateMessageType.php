@@ -20,8 +20,8 @@ class PrivateMessageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', TextType::class)
-            ->add('message', TextareaType::class);
+            ->add('title', TextType::class, ['label' => 'private_message.title'])
+            ->add('message', TextareaType::class, ['label' => 'private_message.message']);
     }
 
     public function configureOptions(OptionsResolver $resolver)

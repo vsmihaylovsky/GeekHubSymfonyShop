@@ -19,7 +19,7 @@
             </argument>
         </service>
 
-        <service id="app.article"
+        <service id="app.user_voter"
                  class="AppBundle\Security\UserVoter"
                  public="false"
         >
@@ -34,6 +34,15 @@
             <tag name="twig.extension"/>
             <argument type="service" id="doctrine.orm.entity_manager"/>
             <argument type="service" id="security.token_storage"/>
+        </service>
+
+        <service id="app.private_message_voter"
+                 class="AppBundle\Security\PrivateMessageVoter"
+                 public="false"
+        >
+            <argument type="service" id="security.access.decision_manager"/>
+
+            <tag name="security.voter"/>
         </service>
 
     </services>

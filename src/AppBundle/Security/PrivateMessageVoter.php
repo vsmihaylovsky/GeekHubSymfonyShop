@@ -1,15 +1,22 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: vad
+ * Date: 3/10/16
+ * Time: 1:24 PM
+ */
 
 namespace AppBundle\Security;
 
+use AppBundle\Entity\PrivateMessage;
 use AppBundle\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 
-class UserVoter extends Voter
+class PrivateMessageVoter extends Voter
 {
-    const SELF_EDIT = 'self_edit';
+    const READ_MESSAGE = 'read_message';
 
     private $decisionManager;
 
@@ -21,12 +28,12 @@ class UserVoter extends Voter
     protected function supports($attribute, $subject)
     {
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, array(self::SELF_EDIT))) {
+        if (!in_array($attribute, array(self::READ_MESSAGE))) {
             return false;
         }
 
         // only vote on User objects inside this voter
-        if (!$subject instanceof User) {
+        if (!$subject instanceof PrivateMessage) {
             return false;
         }
 
@@ -46,25 +53,22 @@ class UserVoter extends Voter
         }
 
         // you know $subject is a Post object, thanks to supports
-        /** @var User $checkedUser */
-        $checkedUser = $subject;
+        /** @var PrivateMessage $privateMessage */
+        $privateMessage = $subject;
         switch($attribute) {
-            case self::SELF_EDIT:
-                return $this->canSelfEdit($checkedUser);
+            case self::READ_MESSAGE:
+                return $this->canReadMessage($privateMessage, $user);
         }
         throw new \LogicException('This code should not be reached!');
     }
 
     /**
+     * @param PrivateMessage $privateMessage
      * @param User $user
      * @return bool
      */
-    private function canSelfEdit(User $user)
+    private function canReadMessage(PrivateMessage $privateMessage, User $user)
     {
-        if (($user->getFacebookId() === null) && ($user->getGoogleId() === null) && ($user->getVkontakteId() === null)) {
-            return true;
-        }
-
-        return false;
+        return ($privateMessage->getSender() === $user) || ($privateMessage->getRecipient() === $user);
     }
 }

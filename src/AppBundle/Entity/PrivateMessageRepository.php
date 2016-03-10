@@ -35,8 +35,9 @@ class PrivateMessageRepository extends EntityRepository
     public function getAllReceivedPrivateMessages(User $recipient)
     {
         return $this->createQueryBuilder('pm')
-            ->select('pm')
+            ->select('pm, s')
             ->innerJoin('pm.recipient', 'r', Join::WITH, 'r = :recipient')
+            ->join('pm.sender', 's')
             ->where('pm.deletedFromReceived = :deletedFromReceived')
             ->orderBy('pm.sentTime', 'DESC')
             ->setParameters(['recipient' => $recipient, 'deletedFromReceived' => false])
@@ -51,8 +52,9 @@ class PrivateMessageRepository extends EntityRepository
     public function getAllSentPrivateMessages(User $sender)
     {
         return $this->createQueryBuilder('pm')
-            ->select('pm')
+            ->select('pm, r')
             ->innerJoin('pm.sender', 's', Join::WITH, 's = :sender')
+            ->join('pm.recipient', 'r')
             ->where('pm.deletedFromSent = :deletedFromSent')
             ->orderBy('pm.sentTime', 'DESC')
             ->setParameters(['sender' => $sender, 'deletedFromSent' => false])

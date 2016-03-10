@@ -39,7 +39,7 @@ class PrivateMessageController extends Controller
             'action' => $this->generateUrl('create_private_message', ['id' => $recipient->getId()]),
             'method' => 'POST',
         ])
-            ->add('save', SubmitType::class, ['label' => 'Send']);
+            ->add('save', SubmitType::class, ['label' => 'private_message.send']);
 
         return
             [
@@ -59,10 +59,6 @@ class PrivateMessageController extends Controller
      */
     public function createAction(Request $request, User $recipient)
     {
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
-            throw $this->createAccessDeniedException();
-        }
-
         $sender = $this->getUser();
 
         $privateMessage = new PrivateMessage();
@@ -73,7 +69,7 @@ class PrivateMessageController extends Controller
             'action' => $this->generateUrl('create_private_message', ['id' => $recipient->getId()]),
             'method' => 'POST',
         ])
-            ->add('save', SubmitType::class, ['label' => 'Send']);
+            ->add('save', SubmitType::class, ['label' => 'private_message.send']);
 
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -81,7 +77,7 @@ class PrivateMessageController extends Controller
             $em->persist($privateMessage);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('homepage'));
+            return $this->redirect($this->generateUrl('show_sent_private_message'));
         }
 
         return
@@ -121,5 +117,37 @@ class PrivateMessageController extends Controller
         $allSentPrivateMessages = $em->getRepository('AppBundle:PrivateMessage')->getAllSentPrivateMessages($sender);
 
         return ['allSentPrivateMessages' => $allSentPrivateMessages];
+    }
+
+    /**
+     * @Route("/{id}", requirements={"id": "\d+"}, name="show_private_message")
+     * @ParamConverter("privateMessage", class="AppBundle:PrivateMessage")
+     * @Method("GET")
+     * @Template("AppBundle:shop/PrivateMessage:show.html.twig")
+     * @param PrivateMessage $privateMessage
+     * @return array
+     */
+    public function showAction(PrivateMessage $privateMessage)
+    {
+        $this->denyAccessUnlessGranted('read_message', $privateMessage);
+
+        if ((!$privateMessage->getIsViewed()) && ($this->getUser() === $privateMessage->getRecipient())) {
+            $privateMessage->setIsViewed(true);
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+        }
+
+        $newPrivateMessage = new PrivateMessage();
+        $form = $this->createForm(PrivateMessageType::class, $newPrivateMessage, [
+            'action' => $this->generateUrl('create_private_message', ['id' => $privateMessage->getRecipient()->getId()]),
+            'method' => 'POST',
+        ])
+            ->add('save', SubmitType::class, ['label' => 'private_message.send']);
+
+        return
+            [
+                'privateMessage' => $privateMessage,
+                'form' => $form->createView(),
+            ];
     }
 }

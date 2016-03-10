@@ -2460,3 +2460,7 @@ h2.title {
     }
 }
 
+.not-viewed-private-messages {
+    font-weight: bold;
+}
+

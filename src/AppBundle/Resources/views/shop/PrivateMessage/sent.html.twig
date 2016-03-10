@@ -1,6 +1,29 @@
 {% extends 'AppBundle:shop:user-info.html.twig' %}
 
 {% block content %}
-
+    <table class="table table-bordered table-striped table-hover table-condensed">
+        <thead>
+        <tr>
+            <th>{{ 'private_message.to'|trans }}</th>
+            <th>{{ 'private_message.subject'|trans }}</th>
+            <th>{{ 'private_message.time'|trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for sentPrivateMessage in allSentPrivateMessages %}
+            <tr>
+                <td>
+                    {{ sentPrivateMessage.recipient.username }}
+                </td>
+                <td>
+                    <a href="{{ path('show_private_message', {'id': sentPrivateMessage.id}) }}">{{ sentPrivateMessage.title }}</a>
+                </td>
+                <td>
+                    {{ sentPrivateMessage.sentTime|date("d.m.Y H:i") }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
 
