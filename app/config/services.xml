@@ -45,6 +45,12 @@
             <tag name="security.voter"/>
         </service>
 
+        <service id="app.private_messages_service" class="AppBundle\Services\PrivateMessagesService">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="form.factory"/>
+            <argument type="service" id="router"/>
+        </service>
+
     </services>
 
 </container>

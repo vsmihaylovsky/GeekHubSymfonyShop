@@ -22,8 +22,8 @@ class PrivateMessageRepository extends EntityRepository
         return $this->createQueryBuilder('pm')
             ->select('count(pm.id)')
             ->innerJoin('pm.recipient', 'r', Join::WITH, 'r = :recipient')
-            ->where('pm.isViewed = :isViewed')
-            ->setParameters(['recipient' => $recipient, 'isViewed' => false])
+            ->where('pm.isViewed = :isViewed and pm.deletedFromReceived = :deletedFromReceived')
+            ->setParameters(['recipient' => $recipient, 'isViewed' => false, 'deletedFromReceived' => false])
             ->getQuery()
             ->getSingleScalarResult();
     }
@@ -34,7 +34,9 @@ class PrivateMessageRepository extends EntityRepository
      */
     public function getAllReceivedPrivateMessages(User $recipient)
     {
-        return $this->createQueryBuilder('pm')
+        return $this->_em->createQueryBuilder()
+            ->select('pm')
+            ->from($this->_entityName, 'pm', 'pm.id')
             ->select('pm, s')
             ->innerJoin('pm.recipient', 'r', Join::WITH, 'r = :recipient')
             ->join('pm.sender', 's')
@@ -51,7 +53,9 @@ class PrivateMessageRepository extends EntityRepository
      */
     public function getAllSentPrivateMessages(User $sender)
     {
-        return $this->createQueryBuilder('pm')
+        return $this->_em->createQueryBuilder()
+            ->select('pm')
+            ->from($this->_entityName, 'pm', 'pm.id')
             ->select('pm, r')
             ->innerJoin('pm.sender', 's', Join::WITH, 's = :sender')
             ->join('pm.recipient', 'r')

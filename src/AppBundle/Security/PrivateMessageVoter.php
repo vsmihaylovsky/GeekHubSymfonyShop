@@ -17,6 +17,8 @@ use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface
 class PrivateMessageVoter extends Voter
 {
     const READ_MESSAGE = 'read_message';
+    const EDIT_RECEIVED_MESSAGE = 'edit_received_message';
+    const EDIT_SENT_MESSAGE = 'edit_sent_message';
 
     private $decisionManager;
 
@@ -28,7 +30,7 @@ class PrivateMessageVoter extends Voter
     protected function supports($attribute, $subject)
     {
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, array(self::READ_MESSAGE))) {
+        if (!in_array($attribute, array(self::READ_MESSAGE, self::EDIT_RECEIVED_MESSAGE, self::EDIT_SENT_MESSAGE))) {
             return false;
         }
 
@@ -58,6 +60,10 @@ class PrivateMessageVoter extends Voter
         switch($attribute) {
             case self::READ_MESSAGE:
                 return $this->canReadMessage($privateMessage, $user);
+            case self::EDIT_RECEIVED_MESSAGE:
+                return $this->canEditReceivedMessage($privateMessage, $user);
+            case self::EDIT_SENT_MESSAGE:
+                return $this->canEditSentMessage($privateMessage, $user);
         }
         throw new \LogicException('This code should not be reached!');
     }
@@ -70,5 +76,25 @@ class PrivateMessageVoter extends Voter
     private function canReadMessage(PrivateMessage $privateMessage, User $user)
     {
         return ($privateMessage->getSender() === $user) || ($privateMessage->getRecipient() === $user);
+    }
+
+    /**
+     * @param PrivateMessage $privateMessage
+     * @param User $user
+     * @return bool
+     */
+    private function canEditReceivedMessage(PrivateMessage $privateMessage, User $user)
+    {
+        return $privateMessage->getRecipient() === $user;
+    }
+
+    /**
+     * @param PrivateMessage $privateMessage
+     * @param User $user
+     * @return bool
+     */
+    private function canEditSentMessage(PrivateMessage $privateMessage, User $user)
+    {
+        return $privateMessage->getSender() === $user;
     }
 }

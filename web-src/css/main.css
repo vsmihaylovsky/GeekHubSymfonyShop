@@ -2464,3 +2464,50 @@ h2.title {
     font-weight: bold;
 }
 
+table.private-messages-table {
+    margin-top: 20px;
+}
+
+table.private-messages-table th.private-message-check{
+    width: 5%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+table.private-messages-table th.private-message-username{
+    width: 30%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+table.private-messages-table th.private-message-subject{
+    width: 50%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+table.private-messages-table th.private-message-time{
+    width: 15%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+table.private-messages-table td.private-message-check{
+    text-align: center;
+    vertical-align: middle;
+}
+
+table.private-messages-table td.private-message-username{
+    text-align: left;
+    vertical-align: middle;
+}
+
+table.private-messages-table td.private-message-subject{
+    text-align: left;
+    vertical-align: middle;
+}
+
+table.private-messages-table td.private-message-time{
+    text-align: right;
+    vertical-align: middle;
+}

@@ -32,3 +32,6 @@ private_message:
     to: To
     subject: Subject
     time: Time
+    set_read: Set read
+    set_unread: Set unread
+    delete: Delete

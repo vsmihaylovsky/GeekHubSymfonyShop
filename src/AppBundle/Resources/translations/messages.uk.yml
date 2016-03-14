@@ -32,3 +32,6 @@ private_message:
     to: Для
     subject: Тема
     time: Час
+    set_read: Відмітити як прочитане
+    set_unread: Відмітити як непрочитане
+    delete: Видалити
