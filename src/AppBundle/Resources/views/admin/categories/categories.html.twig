@@ -1,0 +1,126 @@
+{% extends 'AppBundle:admin:default.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/dataTables.bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/responsive.dataTables.css') }}" rel="stylesheet">
+    <style>
+        .panel-group .panel {
+            margin-top: 5px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{ 'page.name.categories'|trans }}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ 'page.name.categories'|trans }}
+                </div>
+                <div class="panel-body">
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        {% for category in categories %}
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="heading{{ category.id }}">
+                                    <h4 class="panel-title">
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ category.id }}" aria-expanded="false" aria-controls="collapse{{ category.id }}">
+                                            {{ category.title }}
+                                        </a>
+                                    </h4>
+                                </div>
+                            <div id="collapse{{ category.id }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{ category.id }}">
+                                <div class="panel-body">
+                                    <a class="btn btn-default btn-sm" role="button" href="{{ path('admin_category_edit', {'action': 'edit', 'id': category.id}) }}">
+                                        {{ 'table.categories.edit'|trans }}
+                                    </a>
+                                    {% if category.children.isEmpty() %}
+                                        <button type="button"
+                                                class="btn btn-danger btn-sm"
+                                                data-toggle="modal"
+                                                data-target="#deleteModal"
+                                                data-whatever="{{ path('admin_category_delete', {'id': category.id}) }}">
+                                            Delete
+                                        </button>
+                                    {% else %}
+                                        {{ include('AppBundle:admin/categories:children.html.twig', {
+                                            'children': category.children,
+                                            'accordionId': category.id
+                                        })
+                                        }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                          </div>
+                        {% endfor %}
+                    </div>
+                    <div class="well">
+                        <a href="{{ path('admin_category_edit') }}" class="btn btn-default" style="text-align: center;">{{ 'table.categories.addNew'|trans }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">{{ 'modal.category.delete'|trans }}</h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    {% form_theme delete _self %}
+                    {{ form(delete) }}
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/dataTables.responsive.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#dataTables-example').DataTable({
+                responsive: true,
+                "scrollX": true,
+                "language": {
+                    "lengthMenu": "{{ 'DataTable.lengthMenu'|trans }}",
+                    "zeroRecords": "{{ 'DataTable.zeroRecords'|trans }}",
+                    "info": "{{ 'DataTable.info'|trans }}",
+                    "infoEmpty": "{{ 'DataTable.infoEmpty'|trans }}",
+                    "infoFiltered": "{{ 'DataTable.infoFiltered'|trans }}",
+                    "search": "{{ 'DataTable.search'|trans }}",
+                    "paginate": {
+                        "first": "{{ 'DataTable.paginate.first'|trans }}",
+                        "last": "{{ 'DataTable.paginate.last'|trans }}",
+                        "next": "{{ 'DataTable.paginate.next'|trans }}",
+                        "previous": "{{ 'DataTable.paginate.previous'|trans }}",
+                    }
+                }
+            });
+        });
+
+        $('#deleteModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var data = button.data('whatever');
+            var modal = $(this);
+//            modal.find('.modal-body').html(button.parent().parent().find('.td-img').html());
+            modal.find('.modal-footer form').prop('action', data);
+        });
+    </script>
+{% endblock %}
