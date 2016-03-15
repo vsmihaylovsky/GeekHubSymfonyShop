@@ -12,4 +12,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class ProductRepository extends EntityRepository
 {
+    public function getProductsWithPictures()
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p, pic')
+            ->leftJoin('p.pictures', 'pic')
+            ->orderBy('p.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 }

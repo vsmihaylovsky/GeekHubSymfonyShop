@@ -26,7 +26,13 @@ class DefaultController extends Controller
      */
     public function itemsAction(Request $request)
     {
-        return [];
+        $em = $this->getDoctrine()->getManager();
+        $products = $em->getRepository('AppBundle:Product')
+            ->getProductsWithPictures();
+
+        return [
+            'products'  => $products,
+        ];
     }
 
     /**
