@@ -1403,11 +1403,11 @@ h2.title {
 
 }
 
-.profile-form {
+.shop-form {
 
 }
 
-.login-form h2, .signup-form h2, .profile-form h2 {
+.login-form h2, .signup-form h2, .shop-form h2 {
     color: #696763;
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
@@ -1415,7 +1415,7 @@ h2.title {
     margin-bottom: 30px;
 }
 
-.login-form form input, .signup-form form input, .profile-form form input {
+.login-form form input, .signup-form form input, .shop-form form input {
     background: #F0F0E9;
     border: medium none;
     color: #696763;
@@ -1424,6 +1424,21 @@ h2.title {
     font-size: 14px;
     font-weight: 300;
     height: 40px;
+    margin-bottom: 10px;
+    outline: medium none;
+    padding-left: 10px;
+    width: 100%;
+}
+
+.shop-form form textarea {
+    background: #F0F0E9;
+    border: medium none;
+    color: #696763;
+    display: block;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    height: 100px;
     margin-bottom: 10px;
     outline: medium none;
     padding-left: 10px;
@@ -1445,7 +1460,7 @@ h2.title {
     margin-top: 23px;
 }
 
-.login-form form button, .signup-form form button, .profile-form form button {
+.login-form form button, .signup-form form button, .shop-form form button {
     background: #FE980F;
     border: medium none;
     border-radius: 0;
@@ -2421,4 +2436,78 @@ h2.title {
     float: right;
 }
 
+/* make sidebar nav vertical */
+@media (min-width: 768px) {
+    .sidebar-nav .navbar .navbar-collapse {
+        padding: 0;
+        max-height: none;
+    }
+    .sidebar-nav .navbar ul {
+        float: none;
+        display: block;
+    }
+    .sidebar-nav .navbar li {
+        float: none;
+        display: block;
+    }
+    .sidebar-nav .navbar li a {
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+    .sidebar-nav .navbar li h4 {
+        padding: 12px 15px;
+        margin: 0;
+    }
+}
 
+.not-viewed-private-messages {
+    font-weight: bold;
+}
+
+table.private-messages-table {
+    margin-top: 20px;
+}
+
+table.private-messages-table th.private-message-check{
+    width: 5%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+table.private-messages-table th.private-message-username{
+    width: 30%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+table.private-messages-table th.private-message-subject{
+    width: 50%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+table.private-messages-table th.private-message-time{
+    width: 15%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+table.private-messages-table td.private-message-check{
+    text-align: center;
+    vertical-align: middle;
+}
+
+table.private-messages-table td.private-message-username{
+    text-align: left;
+    vertical-align: middle;
+}
+
+table.private-messages-table td.private-message-subject{
+    text-align: left;
+    vertical-align: middle;
+}
+
+table.private-messages-table td.private-message-time{
+    text-align: right;
+    vertical-align: middle;
+}

@@ -17,6 +17,25 @@ security:
         google: Login with Google
         vk: Login with VK
 
+user_info:
+    user_info: User info
+    messages: Messages
+    received: Received
+    sent: Sent
+
+private_message:
+    send: Send
+    title: Title
+    message: Message
+    message_for: Message for
+    from: From
+    to: To
+    subject: Subject
+    time: Time
+    set_read: Set read
+    set_unread: Set unread
+    delete: Delete
+
 page:
   name:
    products: Products

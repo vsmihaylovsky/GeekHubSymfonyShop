@@ -1,0 +1,44 @@
+{% extends 'AppBundle:shop:user-info.html.twig' %}
+
+{% block content %}
+    {{ form_start(form) }}
+    {{ form_widget(form.SetRead, {'attr': {'class': 'btn btn-default'}}) }}
+    {{ form_widget(form.SetUnread, {'attr': {'class': 'btn btn-default'}}) }}
+    {{ form_widget(form.Delete, {'attr': {'class': 'btn btn-default'}}) }}
+    <table class="table table-bordered table-striped table-hover table-condensed private-messages-table">
+        <thead>
+        <tr>
+            <th class="private-message-check"><input type="checkbox" name="select-all"></th>
+            <th class="private-message-username">{{ 'private_message.from'|trans }}</th>
+            <th class="private-message-subject">{{ 'private_message.subject'|trans }}</th>
+            <th class="private-message-time">{{ 'private_message.time'|trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for child in form.PrivateMessages %}
+            {% set receivedPrivateMessage = allReceivedPrivateMessages[child.vars.value] %}
+            <tr {% if not receivedPrivateMessage.isViewed %}class="not-viewed-private-messages"{% endif %}>
+                <td class="private-message-check">
+                    {{ form_widget(child, {'attr': {'class': 'selected'}}) }}
+                </td>
+                <td class="private-message-username">
+                    {{ receivedPrivateMessage.sender.username }}
+                </td>
+                <td class="private-message-subject">
+                    <a href="{{ path('show_private_message', {'id': receivedPrivateMessage.id}) }}">{{ receivedPrivateMessage.title }}</a>
+                </td>
+                <td class="private-message-time">
+                    {{ receivedPrivateMessage.sentTime|date("d.m.Y H:i") }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('js/select-all.js') }}"></script>
+{% endblock %}

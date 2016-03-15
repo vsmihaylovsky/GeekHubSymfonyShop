@@ -17,6 +17,25 @@ security:
         google: Увійти за допомогою Google
         vk: Увійти за допомогою VK
 
+user_info:
+    user_info: Іформація про користувача
+    messages: Повідомлення
+    received: Отримані
+    sent: Відіслані
+
+private_message:
+    send: Відправити
+    title: Заголовок
+    message: Повідомлення
+    message_for: Повідомлення для
+    from: Від
+    to: Для
+    subject: Тема
+    time: Час
+    set_read: Відмітити як прочитане
+    set_unread: Відмітити як непрочитане
+    delete: Видалити
+
 page:
   name:
    products: Товари

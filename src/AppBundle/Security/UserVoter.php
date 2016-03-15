@@ -55,6 +55,10 @@ class UserVoter extends Voter
         throw new \LogicException('This code should not be reached!');
     }
 
+    /**
+     * @param User $user
+     * @return bool
+     */
     private function canSelfEdit(User $user)
     {
         if (($user->getFacebookId() === null) && ($user->getGoogleId() === null) && ($user->getVkontakteId() === null)) {
