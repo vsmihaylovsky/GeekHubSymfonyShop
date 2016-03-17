@@ -14,11 +14,24 @@ class ProductRepository extends EntityRepository
 {
     public function getProductsWithPictures()
     {
-        return $this->createQueryBuilder('p')
+         return $query = $this->createQueryBuilder('p')
             ->select('p, pic')
             ->leftJoin('p.pictures', 'pic')
             ->orderBy('p.createdAt', 'DESC')
+            ->getQuery();
+    }
+
+    public function getProductWithDep($id)
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p, pic')
+            ->leftJoin('p.category', 'cat')
+            ->leftJoin('p.pictures', 'pic')
+            ->leftJoin('p.attributeValues', 'attrV')
+            ->leftJoin('attrV.attribute', 'attr')
+            ->where('p.id = ?1')
+            ->setParameter(1, $id)
             ->getQuery()
-            ->getResult();
+            ->getSingleResult();
     }
 }

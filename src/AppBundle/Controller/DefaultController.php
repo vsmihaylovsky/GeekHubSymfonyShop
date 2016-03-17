@@ -21,27 +21,48 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/items", name="items")
+     * @param $page
+     * @param Request $request
+     * @return Response
+     * @Route("/items/{pager}/{page}", name="items",
+     *     defaults={"pager": "page", "page": 1},
+     *     requirements={
+     *          "pager": "page",
+     *          "page": "[1-9]\d*"
+     *     })
      * @Template("AppBundle:shop:items.html.twig")
      */
-    public function itemsAction(Request $request)
+    public function itemsAction($page, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $products = $em->getRepository('AppBundle:Product')
-            ->getProductsWithPictures();
+        $query = $em->getRepository('AppBundle:Product')->getProductsWithPictures();
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($query, $page, $limit = 9);
 
         return [
-            'products'  => $products,
+            'products'  => $pagination,
         ];
     }
 
     /**
-     * @Route("/details", name="details")
+     * @param $id
+     * @param Request $request
+     * @Route("/product/{id}", name="product_view",
+     *     requirements={
+     *      "id": "\d+"
+     *     })
      * @Template("AppBundle:shop:details.html.twig")
+     * @return array
      */
-    public function detailsAction(Request $request)
+    public function detailsAction($id, Request $request)
     {
-        return [];
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository('AppBundle:Product')
+            ->getProductWithDep($id);
+
+        return [
+            'product'  => $product,
+        ];
     }
 
     /**

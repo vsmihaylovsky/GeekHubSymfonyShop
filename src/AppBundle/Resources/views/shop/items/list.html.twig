@@ -19,13 +19,15 @@
                             {% endif %}
                         {% endfor %}
 
-                        {% if picMain != null %}
-                            <img src="{{ asset(picMain.getWebPath|imagine_filter('list_thumbnail')) }}" alt="">
-                        {% elseif picFirst != null %}
-                            <img src="{{ asset(picFirst.getWebPath|imagine_filter('list_thumbnail')) }}" alt="">
-                        {% else %}
-                            <img src="{{ asset('media/products/coming_soon.jpg'|imagine_filter('list_thumbnail')) }}" alt="">
-                        {% endif %}
+                        <a href="{{ path('product_view', {'id': product.id}) }}">
+                            {% if picMain != null %}
+                                <img src="{{ asset(picMain.getWebPath|imagine_filter('list_thumbnail')) }}" alt="">
+                            {% elseif picFirst != null %}
+                                <img src="{{ asset(picFirst.getWebPath|imagine_filter('list_thumbnail')) }}" alt="">
+                            {% else %}
+                                <img src="{{ asset('media/products/coming_soon.jpg'|imagine_filter('list_thumbnail')) }}" alt="">
+                            {% endif %}
+                        </a>
 
                         <h2>{{ product.price }}</h2>
                         <p>{{ product.name }}</p>
@@ -36,10 +38,6 @@
         </div>
     {% endfor %}
 
-    <ul class="pagination">
-        <li class="active"><a href="">1</a></li>
-        <li><a href="">2</a></li>
-        <li><a href="">3</a></li>
-        <li><a href="">»</a></li>
-    </ul>
+    {{ knp_pagination_render(products) }}
+
 </div>
