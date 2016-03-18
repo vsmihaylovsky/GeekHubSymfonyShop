@@ -1,0 +1,16 @@
+AppBundle\Entity\PrivateMessage:
+    private_message_{1..30}:
+        sender: "@user_*"
+        recipient: "@user_*"
+        title: <text(30)>
+        message: <paragraph()>
+    private_message_{31..40}:
+        sender: "@admin"
+        recipient: "@user_*"
+        title: <text(30)>
+        message: <paragraph()>
+    private_message_{41..50}:
+        sender: "@user_*"
+        recipient: "@admin"
+        title: <text(30)>
+        message: <paragraph()>
