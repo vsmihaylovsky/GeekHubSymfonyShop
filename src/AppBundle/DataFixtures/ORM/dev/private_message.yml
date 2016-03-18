@@ -1,0 +1,6 @@
+AppBundle\Entity\PrivateMessage:
+    private_message_{1..50}:
+        sender: <user_or_admin_or_super_admin(@user_*, @admin, @super_admin)>
+        recipient: <user_or_admin_or_super_admin(@user_*, @admin, @super_admin)>
+        title: <text(30)>
+        message: <paragraph()>

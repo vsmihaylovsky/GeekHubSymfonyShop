@@ -50,6 +50,7 @@ class LoadFixtureData implements FixtureInterface, ContainerAwareInterface
             __DIR__.'/dev/category.yml',
             __DIR__.'/dev/product.yml',
             __DIR__.'/dev/user.yml',
+            __DIR__.'/dev/private_message.yml',
         ];
     }
 
@@ -68,5 +69,23 @@ class LoadFixtureData implements FixtureInterface, ContainerAwareInterface
         $user = new User();
         $encoder = $this->container->get('security.password_encoder');
         return $encoder->encodePassword($user, $plainPassword);
+    }
+
+    /**
+     * @param User $user
+     * @param User $admin
+     * @param User $super_admin
+     * @return User
+     */
+    public function user_or_admin_or_super_admin(User $user, User $admin, User $super_admin)
+    {
+        if (mt_rand(1, 100) > 20) {
+            return $user;
+        } elseif (mt_rand(1, 100) > 50) {
+            return $admin;
+        } else {
+            return $super_admin;
+        }
+
     }
 }
