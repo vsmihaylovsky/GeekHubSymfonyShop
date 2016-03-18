@@ -1,0 +1,115 @@
+mainmenu:
+    home: Home
+    logout: Logout
+    login_registration: Login/Registration
+
+security:
+    username: Username
+    email: Email
+    username_email: Username or email
+    password: Password
+    password_confirmation: Repeat password
+    login_form_header: Login to your account
+    register_form_header: New user registration
+    login_register_or: OR
+    login:
+        facebook: Login with Facebook
+        google: Login with Google
+        vk: Login with VK
+
+user_info:
+    user_info: User info
+    messages: Messages
+    received: Received
+    sent: Sent
+
+private_message:
+    send: Send
+    title: Title
+    message: Message
+    message_for: Message for
+    from: From
+    to: To
+    subject: Subject
+    time: Time
+    set_read: Set read
+    set_unread: Set unread
+    delete: Delete
+
+page:
+  name:
+   products: Products
+   products.edit: Products Edit
+   attributes: Attributes
+   attributes.edit: Attributes Edit
+   categories: Categories
+   categories.edit: Categories Edit
+  warning:
+    youMustSaveProductFirst: You must save product first.
+
+table:
+  edit: Edit
+  products:
+    name: Name
+    type: Type
+    category: Category
+    description: Description
+    qty: Quantity
+    price: Price
+    priceSpecial: SpecialPrice
+    rating: Rating
+    available: Available
+    createdAt: Created
+    updatedAt: Updated
+    deletedAt: Deleted
+    addNew: Add new product
+  attributes:
+    name: Name
+    type: Type
+    filterable: Filterable
+    edit: Edit
+    addNew: Add new attribute
+  categories:
+    title: Title
+    parent: Parent Category
+    created: Created
+    edit: Edit
+    addNew: Add new category
+
+DataTable:
+    lengthMenu: Display _MENU_ records per page
+    zeroRecords: Nothing found - sorry
+    info: Showing page _PAGE_ of _PAGES_
+    infoEmpty: No records available
+    infoFiltered: (filtered from _MAX_ total records)
+    search: Search:
+    paginate:
+      first: First
+      last: Last
+      next: Next
+      previous: Previous
+
+Name: Name
+Enter product name: Enter product name
+Category: Category
+Choose category: Choose category
+Description: Description
+Price: Price
+Price special: Price special
+Qty: Quantity
+Available: Available
+Save: Save
+Title: Title
+Enter category title: Enter category title
+Parent: Parent
+without parent category: without parent category
+Attributes: Attributes
+Enter attribute name: Enter attribute name
+Type: Type
+select: select
+text: text
+Filterable: Filterable
+true: true
+false: false
+Attribute option: Attribute option
+Enter option: Enter option

@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="my_user_provider.class">AppBundle\Security\Core\User\FOSUBUserProvider</parameter>
+    </parameters>
+
+    <services>
+
+        <service id="my_user_provider" class="%my_user_provider.class%">
+            <argument type="service" id="fos_user.user_manager"/>
+            <argument type="collection">
+                <argument key="facebook">facebook_id</argument>
+                <argument key="google">google_id</argument>
+                <argument key="vkontakte">vkontakte_id</argument>
+            </argument>
+        </service>
+
+        <service id="app.user_voter"
+                 class="AppBundle\Security\UserVoter"
+                 public="false"
+        >
+            <argument type="service" id="security.access.decision_manager"/>
+
+            <tag name="security.voter"/>
+        </service>
+
+        <service id="app.twig_extension"
+                 class="AppBundle\Twig\AppExtension"
+                 public="false">
+            <tag name="twig.extension"/>
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="security.token_storage"/>
+        </service>
+
+        <service id="app.private_message_voter"
+                 class="AppBundle\Security\PrivateMessageVoter"
+                 public="false"
+        >
+            <argument type="service" id="security.access.decision_manager"/>
+
+            <tag name="security.voter"/>
+        </service>
+
+        <service id="app.private_messages_service" class="AppBundle\Services\PrivateMessagesService">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="form.factory"/>
+            <argument type="service" id="router"/>
+        </service>
+
+        <service id="app.media_handler" class="AppBundle\Services\MediaHandler">
+            <argument type="service" id="liip_imagine.cache.manager"/>
+        </service>
+
+        <service id="app.attributes_handler" class="AppBundle\Services\AttributesHandler">
+            <argument type="service" id="doctrine"/>
+        </service>
+
+        <service id="app.doctrine_subscriber" class="AppBundle\EventListener\DoctrineEventSubscriber">
+            <tag name="doctrine.event_subscriber" connection="default" />
+            <argument type="service" id="doctrine"/>
+            <argument type="service" id="app.media_handler"/>
+        </service>
+
+    </services>
+
+</container>

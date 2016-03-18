@@ -1,0 +1,31 @@
+{% extends 'AppBundle:shop:user-info.html.twig' %}
+
+{% block content %}
+        <div class="col-sm-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {{ privateMessage.recipient.username }}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ privateMessage.title }}
+                    <div class="fr">{{ privateMessage.sentTime|date("d.m.Y H:i") }}</div>
+                </div>
+                <div class="panel-body">
+                    {{ privateMessage.message|nl2br }}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <section id="form"><!--form-->
+                <div class="shop-form">
+                    <h2> {{ 'private_message.message_for'|trans }}: {{ privateMessage.recipient.username }}</h2>
+                    {{ form(form) }}
+                </div>
+            </section>
+        </div>
+{% endblock %}
+

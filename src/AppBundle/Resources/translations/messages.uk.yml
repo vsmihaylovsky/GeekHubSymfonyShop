@@ -1,0 +1,113 @@
+mainmenu:
+    home: Головна
+    logout: Вихід
+    login_registration: Вхід/Реєстрація
+
+security:
+    username: Ім'я користувача
+    email: Електронна адреса
+    username_email: Ім'я користувача або електронна адреса
+    password: Пароль
+    password_confirmation: Підтвердіть пароль
+    login_form_header: Увійти у свій аккаунт
+    register_form_header: Реєстрація нового користувача
+    login_register_or: Або
+    login:
+        facebook: Увійти за допомогою Facebook
+        google: Увійти за допомогою Google
+        vk: Увійти за допомогою VK
+
+user_info:
+    user_info: Іформація про користувача
+    messages: Повідомлення
+    received: Отримані
+    sent: Відіслані
+
+private_message:
+    send: Відправити
+    title: Заголовок
+    message: Повідомлення
+    message_for: Повідомлення для
+    from: Від
+    to: Для
+    subject: Тема
+    time: Час
+    set_read: Відмітити як прочитане
+    set_unread: Відмітити як непрочитане
+    delete: Видалити
+
+page:
+  name:
+   products: Товари
+   products.edit: Редагування продуктів
+   attributes: Атрибути
+   attributes.edit: Редагування атрибутів
+   categories: Категорії
+   categories.edit: Редагування категорії
+  warning:
+    youMustSaveProductFirst: Ви повинні спершу зберегти продукт.
+
+table:
+  edit: Редагувати
+  products:
+    name: Назва
+    type: Тип
+    category: Категорія
+    description: Опис
+    qty: Кількість
+    price: Ціна
+    priceSpecial: Спецціна
+    rating: Рейтинг
+    available: Доступність
+    createdAt: Створений
+    updatedAt: Змінений
+    deletedAt: Видалений
+    addNew: Додати новий продукт
+  attributes:
+    name: Назва
+    type: Тип
+    filterable: Як фільтр
+    edit: Редагувати
+    addNew: Додати новий атрибут
+  categories:
+    title: Назва
+    parent: Вкладена в
+    created: Створена
+    edit: Редагувати
+    addNew: Додати нову категорію
+
+DataTable:
+    lengthMenu: Показувати _MENU_ записів на сторінку
+    zeroRecords: Нічого не знайдено - вибачте
+    info: Показано сторінку _PAGE_ з _PAGES_
+    infoEmpty: Записи не доступні
+    infoFiltered: (відфільровано загалом зі _MAX_ записів)
+    search: Шукати:
+    paginate:
+      first: Перший
+      last: Останній
+      next: Наступний
+      previous: Попередній
+
+Name: Назва
+Enter product name: Введіть назву продукта
+Category: Категорія
+Choose category: Віберіть категорію
+Description: Опис
+Price: Ціна
+Price special: Спеціальна ціна
+Qty: Кількість
+Available: Доступність
+Save: Зберегти
+Title: Назва
+Enter category title: Введіть назву категорії
+Parent: Входить до
+without parent category: коренева
+Attributes: Атрибути
+Enter attribute name: Введіть назву артибута
+Type: Тип
+select: список
+text: текс
+Filterable: Чи фільтрується
+Attribute option: Опції атрибута
+Enter option: Введіть опцію

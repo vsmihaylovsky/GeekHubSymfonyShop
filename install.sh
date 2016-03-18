@@ -39,12 +39,15 @@ function gulp_run
 function database_update
 {
 	echo -e "\n\033[1m\033[34m Updating database \033[0m"
-	app/console doctrine:schema:drop --force
+    app/console doctrine:database:drop --force
+    app/console doctrine:database:create
 	app/console doctrine:schema:update --force
 }
 
 function load_fixtures
 {
+	database_update
+
 	echo -e "\n\033[1m\033[34m Loading fixtures \033[0m"
 
 	case ${input_argument} in
@@ -74,6 +77,8 @@ function clear_cache
             app/console cache:clear -e prod
             app/console cache:clear -e dev
             app/console cache:clear -e test
+            rm -rf app/cache/*
+            rm -rf app/logs/*
     esac
 }
 
