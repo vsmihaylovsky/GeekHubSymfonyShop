@@ -1,0 +1,66 @@
+{% extends 'AppBundle:admin:default.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{ 'page.name.users'|trans }}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ 'page.name.users'|trans }}
+                </div>
+                <div class="panel-body">
+                    <div class="dataTable_wrapper">
+                        <table width="100%" class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>{{ 'table.users.username'|trans }}</th>
+                                <th>{{ 'table.users.email'|trans }}</th>
+                                <th>{{ 'table.users.manager'|trans }}</th>
+                                <th>{{ 'table.users.enabled'|trans }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for user in users %}
+                                <tr>
+                                    <td>
+                                        {{ user.username }}
+                                    </td>
+                                    <td>
+                                        {{ user.email }}
+                                    </td>
+                                    <td>
+                                        {% if 'ROLE_SUPER_ADMIN' in user.roles %}
+                                            <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                                        {% elseif 'ROLE_ADMIN' in user.roles %}
+                                            <a class="glyphicon glyphicon-check"
+                                               href="{{ path('set_user_role', {'id': user.id}) }}"></a>
+                                        {% else %}
+                                            <a class="glyphicon glyphicon-unchecked"
+                                               href="{{ path('set_admin_role', {'id': user.id}) }}"></a>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if 'ROLE_SUPER_ADMIN' in user.roles %}
+                                            <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                                        {% elseif user.enabled %}
+                                            <a class="glyphicon glyphicon-check"
+                                               href="{{ path('switch_active', {'id': user.id}) }}"></a>
+                                        {% else %}
+                                            <a class="glyphicon glyphicon-unchecked"
+                                               href="{{ path('switch_active', {'id': user.id}) }}"></a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

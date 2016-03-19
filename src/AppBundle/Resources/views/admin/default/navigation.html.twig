@@ -247,6 +247,11 @@
                 <li>
                     <a href="{{ path('admin_attributes') }}"><i class="fa fa-edit fa-fw"></i> {{ 'page.name.attributes'|trans }}</a>
                 </li>
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                <li>
+                    <a href="{{ path('admin_users') }}"><i class="fa fa-edit fa-fw"></i> {{ 'page.name.users'|trans }}</a>
+                </li>
+                {% endif %}
                 <li>
                     <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
