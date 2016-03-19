@@ -57,7 +57,7 @@ class Category
     private $attributes;
 
     /**
-     * @ORM\OneToMany(targetEntity="Product", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="Product", mappedBy="category", cascade={"persist"})
      */
     private $products;
 
@@ -275,6 +275,7 @@ class Category
      */
     public function addProduct(Product $product)
     {
+        $product->setCategory($this);
         $this->products[] = $product;
 
         return $this;
