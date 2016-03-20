@@ -13,6 +13,7 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Twig_Extension;
 use Twig_SimpleFunction;
+use Twig_Environment;
 
 class AppExtension extends Twig_Extension
 {
@@ -29,6 +30,10 @@ class AppExtension extends Twig_Extension
     {
         return [
             new Twig_SimpleFunction('getUnreadPrivateMessagesCount', [$this, 'getUnreadPrivateMessagesCount']),
+            new Twig_SimpleFunction('categories',
+                    [$this, 'getCategories'],
+                    ['needs_environment' => true, 'is_safe' => ['html']]
+            )
         ];
     }
 
@@ -43,5 +48,15 @@ class AppExtension extends Twig_Extension
     public function getUnreadPrivateMessagesCount()
     {
         return $this->em->getRepository('AppBundle:PrivateMessage')->getUnreadPrivateMessagesCount($this->tokenStorage->getToken()->getUser());
+    }
+
+    public function getCategories(Twig_Environment $twig)
+    {
+        return $twig->render(
+            'AppBundle:shop:default/widgetCategories.html.twig',
+            array(
+                'categories' => $this->em->getRepository('AppBundle:Category')->getFirstLevel(),
+            )
+        );
     }
 }

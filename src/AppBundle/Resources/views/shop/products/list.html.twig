@@ -1,0 +1,9 @@
+<div class="features_items">
+    <h2 class="title text-center">Features Items</h2>
+    {% for product in products %}
+        {{ include('AppBundle:shop/products:product.html.twig', {'product': product}) }}
+    {% endfor %}
+    <div class="col-sm-12" style="text-align: center">
+        {{ knp_pagination_render(products) }}
+    </div>
+</div>

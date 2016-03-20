@@ -1,6 +1,0 @@
-AppBundle\Entity\Category:
-  category{1..10}:
-    title (unique): <word()>
-    parent: 50%? @category*
-    attributes: 3x @attribute*
-    createdAt: <dateTimeBetween('-1 years', 'now')>

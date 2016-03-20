@@ -1,7 +1,25 @@
 <div class="product-details"><!--product-details-->
     <div class="col-sm-5">
         <div class="view-product">
-            <img src="{{ asset('images/product-details/1.jpg') }}" alt="">
+            {% set picFirst = null %}
+            {% set picMain = null %}
+
+            {% for key, picture in product.pictures %}
+                {% if key == 0 %}
+                    {% set picFirst = picture %}
+                {% endif %}
+                {% if picture.isMain is not null %}
+                    {% set picMain = picture %}
+                {% endif %}
+            {% endfor %}
+
+            {% if picMain != null %}
+                <img src="{{ asset(picMain.getWebPath|imagine_filter('full_thumbnail')) }}" alt="">
+            {% elseif picFirst != null %}
+                <img src="{{ asset(picFirst.getWebPath|imagine_filter('full_thumbnail')) }}" alt="">
+            {% else %}
+                <img src="{{ asset('media/products/coming_soon.jpg'|imagine_filter('full_thumbnail')) }}" alt="">
+            {% endif %}
             <h3>ZOOM</h3>
         </div>
         <div id="similar-product" class="carousel slide" data-ride="carousel">
@@ -9,21 +27,10 @@
             <!-- Wrapper for slides -->
             <div class="carousel-inner">
                 <div class="item active">
-                    <a href=""><img src="{{ asset('images/product-details/similar1.jpg') }}" alt=""></a>
-                    <a href=""><img src="{{ asset('images/product-details/similar2.jpg') }}" alt=""></a>
-                    <a href=""><img src="{{ asset('images/product-details/similar3.jpg') }}" alt=""></a>
+                    {% for key, picture in product.pictures %}
+                        <a href=""><img src="{{ asset(picture.getWebPath|imagine_filter('mini_thumbnail')) }}" alt=""></a>
+                    {% endfor %}
                 </div>
-                <div class="item">
-                    <a href=""><img src="{{ asset('images/product-details/similar1.jpg') }}" alt=""></a>
-                    <a href=""><img src="{{ asset('images/product-details/similar2.jpg') }}" alt=""></a>
-                    <a href=""><img src="{{ asset('images/product-details/similar3.jpg') }}" alt=""></a>
-                </div>
-                <div class="item">
-                    <a href=""><img src="{{ asset('images/product-details/similar1.jpg') }}" alt=""></a>
-                    <a href=""><img src="{{ asset('images/product-details/similar2.jpg') }}" alt=""></a>
-                    <a href=""><img src="{{ asset('images/product-details/similar3.jpg') }}" alt=""></a>
-                </div>
-
             </div>
 
             <!-- Controls -->
@@ -39,21 +46,27 @@
     <div class="col-sm-7">
         <div class="product-information"><!--/product-information-->
             <img src="{{ asset('images/product-details/new.jpg') }}" class="newarrival" alt="">
-            <h2>Anne Klein Sleeveless Colorblock Scuba</h2>
-            <p>Web ID: 1089772</p>
+            <h2>{{ product.name }}</h2>
+            <p>Web ID: {{ product.id }}</p>
             <img src="{{ asset('images/product-details/rating.png') }}" alt="">
 								<span>
-									<span>US $59</span>
+									<span>{{ product.price }}</span>
 									<label>Quantity:</label>
-									<input type="text" value="3">
+									<input name="qty" type="text" value="1">
 									<button type="button" class="btn btn-fefault cart">
                                         <i class="fa fa-shopping-cart"></i>
                                         Add to cart
                                     </button>
 								</span>
-            <p><b>Availability:</b> In Stock</p>
-            <p><b>Condition:</b> New</p>
-            <p><b>Brand:</b> E-SHOPPER</p>
+            <p><b>Availability:</b>
+                {% if product.available %}
+                    In Stock
+                {% else %}
+                    Out of Stock
+                {% endif %}
+            </p>
+            {#<p><b>Condition:</b> New</p>#}
+            <p><b>Category:</b> {{ product.category.title }}</p>
             <a href=""><img src="{{ asset('images/product-details/share.png') }}" class="share img-responsive" alt=""></a>
         </div><!--/product-information-->
     </div>

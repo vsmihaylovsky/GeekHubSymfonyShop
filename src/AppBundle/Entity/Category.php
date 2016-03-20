@@ -51,13 +51,21 @@ class Category
     private $title;
 
     /**
+     * @var string
+     *
+     * @Gedmo\Slug(fields={"title"}, updatable=true, separator="_")
+     * @ORM\Column(name="slug", type="string", length=255, unique=true)
+     */
+    private $slug;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Attribute", inversedBy="categories")
      * @ORM\JoinTable(name="categories_attributes")
      */
     private $attributes;
 
     /**
-     * @ORM\OneToMany(targetEntity="Product", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="Product", mappedBy="category", cascade={"persist"})
      */
     private $products;
 
@@ -275,6 +283,7 @@ class Category
      */
     public function addProduct(Product $product)
     {
+        $product->setCategory($this);
         $this->products[] = $product;
 
         return $this;
@@ -322,5 +331,28 @@ class Category
     public function getHasProducts()
     {
         return $this->hasProducts;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Category
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

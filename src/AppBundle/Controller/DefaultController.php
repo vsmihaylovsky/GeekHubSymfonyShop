@@ -17,25 +17,81 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return [];
+        $em = $this->getDoctrine()->getManager();
+        $latest = $em->getRepository('AppBundle:Product')->getLatestProductsWithPictures();
+
+        return [
+            'latestProducts'  => $latest,
+        ];
     }
 
     /**
-     * @Route("/items", name="items")
-     * @Template("AppBundle:shop:items.html.twig")
+     * @param $page
+     * @param Request $request
+     * @return Response
+     * @Route("/products/{pager}/{page}", name="products",
+     *     defaults={"pager": "page", "page": 1},
+     *     requirements={
+     *          "pager": "page",
+     *          "page": "[1-9]\d*"
+     *     })
+     * @Template("AppBundle:shop:products.html.twig")
      */
-    public function itemsAction(Request $request)
+    public function productsAction($page, Request $request)
     {
-        return [];
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->getRepository('AppBundle:Product')->getProductsWithPictures();
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($query, $page, $limit = 9);
+
+        return [
+            'products'  => $pagination,
+        ];
     }
 
     /**
-     * @Route("/details", name="details")
+     * @param $filter
+     * @param $param
+     * @param $page
+     * @param Request $request
+     * @return Response
+     * @Route("/products/{filter}/{param}/{pager}/{page}", name="products_filtered",
+     *     defaults={"filter": "none", "param": "none", "pager": "page", "page": 1},
+     *     requirements={
+     *          "filter": "none|category",
+     *          "pager": "page",
+     *          "page": "[1-9]\d*"
+     *     })
+     * @Template("AppBundle:shop:products.html.twig")
+     */
+    public function productsFilteredAction($filter, $param, $page, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->getRepository('AppBundle:Product')->getFilteredProductsWithPictures($filter, $param);
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($query, $page, $limit = 9);
+
+        return [
+            'products'  => $pagination,
+        ];
+    }
+
+    /**
+     * @param $slug
+     * @param Request $request
+     * @Route("/product/{slug}", name="product_view")
      * @Template("AppBundle:shop:details.html.twig")
+     * @return array
      */
-    public function detailsAction(Request $request)
+    public function detailsAction($slug, Request $request)
     {
-        return [];
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository('AppBundle:Product')
+            ->getProductWithDep($slug);
+
+        return [
+            'product'  => $product,
+        ];
     }
 
     /**
