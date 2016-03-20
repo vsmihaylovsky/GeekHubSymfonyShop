@@ -32,6 +32,12 @@ gulp.task('images', function () {
         ])
         .pipe(gulp.dest('web/images/'))
 });
+gulp.task('media', function () {
+    return gulp.src([
+            'web-src/media/**/*'
+        ])
+        .pipe(gulp.dest('web/media/'))
+});
 gulp.task('fonts', function () {
     return gulp.src([
             'bower_components/bootstrap/fonts/*',
@@ -62,11 +68,11 @@ gulp.task('pages-js', function() {
         .pipe(gulp.dest('web/js/'));
 });
 gulp.task('clean', function () {
-    return gulp.src(['web/css/*', 'web/js/*', 'web/images/*', 'web/fonts/*'])
+    return gulp.src(['web/css/*', 'web/js/*', 'web/images/*', 'web/media/*', 'web/fonts/*'])
         .pipe(clean());
 });
 gulp.task('default', ['clean'], function () {
-    var tasks = ['images', 'fonts', 'less', 'sass', 'lib-js', 'pages-js'];
+    var tasks = ['images', 'media', 'fonts', 'less', 'sass', 'lib-js', 'pages-js'];
     tasks.forEach(function (val) {
         gulp.start(val);
     });

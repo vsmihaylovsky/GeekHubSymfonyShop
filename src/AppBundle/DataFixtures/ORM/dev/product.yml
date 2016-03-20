@@ -1,13 +1,12 @@
 AppBundle\Entity\ProductPicture:
-  productPicture{1..12}:
+  prodPicture{1..12}:
     path: "product<current()>.jpg"
 
 AppBundle\Entity\Product:
-  product{1..10}:
+  product{1..70}:
     name (unique): <sentence(2, true)>
-    category: @category*
     description: <text(200)>
-    pictures: 2x @productPicture*
+    pictures: 2x @prodPicture*
     qty: <numberBetween(1, 100)>
     price: <randomFloat(2, 0, 100)>
     priceSpecial: <randomFloat(2, 0, $price)>

@@ -39,6 +39,30 @@ class ProductController extends Controller
     }
 
     /**
+     * @param $filter
+     * @param $param
+     * @return Response
+     * @Route("/products/{filter}/{param}", name="admin_products_filtered",
+     *     defaults={"filter": "none", "param": "none"},
+     *     requirements={
+     *          "filter": "none|category"
+     *     })
+     * @Template("AppBundle:admin/products:products.html.twig")
+     */
+    public function productsFilteredAction($filter, $param, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $products = $em->getRepository('AppBundle:Product')
+            ->getFilteredProductsWithPictures($filter, $param)
+            ->getResult();
+
+        return [
+            'products'  => $products,
+            'delete' => $this->createForm(DeleteType::class, null, [])->createView(),
+        ];
+    }
+
+    /**
      * @param $id
      * @param $action
      * @param Request $request

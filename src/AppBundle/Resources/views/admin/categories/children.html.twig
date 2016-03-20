@@ -13,6 +13,11 @@
                     <a class="btn btn-default btn-sm" role="button" href="{{ path('admin_category_edit', {'action': 'edit', 'id': child.id}) }}">
                         {{ 'table.categories.edit'|trans }}
                     </a>
+                    {% if child.hasProducts == 1 %}
+                        <a class="btn btn-default btn-sm" role="button" href="{{ path('admin_products_filtered', {'filter': 'category', 'param': child.slug}) }}">
+                            Show products
+                        </a>
+                    {% endif %}
                     {% if child.children.isEmpty() %}
                         <button type="button"
                                 class="btn btn-danger btn-sm"
