@@ -21,7 +21,7 @@ class ProductRepository extends EntityRepository
             ->getQuery();
     }
 
-    public function getProductWithDep($id)
+    public function getProductWithDep($slug)
     {
         return $this->createQueryBuilder('p')
             ->select('p, pic')
@@ -29,9 +29,41 @@ class ProductRepository extends EntityRepository
             ->leftJoin('p.pictures', 'pic')
             ->leftJoin('p.attributeValues', 'attrV')
             ->leftJoin('attrV.attribute', 'attr')
-            ->where('p.id = ?1')
-            ->setParameter(1, $id)
+            ->where('p.slug = ?1')
+            ->setParameter(1, $slug)
             ->getQuery()
             ->getSingleResult();
+    }
+
+    public function getLatestProductsWithPictures($max = 9)
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p, pic')
+            ->leftJoin('p.pictures', 'pic')
+            ->orderBy('p.createdAt', 'DESC')
+            ->setFirstResult(1)
+            ->setMaxResults($max)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getFilteredProductsWithPictures($filter, $param)
+    {
+        $query = $this->createQueryBuilder('p')
+            ->select('p, pic, cat')
+            ->leftJoin('p.pictures', 'pic')
+            ->leftJoin('p.category', 'cat')
+            ->orderBy('p.createdAt', 'DESC');
+
+        switch ($filter) {
+            case 'category':
+                $query
+                    ->where('cat.slug = ?1')
+                    ->setParameter(1, $param);
+                break;
+
+        }
+
+        return $query->getQuery();
     }
 }

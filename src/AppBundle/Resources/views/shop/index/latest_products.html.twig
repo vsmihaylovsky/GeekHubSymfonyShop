@@ -1,0 +1,6 @@
+<div class="latest_products">
+    <h2 class="title text-center">Latest products</h2>
+    {% for product in latestProducts %}
+        {{ include('AppBundle:shop/products:product.html.twig', {'product': product}) }}
+    {% endfor %}
+</div>

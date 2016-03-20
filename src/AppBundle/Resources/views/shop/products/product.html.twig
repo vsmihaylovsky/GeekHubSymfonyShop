@@ -1,0 +1,34 @@
+<div class="col-sm-4">
+    <div class="product-image-wrapper">
+        <div class="single-products">
+            <div class="productinfo text-center">
+
+                {% set picFirst = null %}
+                {% set picMain = null %}
+
+                {% for key, picture in product.pictures %}
+                    {% if key == 0 %}
+                        {% set picFirst = picture %}
+                    {% endif %}
+                    {% if picture.isMain is not null %}
+                        {% set picMain = picture %}
+                    {% endif %}
+                {% endfor %}
+
+                <a href="{{ path('product_view', {'slug': product.slug}) }}">
+                    {% if picMain != null %}
+                        <img src="{{ asset(picMain.getWebPath|imagine_filter('list_thumbnail')) }}" alt="">
+                    {% elseif picFirst != null %}
+                        <img src="{{ asset(picFirst.getWebPath|imagine_filter('list_thumbnail')) }}" alt="">
+                    {% else %}
+                        <img src="{{ asset('media/products/coming_soon.jpg'|imagine_filter('list_thumbnail')) }}" alt="">
+                    {% endif %}
+                </a>
+
+                <h2>{{ product.price }}</h2>
+                <p>{{ product.name }}</p>
+                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+            </div>
+        </div>
+    </div>
+</div>

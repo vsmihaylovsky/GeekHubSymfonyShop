@@ -17,22 +17,27 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return [];
+        $em = $this->getDoctrine()->getManager();
+        $latest = $em->getRepository('AppBundle:Product')->getLatestProductsWithPictures();
+
+        return [
+            'latestProducts'  => $latest,
+        ];
     }
 
     /**
      * @param $page
      * @param Request $request
      * @return Response
-     * @Route("/items/{pager}/{page}", name="items",
+     * @Route("/products/{pager}/{page}", name="products",
      *     defaults={"pager": "page", "page": 1},
      *     requirements={
      *          "pager": "page",
      *          "page": "[1-9]\d*"
      *     })
-     * @Template("AppBundle:shop:items.html.twig")
+     * @Template("AppBundle:shop:products.html.twig")
      */
-    public function itemsAction($page, Request $request)
+    public function productsAction($page, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $query = $em->getRepository('AppBundle:Product')->getProductsWithPictures();
@@ -45,20 +50,44 @@ class DefaultController extends Controller
     }
 
     /**
-     * @param $id
+     * @param $filter
+     * @param $param
+     * @param $page
      * @param Request $request
-     * @Route("/product/{id}", name="product_view",
+     * @return Response
+     * @Route("/products/{filter}/{param}/{pager}/{page}", name="products_filtered",
+     *     defaults={"filter": "none", "param": "none", "pager": "page", "page": 1},
      *     requirements={
-     *      "id": "\d+"
+     *          "filter": "none|category",
+     *          "pager": "page",
+     *          "page": "[1-9]\d*"
      *     })
+     * @Template("AppBundle:shop:products.html.twig")
+     */
+    public function productsFilteredAction($filter, $param, $page, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->getRepository('AppBundle:Product')->getFilteredProductsWithPictures($filter, $param);
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($query, $page, $limit = 9);
+
+        return [
+            'products'  => $pagination,
+        ];
+    }
+
+    /**
+     * @param $slug
+     * @param Request $request
+     * @Route("/product/{slug}", name="product_view")
      * @Template("AppBundle:shop:details.html.twig")
      * @return array
      */
-    public function detailsAction($id, Request $request)
+    public function detailsAction($slug, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $product = $em->getRepository('AppBundle:Product')
-            ->getProductWithDep($id);
+            ->getProductWithDep($slug);
 
         return [
             'product'  => $product,

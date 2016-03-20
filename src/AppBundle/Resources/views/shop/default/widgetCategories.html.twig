@@ -11,7 +11,9 @@
                                 {{ category.title }}
                             </a>
                         {% else %}
-                            <a href="#">{{ category.title }}</a>
+                            <a href="{{ path('products_filtered', {'filter': 'category', 'param': category.slug}) }}">
+                                {{ category.title }}
+                            </a>
                         {% endif %}
                     </h4>
                 </div>
@@ -20,7 +22,11 @@
                         <div class="panel-body">
                             <ul>
                                 {% for subcategory in category.children %}
-                                    <li><a href="#">{{ subcategory.title }}</a></li>
+                                    <li>
+                                        <a href="{{ path('products_filtered', {'filter': 'category', 'param': subcategory.slug}) }}">
+                                            {{ subcategory.title }}
+                                        </a>
+                                    </li>
                                 {% endfor %}
                             </ul>
                         </div>
