@@ -34,8 +34,7 @@ class LoadFixtureData implements FixtureInterface, ContainerAwareInterface
 
     public function getFixtures()
     {
-        $kernel = $GLOBALS['kernel'];
-        $env = $kernel->getEnvironment();
+        $env = $this->container->getParameter('kernel.environment');
 
         echo "\nEnvironment is: " . $env . "\n\n";
 
@@ -131,7 +130,7 @@ class LoadFixtureData implements FixtureInterface, ContainerAwareInterface
         ];
     }
 
-    protected function dataMap($entity, $start, $stop) {
+    public function dataMap($entity, $start, $stop) {
         return array_map(
             function($n, $entity) {
                 return sprintf('@'.$entity.'%d', $n);
