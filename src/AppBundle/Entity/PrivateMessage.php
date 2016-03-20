@@ -233,10 +233,10 @@ class PrivateMessage
     /**
      * Set sender
      *
-     * @param \AppBundle\Entity\User $sender
+     * @param User $sender
      * @return PrivateMessage
      */
-    public function setSender(\AppBundle\Entity\User $sender = null)
+    public function setSender(User $sender = null)
     {
         $this->sender = $sender;
 
@@ -256,10 +256,10 @@ class PrivateMessage
     /**
      * Set recipient
      *
-     * @param \AppBundle\Entity\User $recipient
+     * @param User $recipient
      * @return PrivateMessage
      */
-    public function setRecipient(\AppBundle\Entity\User $recipient = null)
+    public function setRecipient(User $recipient = null)
     {
         $this->recipient = $recipient;
 

@@ -11,9 +11,22 @@ namespace AppBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Nelmio\Alice\Fixtures;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use AppBundle\Entity\User;
 
-class LoadUserData implements FixtureInterface
+class LoadFixtureData implements FixtureInterface, ContainerAwareInterface
 {
+    /**
+     * @var ContainerInterface
+     */
+    private $container;
+
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->container = $container;
+    }
+
     public function load(ObjectManager $manager)
     {
         Fixtures::load($this->getFixtures(), $manager, ['providers' => [$this]]);
@@ -35,6 +48,8 @@ class LoadUserData implements FixtureInterface
         return [
             __DIR__.'/dev/attribute.yml',
             __DIR__.'/dev/product.yml',
+            __DIR__.'/dev/user.yml',
+            __DIR__.'/dev/private_message.yml',
             $this->categories(),
         ];
     }
@@ -124,5 +139,30 @@ class LoadUserData implements FixtureInterface
             range($start, $stop),
             array_fill_keys(range($start, $stop), $entity)
         );
+    }
+
+    public function password($plainPassword)
+    {
+        $user = new User();
+        $encoder = $this->container->get('security.password_encoder');
+        return $encoder->encodePassword($user, $plainPassword);
+    }
+
+    /**
+     * @param User $user
+     * @param User $admin
+     * @param User $super_admin
+     * @return User
+     */
+    public function user_or_admin_or_super_admin(User $user, User $admin, User $super_admin)
+    {
+        if (mt_rand(1, 100) > 20) {
+            return $user;
+        } elseif (mt_rand(1, 100) > 50) {
+            return $admin;
+        } else {
+            return $super_admin;
+        }
+
     }
 }

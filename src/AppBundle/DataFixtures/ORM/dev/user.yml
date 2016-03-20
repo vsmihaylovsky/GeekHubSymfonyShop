@@ -1,0 +1,18 @@
+AppBundle\Entity\User:
+    user_{1..20}:
+        username: <name()>
+        password: <password(1)>
+        email: <email()>
+        enabled: true
+    admin:
+        username: admin
+        password: <password(1)>
+        email: <email()>
+        roles: <(['ROLE_ADMIN'])>
+        enabled: true
+    super_admin:
+        username: super_admin
+        password: <password(1)>
+        email: <email()>
+        roles: <(['ROLE_SUPER_ADMIN'])>
+        enabled: true
