@@ -79,6 +79,7 @@ table:
   users:
     username: Ім'я користувача
     email: Електронна адреса
+    social_network: Соціальна мережа
     manager: Менеджер
     enabled: Активний
 

@@ -79,6 +79,7 @@ table:
   users:
     username: Username
     email: Email
+    social_network: Social network
     manager: Manager
     enabled: Enabled
 
