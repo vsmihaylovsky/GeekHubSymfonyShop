@@ -386,20 +386,17 @@ table.dataTable thead .sorting:after {
     color: lightgrey;
 }
 
-label.row-per-page {
+label.rows-per-page {
     font-weight: normal;
     text-align: left;
     white-space: nowrap;
     margin-bottom: 0;
 }
 
-label.row-per-page select{
+label.rows-per-page select{
     display: inline-block;
     width: auto;
     vertical-align: middle;
-}
-
-.row-per-page:after {
 }
 
 .dataTable_wrapper .data-table {
