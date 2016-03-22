@@ -32,15 +32,14 @@ class UserController extends Controller
      */
     public function showAllAction(Request $request)
     {
-        $em    = $this->get('doctrine.orm.entity_manager');
-        $dql   = "SELECT u FROM AppBundle:User u";
-        $query = $em->createQuery($dql);
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->getRepository('AppBundle:User')->getAllQuery($request->query->get('search'));
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1),/*page number*/
-            10,/*limit per page*/
+            $request->query->getInt('row-per-page', 10),
             ['defaultSortFieldName' => 'u.id', 'defaultSortDirection' => 'asc']
         );
 
@@ -60,12 +59,7 @@ class UserController extends Controller
         $user->setRoles([]);
         $this->getDoctrine()->getManager()->flush();
 
-        return $this->redirect($this->generateUrl('admin_users',
-            [
-                'sort' => $request->query->get('sort', 'u.id'),
-                'direction' => $request->query->get('direction', 'asc'),
-                'page' => $request->query->getInt('page', 1),
-            ]));
+        return $this->redirect($this->generateUrl('admin_users', $request->query->all()));
     }
 
     /**
@@ -81,12 +75,7 @@ class UserController extends Controller
         $user->setRoles(['ROLE_ADMIN']);
         $this->getDoctrine()->getManager()->flush();
 
-        return $this->redirect($this->generateUrl('admin_users',
-        [
-            'sort' => $request->query->get('sort', 'u.id'),
-            'direction' => $request->query->get('direction', 'asc'),
-            'page' => $request->query->getInt('page', 1),
-        ]));
+        return $this->redirect($this->generateUrl('admin_users', $request->query->all()));
    }
 
     /**
@@ -102,11 +91,6 @@ class UserController extends Controller
         $user->setEnabled(!$user->isEnabled());
         $this->getDoctrine()->getManager()->flush();
 
-        return $this->redirect($this->generateUrl('admin_users',
-        [
-            'sort' => $request->query->get('sort', 'u.id'),
-            'direction' => $request->query->get('direction', 'asc'),
-            'page' => $request->query->getInt('page', 1),
-        ]));
+        return $this->redirect($this->generateUrl('admin_users', $request->query->all()));
    }
 }

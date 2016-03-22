@@ -386,17 +386,38 @@ table.dataTable thead .sorting:after {
     color: lightgrey;
 }
 
-.dataTable_wrapper .data-table {
+label.row-per-page {
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
     margin-bottom: 0;
+}
+
+label.row-per-page select{
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+}
+
+.row-per-page:after {
+}
+
+.dataTable_wrapper .data-table {
+    margin-top: 10px;
+    margin-bottom: 2px;
+}
+
+.dataTable_wrapper .page-count {
+    float: left;
+    padding-top: 8px;
 }
 
 .dataTable_wrapper .navigation {
     float: right;
-    /*margin: 0;*/
 }
 
 .dataTable_wrapper .navigation ul.pagination {
-    margin: 2px;
+    margin: 0;
 }
 
 .dataTable_wrapper table.user-data-table th {

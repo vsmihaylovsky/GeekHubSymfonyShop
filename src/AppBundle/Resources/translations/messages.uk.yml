@@ -95,6 +95,11 @@ DataTable:
       last: Останній
       next: Наступний
       previous: Попередній
+    search2: Пошук
+    lengthMenu2_1: Показувати
+    lengthMenu2_2: записів на сторінку
+    info2_1: Показано сторінку
+    info2_2: з
 
 Name: Назва
 Enter product name: Введіть назву продукта

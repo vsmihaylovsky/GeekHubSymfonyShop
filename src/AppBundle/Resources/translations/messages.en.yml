@@ -95,6 +95,11 @@ DataTable:
       last: Last
       next: Next
       previous: Previous
+    search2: Search
+    lengthMenu2_1: Display
+    lengthMenu2_2: records per page
+    info2_1: Showing page
+    info2_2: of
 
 Name: Name
 Enter product name: Enter product name
