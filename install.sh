@@ -89,7 +89,7 @@ function all_run
 	composer_install
 	npm_bower_install
 	gulp_run
-	database_update
+#	database_update
 	load_fixtures
 	clear_cache
 }

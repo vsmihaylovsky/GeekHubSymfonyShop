@@ -95,24 +95,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/checkout", name="checkout")
-     * @Template("AppBundle:shop:checkout.html.twig")
-     */
-    public function checkoutAction(Request $request)
-    {
-        return [];
-    }
-
-    /**
-     * @Route("/cart", name="cart")
-     * @Template("AppBundle:shop:cart.html.twig")
-     */
-    public function cartAction(Request $request)
-    {
-        return [];
-    }
-
-    /**
      * @Route("/login1", name="login1")
      * @Template("AppBundle:shop:login.html.twig")
      */
