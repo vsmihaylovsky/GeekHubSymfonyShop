@@ -44,6 +44,7 @@ page:
    attributes.edit: Редагування атрибутів
    categories: Категорії
    categories.edit: Редагування категорії
+   users: Користувачі
   warning:
     youMustSaveProductFirst: Ви повинні спершу зберегти продукт.
 
@@ -75,6 +76,12 @@ table:
     created: Створена
     edit: Редагувати
     addNew: Додати нову категорію
+  users:
+    username: Ім'я користувача
+    email: Електронна адреса
+    social_network: Соціальна мережа
+    manager: Менеджер
+    enabled: Активний
 
 DataTable:
     lengthMenu: Показувати _MENU_ записів на сторінку
@@ -88,6 +95,11 @@ DataTable:
       last: Останній
       next: Наступний
       previous: Попередній
+    search2: Пошук
+    lengthMenu2_1: Показувати
+    lengthMenu2_2: записів на сторінку
+    info2_1: Показано сторінку
+    info2_2: з
 
 Name: Назва
 Enter product name: Введіть назву продукта

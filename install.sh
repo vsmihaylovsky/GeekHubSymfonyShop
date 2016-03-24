@@ -56,7 +56,7 @@ function load_fixtures
             ;;
         * ) echo -e " Used -\033[1m\033[32m dev \033[0m"
             app/console doctrine:fixtures:load -n
-            app/console fos:user:create admin admin@example.com 123 --super-admin
+#            app/console fos:user:create admin admin@example.com 123 --super-admin
     esac
 }
 

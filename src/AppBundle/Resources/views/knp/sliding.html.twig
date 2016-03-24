@@ -1,0 +1,54 @@
+{% if pageCount > 0 %}
+    <ul class="pagination">
+        {% if first is defined and current != first %}
+            <li class="first">
+                <a href="{{ path(route, query|merge({(pageParameterName): first})) }}">{{ 'DataTable.paginate.first'|trans }}</a>
+            </li>
+        {% else %}
+            <li class="first disabled">
+                <a href="">{{ 'DataTable.paginate.first'|trans }}</a>
+            </li>
+        {% endif %}
+
+        {% if previous is defined %}
+            <li class="previous">
+                <a href="{{ path(route, query|merge({(pageParameterName): previous})) }}">{{ 'DataTable.paginate.previous'|trans }}</a>
+            </li>
+        {% else %}
+            <li class="previous disabled">
+                <a href="">{{ 'DataTable.paginate.previous'|trans }}</a>
+            </li>
+        {% endif %}
+
+        {% for page in pagesInRange %}
+            {% if page != current %}
+                <li class="page">
+                    <a href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
+                </li>
+            {% else %}
+                <li class="active"><a href="">{{ page }}</a></li>
+            {% endif %}
+
+        {% endfor %}
+
+        {% if next is defined %}
+            <li class="next">
+                <a href="{{ path(route, query|merge({(pageParameterName): next})) }}">{{ 'DataTable.paginate.next'|trans }}</a>
+            </li>
+        {% else %}
+            <li class="next disabled">
+                <a href="">{{ 'DataTable.paginate.next'|trans }}</a>
+            </li>
+        {% endif %}
+
+        {% if last is defined and current != last %}
+            <li class="last">
+                <a href="{{ path(route, query|merge({(pageParameterName): last})) }}">{{ 'DataTable.paginate.last'|trans }}</a>
+            </li>
+        {% else %}
+            <li class="last disabled">
+                <a href="">{{ 'DataTable.paginate.last'|trans }}</a>
+            </li>
+        {% endif %}
+    </ul>
+{% endif %}

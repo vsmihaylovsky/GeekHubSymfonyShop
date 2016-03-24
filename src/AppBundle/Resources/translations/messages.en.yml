@@ -44,6 +44,7 @@ page:
    attributes.edit: Attributes Edit
    categories: Categories
    categories.edit: Categories Edit
+   users: Users
   warning:
     youMustSaveProductFirst: You must save product first.
 
@@ -75,6 +76,12 @@ table:
     created: Created
     edit: Edit
     addNew: Add new category
+  users:
+    username: Username
+    email: Email
+    social_network: Social network
+    manager: Manager
+    enabled: Enabled
 
 DataTable:
     lengthMenu: Display _MENU_ records per page
@@ -88,6 +95,11 @@ DataTable:
       last: Last
       next: Next
       previous: Previous
+    search2: Search
+    lengthMenu2_1: Display
+    lengthMenu2_2: records per page
+    info2_1: Showing page
+    info2_2: of
 
 Name: Name
 Enter product name: Enter product name

@@ -352,3 +352,128 @@ table.dataTable thead .sorting:after {
 .panel-yellow a:hover {
     color: #df8a13;
 }
+
+.dataTable_wrapper table.data-table thead tr th {
+    cursor: pointer;
+    padding: 0;
+}
+
+.dataTable_wrapper table.data-table thead tr th a {
+    display: block;
+    padding: 8px;
+    color: black;
+    text-decoration: none;
+}
+
+.dataTable_wrapper table.data-table thead tr th a.asc:after {
+    content: "\e155";
+    float: right;
+    font-family: 'Glyphicons Halflings';
+    color: grey;
+}
+
+.dataTable_wrapper table.data-table thead tr th a.desc:after {
+    content: "\e156";
+    float: right;
+    font-family: 'Glyphicons Halflings';
+    color: grey;
+}
+
+.dataTable_wrapper table.data-table thead tr th a.sortable:after {
+    content: "\e150";
+    float: right;
+    font-family: 'Glyphicons Halflings';
+    color: lightgrey;
+}
+
+label.rows-per-page {
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    margin-bottom: 0;
+}
+
+label.rows-per-page select{
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+}
+
+.dataTable_wrapper .data-table {
+    margin-top: 10px;
+    margin-bottom: 2px;
+}
+
+.dataTable_wrapper .page-count {
+    float: left;
+    padding-top: 8px;
+}
+
+.dataTable_wrapper .navigation {
+    float: right;
+}
+
+.dataTable_wrapper .navigation ul.pagination {
+    margin: 0;
+}
+
+.dataTable_wrapper table.user-data-table th {
+    text-align: left;
+    vertical-align: middle;
+}
+
+.dataTable_wrapper table.user-data-table th.user-username {
+    width: 30%;
+}
+
+.dataTable_wrapper table.user-data-table th.user-email {
+    width: 25%;
+}
+
+.dataTable_wrapper table.user-data-table th.user-social_network {
+    width: 15%;
+}
+
+.dataTable_wrapper table.user-data-table th.user-roles {
+    width: 15%;
+}
+
+.dataTable_wrapper table.user-data-table th.user-enabled {
+    width: 15%;
+}
+
+.dataTable_wrapper table.user-data-table td {
+    vertical-align: middle;
+}
+
+.dataTable_wrapper table.user-data-table td.user-username {
+    text-align: left;
+}
+
+.dataTable_wrapper table.user-data-table td.user-email {
+    text-align: left;
+}
+
+.dataTable_wrapper table.user-data-table td.user-social_network {
+    text-align: center;
+}
+
+.dataTable_wrapper table.user-data-table td.user-roles {
+    text-align: center;
+}
+
+.dataTable_wrapper table.user-data-table td.user-enabled {
+    text-align: center;
+}
+
+.dataTable_wrapper table.user-data-table td.user-social_network i.fa-facebook {
+    color: #3B5998;
+}
+
+.dataTable_wrapper table.user-data-table td.user-social_network i.fa-google {
+    color: #DD4B39;
+}
+
+.dataTable_wrapper table.user-data-table td.user-social_network i.fa-vk {
+    color: #587EA3;
+}
