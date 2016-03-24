@@ -49,6 +49,7 @@ class LoadFixtureData implements FixtureInterface, ContainerAwareInterface
             __DIR__.'/dev/product.yml',
             __DIR__.'/dev/user.yml',
             __DIR__.'/dev/private_message.yml',
+            __DIR__.'/dev/review.yml',
             $this->categories(),
         ];
     }
