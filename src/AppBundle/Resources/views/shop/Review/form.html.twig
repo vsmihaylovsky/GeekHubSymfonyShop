@@ -1,0 +1,23 @@
+{% extends 'AppBundle:shop:default.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/star-rating.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block body_content %}
+    <div class="row">
+        <div class="col-sm-4 col-sm-offset-4">
+            <section id="form"><!--form-->
+                <div class="shop-form">
+                    {{ form(form) }}
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/star-rating.js') }}"></script>
+{% endblock javascripts %}

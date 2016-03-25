@@ -14,7 +14,8 @@ gulp.task('less', function() {
             'bower_components/morris.js/morris.css',
             'bower_components/animate.css/animate.min.css',
             'bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css',
-            'bower_components/bootstrap-social/bootstrap-social.css'
+            'bower_components/bootstrap-social/bootstrap-social.css',
+            'bower_components/bootstrap-star-rating/css/star-rating.css'
         ])
         .pipe(less({compress: true}))
         .pipe(gulp.dest('web/css/'));
@@ -62,7 +63,8 @@ gulp.task('pages-js', function() {
             'bower_components/raphael/raphael-min.js',
             'bower_components/datatables/media/js/jquery.dataTables.min.js',
             'bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js',
-            'bower_components/datatables-responsive/js/dataTables.responsive.js'
+            'bower_components/datatables-responsive/js/dataTables.responsive.js',
+            'bower_components/bootstrap-star-rating/js/star-rating.js'
         ])
         .pipe(minifyJs())
         .pipe(gulp.dest('web/js/'));

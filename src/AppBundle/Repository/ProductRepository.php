@@ -21,14 +21,12 @@ class ProductRepository extends EntityRepository
             ->getQuery();
     }
 
-    public function getProductWithDep($slug)
+    public function getProductWithJoins($slug)
     {
         return $this->createQueryBuilder('p')
-            ->select('p, pic')
-            ->leftJoin('p.category', 'cat')
+            ->select('p, pic, rev')
             ->leftJoin('p.pictures', 'pic')
-            ->leftJoin('p.attributeValues', 'attrV')
-            ->leftJoin('attrV.attribute', 'attr')
+            ->leftJoin('p.reviews', 'rev')
             ->where('p.slug = ?1')
             ->setParameter(1, $slug)
             ->getQuery()

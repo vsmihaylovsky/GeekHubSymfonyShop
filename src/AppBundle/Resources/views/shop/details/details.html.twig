@@ -22,25 +22,28 @@
             {% endif %}
             <h3>ZOOM</h3>
         </div>
-        <div id="similar-product" class="carousel slide" data-ride="carousel">
+        {% if product.pictures|length > 0 %}
+            <div id="similar-product" class="carousel slide" data-ride="carousel">
 
-            <!-- Wrapper for slides -->
-            <div class="carousel-inner">
-                <div class="item active">
-                    {% for key, picture in product.pictures %}
-                        <a href=""><img src="{{ asset(picture.getWebPath|imagine_filter('mini_thumbnail')) }}" alt=""></a>
-                    {% endfor %}
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    <div class="item active">
+                        {% for key, picture in product.pictures %}
+                            <a href=""><img src="{{ asset(picture.getWebPath|imagine_filter('mini_thumbnail')) }}"
+                                            alt=""></a>
+                        {% endfor %}
+                    </div>
                 </div>
-            </div>
 
-            <!-- Controls -->
-            <a class="left item-control" href="#similar-product" data-slide="prev">
-                <i class="fa fa-angle-left"></i>
-            </a>
-            <a class="right item-control" href="#similar-product" data-slide="next">
-                <i class="fa fa-angle-right"></i>
-            </a>
-        </div>
+                <!-- Controls -->
+                <a class="left item-control" href="#similar-product" data-slide="prev">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                <a class="right item-control" href="#similar-product" data-slide="next">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+        {% endif %}
 
     </div>
     <div class="col-sm-7">
@@ -51,8 +54,8 @@
             <img src="{{ asset('images/product-details/rating.png') }}" alt="">
 								<span>
 									<span>{{ product.price }}</span>
-									<label>Quantity:</label>
-									<input name="qty" type="text" value="1">
+									<label for="qty">Quantity:</label>
+									<input name="qty" id="qty" type="text" value="1">
 									<button type="button" class="btn btn-fefault cart">
                                         <i class="fa fa-shopping-cart"></i>
                                         Add to cart
@@ -67,7 +70,58 @@
             </p>
             {#<p><b>Condition:</b> New</p>#}
             <p><b>Category:</b> {{ product.category.title }}</p>
-            <a href=""><img src="{{ asset('images/product-details/share.png') }}" class="share img-responsive" alt=""></a>
+            <a href=""><img src="{{ asset('images/product-details/share.png') }}" class="share img-responsive"
+                            alt=""></a>
         </div><!--/product-information-->
     </div>
+</div>
+<div class="category-tab shop-details-tab"><!--category-tab-->
+    <div class="col-sm-12">
+        <ul class="nav nav-tabs">
+            <li {% if tab == 'details' %} class="active" {% endif %}><a
+                        href="{{ path('product_view', {'slug': product.slug, 'tab': 'details'}) }}">Details</a></li>
+            <li {% if tab == 'reviews' %} class="active" {% endif %}><a
+                        href="{{ path('product_view', {'slug': product.slug, 'tab': 'reviews'}) }}">Reviews
+                    ({{ product.reviews | length }})</a></li>
+        </ul>
+    </div>
+    {% if tab == 'details' %}
+        <div class="col-sm-12">
+            {{ product.description|nl2br }}
+        </div>
+    {% elseif tab == 'reviews' %}
+        <div class="col-sm-12">
+            {% for review in product.reviews %}
+                <div class="review">
+                    <div class="review-heading">
+                        <span class="review-heading-item">
+                            <i class="fa fa-user"></i>{{ review.user.username }}
+                        </span>
+                        <span class="review-heading-item">
+                            <i class="fa fa-clock-o"></i>{{ review.createdAt|date("h:i") }}
+                        </span>
+                        <span class="review-heading-item">
+                            <i class="fa fa-calendar-o"></i>{{ review.createdAt|date("d.m.Y") }}
+                        </span>
+                        <div class="rating-container rating-gly-star" data-content="">
+                            <div class="rating-stars" style="width: {{ review.rating * 20 }}%"
+                                 data-content=""></div>
+                        </div>
+                    </div>
+                    <div class="review-body">
+                        {{ review.reviewText|nl2br }}
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="review">
+            <p><b>{{ 'review.form_header'|trans }}</b></p>
+
+            <section id="form"><!--form-->
+                <div class="shop-form">
+                    {{ form(form) }}
+                </div>
+            </section>
+            </div>
+        </div>
+    {% endif %}
 </div>

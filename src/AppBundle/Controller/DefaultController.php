@@ -2,10 +2,15 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Product;
+use AppBundle\Entity\Review;
+use AppBundle\Form\Type\ReviewType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -13,9 +18,10 @@ class DefaultController extends Controller
 {
     /**
      * @Route("/", name="homepage")
+     * @Method("GET")
      * @Template("AppBundle:shop:index.html.twig")
      */
-    public function indexAction(Request $request)
+    public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
         $latest = $em->getRepository('AppBundle:Product')->getLatestProductsWithPictures();
@@ -35,6 +41,7 @@ class DefaultController extends Controller
      *          "pager": "page",
      *          "page": "[1-9]\d*"
      *     })
+     * @Method("GET")
      * @Template("AppBundle:shop:products.html.twig")
      */
     public function productsAction($page, Request $request)
@@ -77,20 +84,30 @@ class DefaultController extends Controller
     }
 
     /**
-     * @param $slug
-     * @param Request $request
-     * @Route("/product/{slug}", name="product_view")
-     * @Template("AppBundle:shop:details.html.twig")
+     * @param Product $product
+     * @param $tab
      * @return array
+     * @Route("/product/{slug}/{tab}", defaults={"tab" = "details"}, name="product_view")
+     * @Method("GET")
+     * @ParamConverter("product", class="AppBundle:Product", options={
+     *     "repository_method" = "getProductWithJoins",
+     *     "map_method_signature" = true
+     * })
+     * @Template("AppBundle:shop:details.html.twig")
      */
-    public function detailsAction($slug, Request $request)
+    public function detailsAction(Product $product, $tab)
     {
-        $em = $this->getDoctrine()->getManager();
-        $product = $em->getRepository('AppBundle:Product')
-            ->getProductWithDep($slug);
-
+        $newReview = new Review();
+        $form = $this->createForm(ReviewType::class, $newReview, [
+            'action' => $this->generateUrl('create_review', ['slug' => $product->getSlug()]),
+            'method' => 'POST',
+        ])
+            ->add('save', SubmitType::class, ['label' => 'review.send']);
+        
         return [
             'product'  => $product,
+            'tab'  => $tab,
+            'form' => $form->createView(),
         ];
     }
 

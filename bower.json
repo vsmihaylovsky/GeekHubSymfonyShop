@@ -27,6 +27,7 @@
     "datatables": "^1.10.11",
     "datatables-plugins": "^1.10.11",
     "datatables-responsive": "^2.0.2",
-    "bootstrap-social": "^4.12.0"
+    "bootstrap-social": "^4.12.0",
+    "bootstrap-star-rating": "~3.5.7"
   }
 }

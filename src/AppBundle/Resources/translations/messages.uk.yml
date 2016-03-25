@@ -101,6 +101,10 @@ DataTable:
     info2_1: Показано сторінку
     info2_2: з
 
+review:
+  send: Відправити
+  form_header: Напишіть свій відгук
+
 Name: Назва
 Enter product name: Введіть назву продукта
 Category: Категорія

@@ -101,6 +101,10 @@ DataTable:
     info2_1: Showing page
     info2_2: of
 
+review:
+  send: Send
+  form_header: Write your review
+
 Name: Name
 Enter product name: Enter product name
 Category: Category

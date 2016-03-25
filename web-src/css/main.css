@@ -1113,7 +1113,9 @@ h2.title {
 **************************/
 
 .product-details {
+    margin-bottom: 40px;
     overflow: hidden;
+    margin-top: 10px;
 }
 
 #similar-product {
@@ -1123,12 +1125,6 @@ h2.title {
 #reviews {
     padding-left: 25px;
     padding-right: 25px;
-}
-
-.product-details {
-    margin-bottom: 40px;
-    overflow: hidden;
-    margin-top: 10px;
 }
 
 .view-product {
@@ -2506,4 +2502,33 @@ table.private-messages-table td.private-message-subject {
 
 table.private-messages-table td.private-message-time {
     text-align: right;
+}
+
+.review {
+    padding-left: 25px;
+    padding-right: 25px;
+    margin-bottom: 30px;
+
+}
+
+.review-heading {
+    margin-bottom: 20px;
+}
+
+.review-heading-item {
+    padding-right: 15px;
+}
+
+.review-heading-item .fa{
+    padding-right: 8px;
+    color: #FE980F;
+}
+
+.category-tab .rating-container .rating-stars {
+    color: #FE980F;
+}
+
+.category-tab .rating-container .rating-stars:before {
+    content: attr(data-content);
+    text-shadow: 0 0 0 rgba(0, 0, 0, 0);
 }
