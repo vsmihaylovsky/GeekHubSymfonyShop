@@ -15,6 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity
  * @ORM\Table(name="reviews")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ReviewRepository")
  */
 class Review
 {
@@ -47,13 +48,13 @@ class Review
 
     /**
      * @ORM\ManyToOne(targetEntity="Product", inversedBy="reviews")
-     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id", nullable=false)
      */
     private $product;
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="reviews")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $user;
 
@@ -142,11 +143,11 @@ class Review
     /**
      * Set product
      *
-     * @param Product $product
+     * @param \AppBundle\Entity\Product $product
      *
      * @return Review
      */
-    public function setProduct(Product $product = null)
+    public function setProduct(\AppBundle\Entity\Product $product)
     {
         $this->product = $product;
 
@@ -156,7 +157,7 @@ class Review
     /**
      * Get product
      *
-     * @return Product
+     * @return \AppBundle\Entity\Product
      */
     public function getProduct()
     {
@@ -166,11 +167,11 @@ class Review
     /**
      * Set user
      *
-     * @param User $user
+     * @param \AppBundle\Entity\User $user
      *
      * @return Review
      */
-    public function setUser(User $user = null)
+    public function setUser(\AppBundle\Entity\User $user)
     {
         $this->user = $user;
 

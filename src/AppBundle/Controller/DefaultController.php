@@ -69,6 +69,7 @@ class DefaultController extends Controller
      *          "pager": "page",
      *          "page": "[1-9]\d*"
      *     })
+     * @Method("GET")
      * @Template("AppBundle:shop:products.html.twig")
      */
     public function productsFilteredAction($filter, $param, $page, Request $request)
@@ -97,17 +98,9 @@ class DefaultController extends Controller
      */
     public function detailsAction(Product $product, $tab)
     {
-        $newReview = new Review();
-        $form = $this->createForm(ReviewType::class, $newReview, [
-            'action' => $this->generateUrl('create_review', ['slug' => $product->getSlug()]),
-            'method' => 'POST',
-        ])
-            ->add('save', SubmitType::class, ['label' => 'review.send']);
-        
         return [
             'product'  => $product,
             'tab'  => $tab,
-            'form' => $form->createView(),
         ];
     }
 

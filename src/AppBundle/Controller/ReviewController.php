@@ -19,13 +19,51 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @Route("/review")
+ */
+
 class ReviewController extends Controller
 {
+    /**
+     * @param $slug
+     * @param $page
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Route("/{slug}/{page}", defaults={"page" = 1}, name="show_product_reviews")
+     * @Method("GET")
+     * @Template("AppBundle:shop/Review:product_reviews.html.twig")
+     */
+    public function showProductReviewsAction($slug, $page)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->getRepository('AppBundle:Review')->getProductReviewsQuery($slug);
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $page,/*page number*/
+            5
+        );
+
+        $review = new Review();
+        $form = $this->createForm(ReviewType::class, $review, [
+            'action' => $this->generateUrl('create_review', ['slug' => $slug]),
+            'method' => 'POST',
+        ])
+            ->add('save', SubmitType::class, ['label' => 'review.send']);
+
+        return
+            [
+                'pagination' => $pagination,
+                'form' => $form->createView(),
+            ];
+    }
+
     /**
      * @param Request $request
      * @param Product $product
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @Route("review/{slug}", name="create_review")
+     * @Route("/{slug}", name="create_review")
      * @ParamConverter("product", class="AppBundle:Product")
      * @Method("POST")
      * @Template("AppBundle:shop/Review:form.html.twig")

@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity
  * @ORM\Table(name="private_message")
- * @ORM\Entity(repositoryClass="AppBundle\Entity\PrivateMessageRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\PrivateMessageRepository")
  */
 class PrivateMessage
 {
@@ -28,13 +28,13 @@ class PrivateMessage
 
     /**
      * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="sender_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="sender_id", referencedColumnName="id", nullable=false)
      */
     private $sender;
 
     /**
      * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="recipient_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="recipient_id", referencedColumnName="id", nullable=false)
      */
     private $recipient;
 
@@ -85,7 +85,7 @@ class PrivateMessage
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -96,6 +96,7 @@ class PrivateMessage
      * Set sentTime
      *
      * @param \DateTime $sentTime
+     *
      * @return PrivateMessage
      */
     public function setSentTime($sentTime)
@@ -108,7 +109,7 @@ class PrivateMessage
     /**
      * Get sentTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getSentTime()
     {
@@ -119,6 +120,7 @@ class PrivateMessage
      * Set title
      *
      * @param string $title
+     *
      * @return PrivateMessage
      */
     public function setTitle($title)
@@ -131,7 +133,7 @@ class PrivateMessage
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -142,6 +144,7 @@ class PrivateMessage
      * Set message
      *
      * @param string $message
+     *
      * @return PrivateMessage
      */
     public function setMessage($message)
@@ -154,7 +157,7 @@ class PrivateMessage
     /**
      * Get message
      *
-     * @return string 
+     * @return string
      */
     public function getMessage()
     {
@@ -165,6 +168,7 @@ class PrivateMessage
      * Set isViewed
      *
      * @param boolean $isViewed
+     *
      * @return PrivateMessage
      */
     public function setIsViewed($isViewed)
@@ -177,7 +181,7 @@ class PrivateMessage
     /**
      * Get isViewed
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsViewed()
     {
@@ -188,6 +192,7 @@ class PrivateMessage
      * Set deletedFromSent
      *
      * @param boolean $deletedFromSent
+     *
      * @return PrivateMessage
      */
     public function setDeletedFromSent($deletedFromSent)
@@ -200,7 +205,7 @@ class PrivateMessage
     /**
      * Get deletedFromSent
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getDeletedFromSent()
     {
@@ -211,6 +216,7 @@ class PrivateMessage
      * Set deletedFromReceived
      *
      * @param boolean $deletedFromReceived
+     *
      * @return PrivateMessage
      */
     public function setDeletedFromReceived($deletedFromReceived)
@@ -223,7 +229,7 @@ class PrivateMessage
     /**
      * Get deletedFromReceived
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getDeletedFromReceived()
     {
@@ -233,10 +239,11 @@ class PrivateMessage
     /**
      * Set sender
      *
-     * @param User $sender
+     * @param \AppBundle\Entity\User $sender
+     *
      * @return PrivateMessage
      */
-    public function setSender(User $sender = null)
+    public function setSender(\AppBundle\Entity\User $sender)
     {
         $this->sender = $sender;
 
@@ -246,7 +253,7 @@ class PrivateMessage
     /**
      * Get sender
      *
-     * @return \AppBundle\Entity\User 
+     * @return \AppBundle\Entity\User
      */
     public function getSender()
     {
@@ -256,10 +263,11 @@ class PrivateMessage
     /**
      * Set recipient
      *
-     * @param User $recipient
+     * @param \AppBundle\Entity\User $recipient
+     *
      * @return PrivateMessage
      */
-    public function setRecipient(User $recipient = null)
+    public function setRecipient(\AppBundle\Entity\User $recipient)
     {
         $this->recipient = $recipient;
 
@@ -269,7 +277,7 @@ class PrivateMessage
     /**
      * Get recipient
      *
-     * @return \AppBundle\Entity\User 
+     * @return \AppBundle\Entity\User
      */
     public function getRecipient()
     {

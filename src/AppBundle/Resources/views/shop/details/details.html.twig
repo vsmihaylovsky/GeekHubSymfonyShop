@@ -51,16 +51,20 @@
             <img src="{{ asset('images/product-details/new.jpg') }}" class="newarrival" alt="">
             <h2>{{ product.name }}</h2>
             <p>Web ID: {{ product.id }}</p>
-            <img src="{{ asset('images/product-details/rating.png') }}" alt="">
-								<span>
-									<span>{{ product.price }}</span>
-									<label for="qty">Quantity:</label>
-									<input name="qty" id="qty" type="text" value="1">
-									<button type="button" class="btn btn-fefault cart">
-                                        <i class="fa fa-shopping-cart"></i>
-                                        Add to cart
-                                    </button>
-								</span>
+            {#<img src="{{ asset('images/product-details/rating.png') }}" alt="">#}
+            <div class="rating-container rating-gly-star rating-xs" data-content="">
+                <div class="rating-stars" style="width: {{ getProductRating(product.slug) * 20 }}%" data-content=""></div>
+            </div>
+
+            <span>
+                <span>{{ product.price }}</span>
+                <label for="qty">Quantity:</label>
+                <input name="qty" id="qty" type="text" value="1">
+                <button type="button" class="btn btn-fefault cart">
+                    <i class="fa fa-shopping-cart"></i>
+                    Add to cart
+                </button>
+            </span>
             <p><b>Availability:</b>
                 {% if product.available %}
                     In Stock
@@ -77,12 +81,12 @@
 </div>
 <div class="category-tab shop-details-tab"><!--category-tab-->
     <div class="col-sm-12">
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs category-tab">
             <li {% if tab == 'details' %} class="active" {% endif %}><a
                         href="{{ path('product_view', {'slug': product.slug, 'tab': 'details'}) }}">Details</a></li>
             <li {% if tab == 'reviews' %} class="active" {% endif %}><a
                         href="{{ path('product_view', {'slug': product.slug, 'tab': 'reviews'}) }}">Reviews
-                    ({{ product.reviews | length }})</a></li>
+                    ({{ getProductReviewsCount(product.slug) }})</a></li>
         </ul>
     </div>
     {% if tab == 'details' %}
@@ -91,37 +95,7 @@
         </div>
     {% elseif tab == 'reviews' %}
         <div class="col-sm-12">
-            {% for review in product.reviews %}
-                <div class="review">
-                    <div class="review-heading">
-                        <span class="review-heading-item">
-                            <i class="fa fa-user"></i>{{ review.user.username }}
-                        </span>
-                        <span class="review-heading-item">
-                            <i class="fa fa-clock-o"></i>{{ review.createdAt|date("h:i") }}
-                        </span>
-                        <span class="review-heading-item">
-                            <i class="fa fa-calendar-o"></i>{{ review.createdAt|date("d.m.Y") }}
-                        </span>
-                        <div class="rating-container rating-gly-star" data-content="">
-                            <div class="rating-stars" style="width: {{ review.rating * 20 }}%"
-                                 data-content=""></div>
-                        </div>
-                    </div>
-                    <div class="review-body">
-                        {{ review.reviewText|nl2br }}
-                    </div>
-                </div>
-            {% endfor %}
-            <div class="review">
-            <p><b>{{ 'review.form_header'|trans }}</b></p>
-
-            <section id="form"><!--form-->
-                <div class="shop-form">
-                    {{ form(form) }}
-                </div>
-            </section>
-            </div>
+            {{ render(controller('AppBundle:Review:showProductReviews', { 'slug': product.slug, 'page': app.request.query.get('page', 1)})) }}
         </div>
     {% endif %}
 </div>
