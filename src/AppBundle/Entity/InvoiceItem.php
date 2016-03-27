@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="invoice_items")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\InvoiceItemsRepository")
  */
-class InvoiceItems
+class InvoiceItem
 {
     /**
      * @var int
@@ -66,7 +66,7 @@ class InvoiceItems
      *
      * @param string $qty
      *
-     * @return InvoiceItems
+     * @return
      */
     public function setQty($qty)
     {
@@ -90,7 +90,7 @@ class InvoiceItems
      *
      * @param integer $price
      *
-     * @return InvoiceItems
+     * @return
      */
     public function setPrice($price)
     {
@@ -115,7 +115,7 @@ class InvoiceItems
      *
      * @param \AppBundle\Entity\Invoice $invoice
      *
-     * @return InvoiceItems
+     * @return
      */
     public function setInvoice(Invoice $invoice = null)
     {
@@ -140,7 +140,7 @@ class InvoiceItems
      *
      * @param \AppBundle\Entity\Product $product
      *
-     * @return InvoiceItems
+     * @return
      */
     public function setProduct(Product $product = null)
     {

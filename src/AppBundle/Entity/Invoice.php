@@ -25,7 +25,7 @@ class Invoice
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="InvoiceItems", mappedBy="invoice", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="InvoiceItem", mappedBy="invoice", cascade={"persist"})
      */
     private $items;
 
@@ -313,12 +313,13 @@ class Invoice
     /**
      * Add item
      *
-     * @param \AppBundle\Entity\InvoiceItems $item
+     * @param \AppBundle\Entity\InvoiceItem $item
      *
      * @return Invoice
      */
-    public function addItem(InvoiceItems $item)
+    public function addItem(InvoiceItem $item)
     {
+        $item->setInvoice($this);
         $this->items[] = $item;
 
         return $this;
@@ -327,9 +328,9 @@ class Invoice
     /**
      * Remove item
      *
-     * @param \AppBundle\Entity\InvoiceItems $item
+     * @param \AppBundle\Entity\InvoiceItem $item
      */
-    public function removeItem(InvoiceItems $item)
+    public function removeItem(InvoiceItem $item)
     {
         $this->items->removeElement($item);
     }

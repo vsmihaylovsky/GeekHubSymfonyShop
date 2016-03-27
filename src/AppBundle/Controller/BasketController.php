@@ -2,13 +2,17 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Invoice;
 use AppBundle\Entity\Product;
+use AppBundle\Form\Type\InvoiceType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -21,7 +25,37 @@ class BasketController extends Controller
      */
     public function checkoutAction(Request $request)
     {
-        return [];
+        $invoice = $this->get('app.cart_handler')->createInvoiceEntity($request);
+
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm(InvoiceType::class, $invoice, [
+            'em' => $em,
+            'action' => $this->generateUrl('checkout'),
+            'method' => Request::METHOD_POST,
+            'attr'   => ['name' => 'checkout'],
+        ])
+            ->add('order', SubmitType::class, [
+                'label' => 'Order',
+                'attr'  => ['class' => 'btn btn-primary']
+            ]);
+
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($invoice);
+                $em->flush();
+                $response = new RedirectResponse($this->generateUrl('homepage'));
+                $response->headers->clearCookie('cart');
+
+                return $response;
+            }
+        }
+
+        return [
+            'invoice'   => $invoice,
+            'form'      => $form->createView(),
+        ];
     }
 
     /**
@@ -30,7 +64,36 @@ class BasketController extends Controller
      */
     public function cartAction(Request $request)
     {
-        return [];
+        $invoice = $this->get('app.cart_handler')->createInvoiceEntity($request);
+
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm(InvoiceType::class, $invoice, [
+                'em' => $em,
+                'action' => $this->generateUrl('cart'),
+                'method' => Request::METHOD_POST,
+                'attr'   => ['name' => 'cart'],
+            ])
+            ->add('update', SubmitType::class, [
+                'label' => 'Update',
+                'attr'  => ['class' => 'btn btn-primary']
+            ]);
+
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $cart = $this->get('app.cart_handler')->updateCart($invoice);
+                $response = new RedirectResponse($this->generateUrl('cart'));
+                $cookie = $this->get('app.cart_handler')->prepareCookie($cart);
+                $response->headers->setCookie($cookie);
+
+                return $response;
+            }
+        }
+
+        return [
+            'invoice'   => $invoice,
+            'form'      => $form->createView(),
+        ];
     }
 
     /**
@@ -47,18 +110,10 @@ class BasketController extends Controller
      */
     public function addToCartAction(Product $product, Request $request)
     {
+        $cart = $this->get('app.cart_handler')->addToCart($product, $request);
         $response = new JsonResponse();
-        $date = new \DateTime('now');
-        $date->add(new \DateInterval('P1M'));
-
-        $cart = json_decode($request->cookies->get('cart'), true);
-        $productId = $product->getId();
-        $cart[$productId] = ($cart ? array_key_exists($productId, $cart) : false)
-            ? $cart[$productId] + 1
-            : 1;
-
-        //$response->headers->clearCookie('cart');
-        $response->headers->setCookie(new Cookie('cart', json_encode($cart, 15), $date));
+        $cookie = $this->get('app.cart_handler')->prepareCookie($cart);
+        $response->headers->setCookie($cookie);
         $response->setData([
             'adding'    => 'ok',
             'cart'      => $cart ? $cart : 'empty',
@@ -81,21 +136,10 @@ class BasketController extends Controller
      */
     public function removeFromCartAction(Product $product, Request $request)
     {
-        $response = new JsonResponse();
-        $date = new \DateTime('now');
-        $date->add(new \DateInterval('P1M'));
-
-        $cart = json_decode($request->cookies->get('cart'), true);
-        $productId = $product->getId();
-        if ($cart ? array_key_exists($productId, $cart) : false) unset( $cart[$productId] );
-
-        //$response->headers->clearCookie('cart');
-        $response->headers->setCookie(new Cookie('cart', json_encode($cart, 15), $date));
-        $response->setData([
-            'remove'    => 'ok',
-            'id'        => $productId,
-            'cart'      => $cart ? $cart : 'empty',
-        ]);
+        $cart = $this->get('app.cart_handler')->removeFromCart($product, $request);
+        $response = new RedirectResponse($this->generateUrl('cart'));
+        $cookie = $this->get('app.cart_handler')->prepareCookie($cart);
+        $response->headers->setCookie($cookie);
 
         return $response;
     }
@@ -116,7 +160,14 @@ class BasketController extends Controller
             'cart' => $cart ? $cart : 'empty',
         ]);
 
-        //Handler will be here.
+        $invoice = $this->get('app.cart_handler')->createInvoiceEntity($jsonCartData);
+        /** @var Invoice $invoice */
+        $invoice->setCustomer($this->getUser());
+        if($invoice instanceof Invoice) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($invoice);
+            $em->flush();
+        }
 
         return $response;
     }
