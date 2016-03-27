@@ -9,13 +9,14 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
- * @ORM\Entity(repositoryClass="AppBundle\Entity\UserRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
 class User extends BaseUser
 {
@@ -43,6 +44,18 @@ class User extends BaseUser
 
     /** @ORM\Column(name="$vkontakte_access_token", type="string", length=255, nullable=true) */
     protected $vkontakte_access_token;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Review", mappedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $reviews;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->reviews = new ArrayCollection();
+    }
 
     /**
      * Set facebook_id
@@ -180,5 +193,39 @@ class User extends BaseUser
     public function getVkontakteAccessToken()
     {
         return $this->vkontakte_access_token;
+    }
+
+    /**
+     * Add review
+     *
+     * @param \AppBundle\Entity\Review $review
+     *
+     * @return User
+     */
+    public function addReview(\AppBundle\Entity\Review $review)
+    {
+        $this->reviews[] = $review;
+
+        return $this;
+    }
+
+    /**
+     * Remove review
+     *
+     * @param \AppBundle\Entity\Review $review
+     */
+    public function removeReview(\AppBundle\Entity\Review $review)
+    {
+        $this->reviews->removeElement($review);
+    }
+
+    /**
+     * Get reviews
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReviews()
+    {
+        return $this->reviews;
     }
 }

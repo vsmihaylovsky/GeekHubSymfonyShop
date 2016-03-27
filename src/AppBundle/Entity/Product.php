@@ -5,7 +5,6 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -122,6 +121,11 @@ class Product
     private $deletedAt;
 
     /**
+     * @ORM\OneToMany(targetEntity="Review", mappedBy="product", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $reviews;
+
+    /**
      * *******************************************************
      * Constructor
      * *******************************************************
@@ -129,6 +133,7 @@ class Product
     public function __construct() {
         $this->pictures = new ArrayCollection();
         $this->attributeValues = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
     }
 
     /**
@@ -485,5 +490,39 @@ class Product
     public function getPictures()
     {
         return $this->pictures;
+    }
+
+    /**
+     * Add review
+     *
+     * @param Review $review
+     *
+     * @return Product
+     */
+    public function addReview(Review $review)
+    {
+        $this->reviews[] = $review;
+
+        return $this;
+    }
+
+    /**
+     * Remove review
+     *
+     * @param Review $review
+     */
+    public function removeReview(Review $review)
+    {
+        $this->reviews->removeElement($review);
+    }
+
+    /**
+     * Get reviews
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReviews()
+    {
+        return $this->reviews;
     }
 }

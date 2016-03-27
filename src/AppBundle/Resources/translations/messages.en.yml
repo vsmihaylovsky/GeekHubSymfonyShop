@@ -35,6 +35,7 @@ private_message:
     set_read: Set read
     set_unread: Set unread
     delete: Delete
+    send_private_message: send private message
 
 page:
   name:
@@ -100,6 +101,11 @@ DataTable:
     lengthMenu2_2: records per page
     info2_1: Showing page
     info2_2: of
+
+review:
+  send: Send
+  form_header: Write your review
+  not_authenticated: You must login to write review
 
 Name: Name
 Enter product name: Enter product name
