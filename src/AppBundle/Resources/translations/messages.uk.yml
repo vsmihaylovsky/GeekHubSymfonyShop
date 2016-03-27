@@ -16,6 +16,7 @@ security:
         facebook: Увійти за допомогою Facebook
         google: Увійти за допомогою Google
         vk: Увійти за допомогою VK
+    phone_number: Номер телефону
 
 user_info:
     user_info: Іформація про користувача
@@ -83,6 +84,7 @@ table:
     social_network: Соціальна мережа
     manager: Менеджер
     enabled: Активний
+    phone_number: Номер телефону
 
 DataTable:
     lengthMenu: Показувати _MENU_ записів на сторінку

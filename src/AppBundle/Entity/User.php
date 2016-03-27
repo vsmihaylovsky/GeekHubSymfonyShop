@@ -45,6 +45,9 @@ class User extends BaseUser
     /** @ORM\Column(name="$vkontakte_access_token", type="string", length=255, nullable=true) */
     protected $vkontakte_access_token;
 
+    /** @ORM\Column(name="phone_number", type="string", length=255, nullable=true) */
+    protected $phoneNumber;
+    
     /**
      * @ORM\OneToMany(targetEntity="Review", mappedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
      */
@@ -198,11 +201,11 @@ class User extends BaseUser
     /**
      * Add review
      *
-     * @param \AppBundle\Entity\Review $review
+     * @param Review $review
      *
      * @return User
      */
-    public function addReview(\AppBundle\Entity\Review $review)
+    public function addReview(Review $review)
     {
         $this->reviews[] = $review;
 
@@ -212,9 +215,9 @@ class User extends BaseUser
     /**
      * Remove review
      *
-     * @param \AppBundle\Entity\Review $review
+     * @param Review $review
      */
-    public function removeReview(\AppBundle\Entity\Review $review)
+    public function removeReview(Review $review)
     {
         $this->reviews->removeElement($review);
     }
@@ -227,5 +230,29 @@ class User extends BaseUser
     public function getReviews()
     {
         return $this->reviews;
+    }
+
+    /**
+     * Set phoneNumber
+     *
+     * @param string $phoneNumber
+     *
+     * @return User
+     */
+    public function setPhoneNumber($phoneNumber)
+    {
+        $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get phoneNumber
+     *
+     * @return string
+     */
+    public function getPhoneNumber()
+    {
+        return $this->phoneNumber;
     }
 }

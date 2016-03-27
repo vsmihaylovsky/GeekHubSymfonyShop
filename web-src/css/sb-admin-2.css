@@ -423,23 +423,27 @@ label.rows-per-page select{
 }
 
 .dataTable_wrapper table.user-data-table th.user-username {
-    width: 30%;
-}
-
-.dataTable_wrapper table.user-data-table th.user-email {
     width: 25%;
 }
 
+.dataTable_wrapper table.user-data-table th.user-email {
+    width: 20%;
+}
+
+.dataTable_wrapper table.user-data-table th.user-phone_number {
+    width: 20%;
+}
+
 .dataTable_wrapper table.user-data-table th.user-social_network {
-    width: 15%;
+    width: 11%;
 }
 
 .dataTable_wrapper table.user-data-table th.user-roles {
-    width: 15%;
+    width: 12%;
 }
 
 .dataTable_wrapper table.user-data-table th.user-enabled {
-    width: 15%;
+    width: 12%;
 }
 
 .dataTable_wrapper table.user-data-table td {
@@ -451,6 +455,10 @@ label.rows-per-page select{
 }
 
 .dataTable_wrapper table.user-data-table td.user-email {
+    text-align: left;
+}
+
+.dataTable_wrapper table.user-data-table td.user-phone_number {
     text-align: left;
 }
 

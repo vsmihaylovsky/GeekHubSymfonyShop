@@ -16,6 +16,7 @@ security:
         facebook: Login with Facebook
         google: Login with Google
         vk: Login with VK
+    phone_number: Phone number
 
 user_info:
     user_info: User info
@@ -83,6 +84,7 @@ table:
     social_network: Social network
     manager: Manager
     enabled: Enabled
+    phone_number: Phone number
 
 DataTable:
     lengthMenu: Display _MENU_ records per page
