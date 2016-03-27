@@ -75,6 +75,11 @@ fos_user:
     registration:
         confirmation:
             enabled: true
+        form:
+            type: AppBundle\Form\Type\RegistrationType
+    profile:
+        form:
+            type: AppBundle\Form\Type\ProfileType
     from_email:
         address:        noreply@shop.my
         sender_name:    e-shop

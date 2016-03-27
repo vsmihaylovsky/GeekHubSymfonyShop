@@ -2,10 +2,11 @@
     <section id="form"><!--form-->
         <p>{{ 'profile.show.username'|trans({}, 'FOSUserBundle') }}: {{ user.username }}</p>
         <p>{{ 'profile.show.email'|trans({}, 'FOSUserBundle') }}: {{ user.email }}</p>
+        <p>{{ 'security.phone_number'|trans }}: {{ user.phoneNumber }}</p>
         {% if is_granted('self_edit', user) %}
             <a class="btn btn-default" href="{{ path('fos_user_profile_edit') }}"
                role="button"> {{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}</a>
-            <a class="btn btn-default" href="{{ path('fos_user_resetting_request') }}"
+            <a class="btn btn-default" href="{{ path('fos_user_change_password') }}"
                role="button"> {{ 'change_password.submit'|trans({}, 'FOSUserBundle') }}</a>
         {% endif %}
     </section>

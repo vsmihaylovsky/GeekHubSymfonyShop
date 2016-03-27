@@ -4,15 +4,18 @@ AppBundle\Entity\User:
         password: <password(1)>
         email: <email()>
         enabled: true
+        phoneNumber: <phoneNumber()>
     admin:
         username: manager
         password: <password(1)>
         email: manager@example.com
         roles: <(['ROLE_ADMIN'])>
         enabled: true
+        phoneNumber: <phoneNumber()>
     super_admin:
         username: admin
         password: <password(1)>
         email: admin@example.com
         roles: <(['ROLE_SUPER_ADMIN'])>
         enabled: true
+        phoneNumber: <phoneNumber()>
