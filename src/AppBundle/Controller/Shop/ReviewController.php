@@ -6,7 +6,7 @@
  * Time: 10:34 PM
  */
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Shop;
 
 use AppBundle\Entity\Product;
 use AppBundle\Entity\Review;
@@ -14,6 +14,7 @@ use AppBundle\Form\Type\ReviewType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -66,6 +67,7 @@ class ReviewController extends Controller
      * @Route("/{slug}", name="create_review")
      * @ParamConverter("product", class="AppBundle:Product")
      * @Method("POST")
+     * @Security("has_role('ROLE_USER')")
      * @Template("AppBundle:shop/Review:form.html.twig")
      */
     public function createAction(Request $request, Product $product)

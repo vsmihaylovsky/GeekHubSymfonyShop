@@ -95,7 +95,7 @@
         </div>
     {% elseif tab == 'reviews' %}
         <div class="col-sm-12">
-            {{ render(controller('AppBundle:Review:showProductReviews', { 'slug': product.slug, 'page': app.request.query.get('page', 1)})) }}
+            {{ render(controller('AppBundle:Shop/Review:showProductReviews', { 'slug': product.slug, 'page': app.request.query.get('page', 1)})) }}
         </div>
     {% endif %}
 </div>
