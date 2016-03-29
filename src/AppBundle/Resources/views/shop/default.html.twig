@@ -28,6 +28,24 @@
     {% block before_content %}{% endblock %}
     {% block body_content %}{% endblock %}
     {{ include( 'AppBundle:shop:default/footer.html.twig' ) }}
+
+    <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="Cart">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="cartModalLabel">Information</h4>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                    <a href="{{ path('cart') }}" class="btn btn-primary">
+                        <i class="fa fa-shopping-cart"></i> Go to Shopping Cart
+                    </a>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Continue shopping</button>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
@@ -36,4 +54,22 @@
     <script src="{{ asset('js/price-range.js') }}"></script>
     <script src="{{ asset('js/jquery.prettyPhoto.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
+    <script>
+        $(function() {
+            $('.add-to-cart').on('click', function(e){
+                e.preventDefault();
+                $.post( $(this).attr('formaction'),
+                        function( data ) {
+                            var dialog = $('#cartModal');
+                            dialog.find('.modal-body')
+                                    .html('Product <b>'
+                                           + data.product
+                                           + '</b> successfully added to your shopping cart!'
+                                    );
+                            dialog.modal('show');
+                        });
+            });
+            $('#cartModal').on('show.bs.modal', function (event){});
+        });
+    </script>
 {% endblock %}

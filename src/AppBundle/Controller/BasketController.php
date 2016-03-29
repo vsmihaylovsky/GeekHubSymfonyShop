@@ -103,7 +103,7 @@ class BasketController extends Controller
      *     requirements={
      *      "id": "\d+"
      *     })
-     * @Method({"GET"})
+     * @Method({"GET", "POST"})
      * @ParamConverter("product", class="AppBundle:Product")
      * @return JsonResponse
      * @throws \Exception
@@ -115,8 +115,7 @@ class BasketController extends Controller
         $cookie = $this->get('app.cart_handler')->prepareCookie($cart);
         $response->headers->setCookie($cookie);
         $response->setData([
-            'adding'    => 'ok',
-            'cart'      => $cart ? $cart : 'empty',
+            'product' => $product->getName()
         ]);
 
         return $response;
