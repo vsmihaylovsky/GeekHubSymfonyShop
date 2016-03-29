@@ -55,4 +55,15 @@ class ReviewRepository extends EntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
+
+    public function getAllQuery($search)
+    {
+        return $this->createQueryBuilder('r')
+            ->select('r, p, u')
+            ->innerJoin('r.product', 'p')
+            ->innerJoin('r.user', 'u')
+            ->where('r.reviewText like :review_text or p.name like :product_name or u.username like :username')
+            ->setParameters(['review_text' => "%$search%", 'product_name' => "%$search%", 'username' => "%$search%"])
+            ->getQuery();
+    }
 }
