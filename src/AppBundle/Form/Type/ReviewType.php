@@ -19,7 +19,7 @@ class ReviewType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('reviewText', TextareaType::class, ['label' => false])
+            ->add('reviewText', TextareaType::class, ['label' => 'table.reviews.review_text'])
             ->add('rating', NumberType::class, [
                 'attr' => [
                     'class' => 'rating',
@@ -28,7 +28,7 @@ class ReviewType extends AbstractType
                     'data-step' => 1,
                     'data-show-clear' => 'false'
                 ],
-                'label' => false
+                'label' => 'table.reviews.rating'
             ]);
     }
 

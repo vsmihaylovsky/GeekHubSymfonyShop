@@ -47,11 +47,16 @@ page:
    categories: Категорії
    categories.edit: Редагування категорії
    users: Користувачі
+   reviews: Відгуки
+   review.edit: Редагування відгук
   warning:
     youMustSaveProductFirst: Ви повинні спершу зберегти продукт.
 
 table:
   edit: Редагувати
+  delete: Видалити
+  delete_record: Видалити запис?
+  update: Зберегти
   products:
     name: Назва
     type: Тип
@@ -85,6 +90,12 @@ table:
     manager: Менеджер
     enabled: Активний
     phone_number: Номер телефону
+  reviews:
+    product_name: Продукт
+    username: Користувач
+    review_text: Текст
+    rating: Оцінка
+    created_at: Створено
 
 DataTable:
     lengthMenu: Показувати _MENU_ записів на сторінку

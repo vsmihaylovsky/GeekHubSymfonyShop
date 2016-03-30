@@ -20,5 +20,4 @@ class UserRepository extends EntityRepository
             ->setParameters(['username' => "%$search%", 'email' => "%$search%"])
             ->getQuery();
     }
-
 }

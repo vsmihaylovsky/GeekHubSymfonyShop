@@ -47,11 +47,16 @@ page:
    categories: Categories
    categories.edit: Categories Edit
    users: Users
+   reviews: Reviews
+   review.edit: Review edit
   warning:
     youMustSaveProductFirst: You must save product first.
 
 table:
   edit: Edit
+  delete: Delete
+  delete_record: Delete record?
+  update: Update
   products:
     name: Name
     type: Type
@@ -85,6 +90,12 @@ table:
     manager: Manager
     enabled: Enabled
     phone_number: Phone number
+  reviews:
+    product_name: Product
+    username: User
+    review_text: Text
+    rating: Rating
+    created_at: Created
 
 DataTable:
     lengthMenu: Display _MENU_ records per page

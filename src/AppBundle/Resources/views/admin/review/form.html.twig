@@ -1,0 +1,15 @@
+{% extends 'AppBundle:admin:default.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{ 'page.name.review.edit'|trans }}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+            {{ form(form) }}
+        </div>
+    </div>
+{% endblock %}
