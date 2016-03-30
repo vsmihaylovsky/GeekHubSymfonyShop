@@ -485,3 +485,67 @@ label.rows-per-page select{
 .dataTable_wrapper table.user-data-table td.user-social_network i.fa-vk {
     color: #587EA3;
 }
+
+.dataTable_wrapper table.review-data-table th {
+    text-align: left;
+    vertical-align: middle;
+}
+
+.dataTable_wrapper table.review-data-table th.review-product {
+    width: 15%;
+}
+
+.dataTable_wrapper table.review-data-table th.review-user {
+    width: 15%;
+}
+
+.dataTable_wrapper table.review-data-table th.review-text {
+}
+
+.dataTable_wrapper table.review-data-table th.review-rating {
+    width: 8%;
+}
+
+.dataTable_wrapper table.review-data-table th.review-created {
+    width: 8%;
+}
+
+.dataTable_wrapper table.review-data-table th.review-edit {
+    width: 8%;
+    padding: 8px;
+}
+
+.dataTable_wrapper table.review-data-table th.review-delete {
+    width: 8%;
+    padding: 8px;
+}
+
+.dataTable_wrapper table.review-data-table td.review-product {
+    text-align: left;
+}
+
+.dataTable_wrapper table.review-data-table td.review-user {
+    text-align: left;
+}
+
+.dataTable_wrapper table.review-data-table td.review-text {
+    text-align: left;
+}
+
+.dataTable_wrapper table.review-data-table td.review-rating {
+    text-align: right;
+}
+
+.dataTable_wrapper table.review-data-table td.review-created {
+    text-align: right;
+}
+
+.dataTable_wrapper table.review-data-table td.review-edit {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.dataTable_wrapper table.review-data-table td.review-delete {
+    text-align: center;
+    vertical-align: middle;
+}

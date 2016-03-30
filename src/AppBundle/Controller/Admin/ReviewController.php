@@ -68,7 +68,7 @@ class ReviewController extends Controller
             'action' => $this->generateUrl('update_review', ['id' => $id]),
             'method' => 'PUT',
         ])
-            ->add('save', SubmitType::class, ['label' => 'Update']);
+            ->add('save', SubmitType::class, ['label' => 'table.update']);
 
         return ['form' => $form->createView()];
     }
@@ -99,7 +99,7 @@ class ReviewController extends Controller
         if ($form->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('edit_review', ['id' => $review->getId()]));
+            return $this->redirect($this->generateUrl('admin_reviews'));
         }
 
         return ['form' => $form->createView()];

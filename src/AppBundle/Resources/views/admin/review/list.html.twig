@@ -42,25 +42,25 @@
                        class="table table-striped table-bordered table-hover data-table review-data-table">
                     <thead>
                     <tr>
-                        <th class="review-reviewname">
-                            {{ knp_pagination_sortable(pagination, 'table.reviews.product_name'|trans, 'r.product.name') }}
+                        <th class="review-product">
+                            {{ knp_pagination_sortable(pagination, 'table.reviews.product_name'|trans, 'p.name') }}
                         </th>
-                        <th class="review-email">
-                            {{ knp_pagination_sortable(pagination, 'table.reviews.username'|trans, 'r.user.username') }}
+                        <th class="review-user">
+                            {{ knp_pagination_sortable(pagination, 'table.reviews.username'|trans, 'u.username') }}
                         </th>
-                        <th class="review-phone_number">
+                        <th class="review-text">
                             {{ knp_pagination_sortable(pagination, 'table.reviews.review_text'|trans, 'r.reviewText') }}
                         </th>
-                        <th class="review-social_network">
+                        <th class="review-rating">
                             {{ knp_pagination_sortable(pagination, 'table.reviews.rating'|trans, 'r.rating') }}
                         </th>
-                        <th class="review-roles">
+                        <th class="review-created">
                             {{ knp_pagination_sortable(pagination, 'table.reviews.created_at'|trans, 'r.createdAt') }}
                         </th>
-                        <th>
+                        <th class="review-edit">
                             {{ 'table.edit' | trans }}
                         </th>
-                        <th>
+                        <th class="review-delete">
                             {{ 'table.delete' | trans }}
                         </th>
                     </tr>
@@ -68,26 +68,26 @@
                     <tbody>
                     {% for review in pagination %}
                         <tr>
-                            <td class="review-reviewname">
+                            <td class="review-product">
                                 {{ review.product.name }}
                             </td>
-                            <td class="review-email">
+                            <td class="review-user">
                                 {{ review.user.username }}
                             </td>
-                            <td class="review-phone_number">
+                            <td class="review-text">
                                 {{ review.reviewText }}
                             </td>
-                            <td class="review-social_network">
+                            <td class="review-rating">
                                 {{ review.rating }}
                             </td>
-                            <td class="review-roles">
+                            <td class="review-created">
                                 {{ review.createdAt|date("d.m.Y H:i") }}
                             </td>
-                            <td>
+                            <td class="review-edit">
                                 <a class="glyphicon glyphicon-pencil" href="{{ path('edit_review', {'id': review.id}) }}"></a>
                             </td>
-                            <td>
-                                {{ form_start(delete_forms[review.id], {attr: {onsubmit: 'return confirm("Delete record?");' }}) }}
+                            <td class="review-delete">
+                                {{ form_start(delete_forms[review.id], {attr: {onsubmit: 'return confirm("' ~ 'table.delete_record'|trans ~ '");' }}) }}
                                 {{ form_widget(delete_forms[review.id].submit, {label: ' ', attr: {class: 'glyphicon glyphicon-trash btn-link' }}) }}
                                 {{ form_end(delete_forms[review.id]) }}
                             </td>
