@@ -3,13 +3,13 @@
 {% block content %}
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">{{ 'page.name.reviews'|trans }}</h1>
+            <h1 class="page-header">{{ 'page.name.private_messages'|trans }}</h1>
         </div>
     </div>
     <div class="row">
         <div class="col-lg-12">
             <div class="dataTable_wrapper">
-                <form action="{{ path('admin_reviews') }}" method="get">
+                <form action="{{ path('admin_private_messages') }}" method="get">
                     <div class="row">
                         <div class="col-lg-6">
                             <label class="rows-per-page">
@@ -39,61 +39,61 @@
                     <input type="hidden" name="direction" value="{{ pagination.params.direction }}">
                 </form>
                 <table width="100%"
-                       class="table table-striped table-bordered table-hover data-table review-data-table">
+                       class="table table-striped table-bordered table-hover data-table private-message-data-table">
                     <thead>
                     <tr>
-                        <th class="review-product">
-                            {{ knp_pagination_sortable(pagination, 'table.reviews.product_name'|trans, 'p.name') }}
+                        <th class="private-message-sender-name">
+                            {{ knp_pagination_sortable(pagination, 'table.private_messages.sender_name'|trans, 's.username') }}
                         </th>
-                        <th class="review-user">
-                            {{ knp_pagination_sortable(pagination, 'table.reviews.username'|trans, 'u.username') }}
+                        <th class="private-message-recipient-name">
+                            {{ knp_pagination_sortable(pagination, 'table.private_messages.recipient_name'|trans, 'r.username') }}
                         </th>
-                        <th class="review-text">
-                            {{ knp_pagination_sortable(pagination, 'table.reviews.review_text'|trans, 'r.reviewText') }}
+                        <th class="private-message-title">
+                            {{ knp_pagination_sortable(pagination, 'table.private_messages.title'|trans, 'p.title') }}
                         </th>
-                        <th class="review-rating">
-                            {{ knp_pagination_sortable(pagination, 'table.reviews.rating'|trans, 'r.rating') }}
+                        <th class="private-message-message">
+                            {{ knp_pagination_sortable(pagination, 'table.private_messages.message'|trans, 'p.message') }}
                         </th>
-                        <th class="review-created">
-                            {{ knp_pagination_sortable(pagination, 'table.reviews.created_at'|trans, 'r.createdAt') }}
+                        <th class="private-message-sent-time">
+                            {{ knp_pagination_sortable(pagination, 'table.private_messages.sent_time'|trans, 'p.sentTime') }}
                         </th>
-                        <th class="review-edit">
+                        <th class="private-message-edit">
                             {{ 'table.edit' | trans }}
                         </th>
-                        <th class="review-delete">
+                        <th class="private-message-delete">
                             {{ 'table.delete' | trans }}
                         </th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for review in pagination %}
+                    {% for private_message in pagination %}
                         <tr>
-                            <td class="review-product">
-                                <a href="{{ path('product_view', {'slug': review.product.slug}) }}">
-                                    {{ review.product.name }}
+                            <td class="private-message-sender-name">
+                                <a href="{{ path('admin_users', {'search': private_message.sender.username}) }}">
+                                    {{ private_message.sender.username }}
                                 </a>
                             </td>
-                            <td class="review-user">
-                                <a href="{{ path('admin_users', {'search': review.user.username}) }}">
-                                    {{ review.user.username }}
+                            <td class="private-message-recipient-name">
+                                <a href="{{ path('admin_users', {'search': private_message.recipient.username}) }}">
+                                    {{ private_message.recipient.username }}
                                 </a>
                             </td>
-                            <td class="review-text">
-                                {{ review.reviewText }}
+                            <td class="private-message-title">
+                                {{ private_message.title }}
                             </td>
-                            <td class="review-rating">
-                                {{ review.rating }}
+                            <td class="private-message-message">
+                                {{ private_message.message }}
                             </td>
-                            <td class="review-created">
-                                {{ review.createdAt|date("d.m.Y H:i") }}
+                            <td class="private-message-sent-time">
+                                {{ private_message.sentTime|date("d.m.Y H:i") }}
                             </td>
-                            <td class="review-edit">
-                                <a class="glyphicon glyphicon-pencil" href="{{ path('edit_review', {'id': review.id}) }}"></a>
+                            <td class="private-message-edit">
+                                <a class="glyphicon glyphicon-pencil" href="{{ path('edit_private_message', {'id': private_message.id}) }}"></a>
                             </td>
-                            <td class="review-delete">
-                                {{ form_start(delete_forms[review.id], {attr: {onsubmit: 'return confirm("' ~ 'table.delete_record'|trans ~ '");' }}) }}
-                                {{ form_widget(delete_forms[review.id].submit, {label: ' ', attr: {class: 'glyphicon glyphicon-trash btn-link' }}) }}
-                                {{ form_end(delete_forms[review.id]) }}
+                            <td class="private-message-delete">
+                                {{ form_start(delete_forms[private_message.id], {attr: {onsubmit: 'return confirm("' ~ 'table.delete_record'|trans ~ '");' }}) }}
+                                {{ form_widget(delete_forms[private_message.id].submit, {label: ' ', attr: {class: 'glyphicon glyphicon-trash btn-link' }}) }}
+                                {{ form_end(delete_forms[private_message.id]) }}
                             </td>
                         </tr>
                     {% endfor %}

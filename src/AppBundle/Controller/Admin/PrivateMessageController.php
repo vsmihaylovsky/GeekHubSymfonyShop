@@ -2,50 +2,50 @@
 /**
  * Created by PhpStorm.
  * User: vad
- * Date: 2/7/16
- * Time: 11:01 PM
+ * Date: 3/30/16
+ * Time: 9:42 PM
  */
 
 namespace AppBundle\Controller\Admin;
 
-use AppBundle\Form\Type\ReviewType;
+use AppBundle\Form\Type\PrivateMessageType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use AppBundle\Entity\Review;
+use AppBundle\Entity\PrivateMessage;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Route("/admin/review")
+ * @Route("/admin/private-message")
  * @Security("has_role('ROLE_SUPER_ADMIN')")
  */
-class ReviewController extends Controller
+class PrivateMessageController extends Controller
 {
     /**
      * @param Request $request
      * @return array
-     * @Route("/", name="admin_reviews")
+     * @Route("/", name="admin_private_messages")
      * @Method("GET")
-     * @Template("AppBundle:admin/review:list.html.twig")
+     * @Template("AppBundle:admin/private_message:list.html.twig")
      */
     public function showAllAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $query = $em->getRepository('AppBundle:Review')->getAllQuery($request->query->get('search'));
+        $query = $em->getRepository('AppBundle:PrivateMessage')->getAllQuery($request->query->get('search'));
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1),/*page number*/
             $request->query->getInt('row-per-page', 10),
-            ['defaultSortFieldName' => 'r.createdAt', 'defaultSortDirection' => 'desc']
+            ['defaultSortFieldName' => 'p.sentTime', 'defaultSortDirection' => 'desc']
         );
 
-        $delete_forms = $this->get('app.delete_form_service')->getReviewsDeleteForms($pagination);
+        $delete_forms = $this->get('app.delete_form_service')->getPrivateMessagesDeleteForms($pagination);
 
         return
             [
@@ -55,17 +55,17 @@ class ReviewController extends Controller
     }
 
     /**
-     * @param Review $review
+     * @param PrivateMessage $privateMessage
      * @return array
-     * @Route("/edit/{id}", name="edit_review")
-     * @ParamConverter("review", class="AppBundle:Review")
+     * @Route("/edit/{id}", name="edit_private_message")
+     * @ParamConverter("privateMessage", class="AppBundle:PrivateMessage")
      * @Method("GET")
-     * @Template("AppBundle:admin/review:form.html.twig")
+     * @Template("AppBundle:admin/private_message:form.html.twig")
      */
-    public function editAction(Review $review)
+    public function editAction(PrivateMessage $privateMessage)
     {
-        $form = $this->createForm(ReviewType::class, $review, [
-            'action' => $this->generateUrl('update_review', ['id' => $review->getId()]),
+        $form = $this->createForm(PrivateMessageType::class, $privateMessage, [
+            'action' => $this->generateUrl('update_private_message', ['id' => $privateMessage->getId()]),
             'method' => 'PUT',
         ])
             ->add('save', SubmitType::class, ['label' => 'table.update']);
@@ -75,17 +75,17 @@ class ReviewController extends Controller
 
     /**
      * @param Request $request
-     * @param Review $review
+     * @param PrivateMessage $privateMessage
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @Route("/{id}", name="update_review")
-     * @ParamConverter("review", class="AppBundle:Review")
+     * @Route("/{id}", name="update_private_message")
+     * @ParamConverter("privateMessage", class="AppBundle:PrivateMessage")
      * @Method("PUT")
-     * @Template("AppBundle:admin/review:form.html.twig")
+     * @Template("AppBundle:admin/private_message:form.html.twig")
      */
-    public function updateAction(Request $request, Review $review)
+    public function updateAction(Request $request, PrivateMessage $privateMessage)
     {
-        $form = $this->createForm(ReviewType::class, $review, [
-            'action' => $this->generateUrl('update_review', ['id' => $review->getId()]),
+        $form = $this->createForm(PrivateMessageType::class, $privateMessage, [
+            'action' => $this->generateUrl('update_private_message', ['id' => $privateMessage->getId()]),
             'method' => 'PUT',
         ])
             ->add('save', SubmitType::class, ['label' => 'Update']);
@@ -94,7 +94,7 @@ class ReviewController extends Controller
         if ($form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirect($this->generateUrl('admin_reviews'));
+            return $this->redirect($this->generateUrl('admin_private_messages'));
         }
 
         return ['form' => $form->createView()];
@@ -102,24 +102,24 @@ class ReviewController extends Controller
 
     /**
      * @param Request $request
-     * @param Review $review
+     * @param PrivateMessage $privateMessage
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @Route("/{id}", name="delete_review")
-     * @ParamConverter("review", class="AppBundle:Review")
+     * @Route("/{id}", name="delete_private_message")
+     * @ParamConverter("privateMessage", class="AppBundle:PrivateMessage")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, Review $review)
+    public function deleteAction(Request $request, PrivateMessage $privateMessage)
     {
-        $form = $this->get('app.delete_form_service')->createReviewDeleteForm($review->getId());
+        $form = $this->get('app.delete_form_service')->createPrivateMessageDeleteForm($privateMessage->getId());
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($review);
+            $em->remove($privateMessage);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('admin_reviews'));
+        return $this->redirect($this->generateUrl('admin_private_messages'));
     }
 }
