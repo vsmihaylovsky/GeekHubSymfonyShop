@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
@@ -20,5 +20,4 @@ class UserRepository extends EntityRepository
             ->setParameters(['username' => "%$search%", 'email' => "%$search%"])
             ->getQuery();
     }
-
 }

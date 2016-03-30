@@ -423,23 +423,27 @@ label.rows-per-page select{
 }
 
 .dataTable_wrapper table.user-data-table th.user-username {
-    width: 30%;
-}
-
-.dataTable_wrapper table.user-data-table th.user-email {
     width: 25%;
 }
 
+.dataTable_wrapper table.user-data-table th.user-email {
+    width: 20%;
+}
+
+.dataTable_wrapper table.user-data-table th.user-phone_number {
+    width: 20%;
+}
+
 .dataTable_wrapper table.user-data-table th.user-social_network {
-    width: 15%;
+    width: 11%;
 }
 
 .dataTable_wrapper table.user-data-table th.user-roles {
-    width: 15%;
+    width: 12%;
 }
 
 .dataTable_wrapper table.user-data-table th.user-enabled {
-    width: 15%;
+    width: 12%;
 }
 
 .dataTable_wrapper table.user-data-table td {
@@ -451,6 +455,10 @@ label.rows-per-page select{
 }
 
 .dataTable_wrapper table.user-data-table td.user-email {
+    text-align: left;
+}
+
+.dataTable_wrapper table.user-data-table td.user-phone_number {
     text-align: left;
 }
 
@@ -476,4 +484,132 @@ label.rows-per-page select{
 
 .dataTable_wrapper table.user-data-table td.user-social_network i.fa-vk {
     color: #587EA3;
+}
+
+.dataTable_wrapper table.review-data-table th {
+    text-align: left;
+    vertical-align: middle;
+}
+
+.dataTable_wrapper table.review-data-table th.review-product {
+    width: 15%;
+}
+
+.dataTable_wrapper table.review-data-table th.review-user {
+    width: 15%;
+}
+
+.dataTable_wrapper table.review-data-table th.review-text {
+}
+
+.dataTable_wrapper table.review-data-table th.review-rating {
+    width: 8%;
+}
+
+.dataTable_wrapper table.review-data-table th.review-created {
+    width: 8%;
+}
+
+.dataTable_wrapper table.review-data-table th.review-edit {
+    width: 8%;
+    padding: 8px;
+}
+
+.dataTable_wrapper table.review-data-table th.review-delete {
+    width: 8%;
+    padding: 8px;
+}
+
+.dataTable_wrapper table.review-data-table td.review-product {
+    text-align: left;
+}
+
+.dataTable_wrapper table.review-data-table td.review-user {
+    text-align: left;
+}
+
+.dataTable_wrapper table.review-data-table td.review-text {
+    text-align: left;
+}
+
+.dataTable_wrapper table.review-data-table td.review-rating {
+    text-align: right;
+}
+
+.dataTable_wrapper table.review-data-table td.review-created {
+    text-align: right;
+}
+
+.dataTable_wrapper table.review-data-table td.review-edit {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.dataTable_wrapper table.review-data-table td.review-delete {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.dataTable_wrapper table.private-message-data-table th {
+    text-align: left;
+    vertical-align: middle;
+}
+
+.dataTable_wrapper table.private-message-data-table th.private-message-sender-name {
+    width: 10%;
+}
+
+.dataTable_wrapper table.private-message-data-table th.private-message-recipient-name {
+    width: 10%;
+}
+
+.dataTable_wrapper table.private-message-data-table th.private-message-title {
+    width: 10%;
+}
+
+.dataTable_wrapper table.private-message-data-table th.private-message-message {
+}
+
+.dataTable_wrapper table.private-message-data-table th.private-message-sent-time {
+    width: 8%;
+}
+
+.dataTable_wrapper table.private-message-data-table th.private-message-edit {
+    width: 8%;
+    padding: 8px;
+}
+
+.dataTable_wrapper table.private-message-data-table th.private-message-delete {
+    width: 8%;
+    padding: 8px;
+}
+
+.dataTable_wrapper table.private-message-data-table td.private-message-sender-name {
+    text-align: left;
+}
+
+.dataTable_wrapper table.private-message-data-table td.private-message-recipient-name {
+    text-align: left;
+}
+
+.dataTable_wrapper table.private-message-data-table td.private-message-title {
+    text-align: left;
+}
+
+.dataTable_wrapper table.private-message-data-table td.private-message-message {
+    text-align: left;
+}
+
+.dataTable_wrapper table.private-message-data-table td.private-message-sent-time {
+    text-align: right;
+}
+
+.dataTable_wrapper table.private-message-data-table td.private-message-edit {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.dataTable_wrapper table.private-message-data-table td.private-message-delete {
+    text-align: center;
+    vertical-align: middle;
 }

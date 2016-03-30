@@ -1,7 +1,7 @@
 {% extends 'AppBundle:admin:default.html.twig' %}
 
 {% block content %}
-    <div class="row" xmlns="http://www.w3.org/1999/html">
+    <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">{{ 'page.name.users'|trans }}</h1>
         </div>
@@ -48,6 +48,9 @@
                         <th class="user-email">
                             {{ knp_pagination_sortable(pagination, 'table.users.email'|trans, 'u.email') }}
                         </th>
+                        <th class="user-phone_number">
+                            {{ knp_pagination_sortable(pagination, 'table.users.phone_number'|trans, 'u.phoneNumber') }}
+                        </th>
                         <th class="user-social_network">
                             {{ knp_pagination_sortable(pagination, 'table.users.social_network'|trans, ['u.facebook_id', 'u.google_id', 'u.vkontakte_id']) }}
                         </th>
@@ -67,6 +70,9 @@
                             </td>
                             <td class="user-email">
                                 {{ user.email }}
+                            </td>
+                            <td class="user-phone_number">
+                                {{ user.phoneNumber }}
                             </td>
                             <td class="user-social_network">
                                 {% if user.facebookId %}

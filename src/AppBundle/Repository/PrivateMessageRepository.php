@@ -1,7 +1,8 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace AppBundle\Repository;
 
+use AppBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 
@@ -62,5 +63,20 @@ class PrivateMessageRepository extends EntityRepository
             ->setParameters(['sender' => $sender, 'deletedFromSent' => false])
             ->getQuery()
             ->getResult();
+    }
+
+    /**
+     * @param $search
+     * @return \Doctrine\ORM\Query
+     */
+    public function getAllQuery($search)
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p, s, r')
+            ->innerJoin('p.sender', 's')
+            ->innerJoin('p.recipient', 'r')
+            ->where('p.title like :title or p.message like :message or s.username like :sender_name or r.username like :recipient_name')
+            ->setParameters(['title' => "%$search%", 'message' => "%$search%", 'sender_name' => "%$search%", 'recipient_name' => "%$search%"])
+            ->getQuery();
     }
 }

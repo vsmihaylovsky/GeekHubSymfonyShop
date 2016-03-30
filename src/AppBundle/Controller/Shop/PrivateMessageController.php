@@ -6,7 +6,7 @@
  * Time: 9:41 PM
  */
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Shop;
 
 use AppBundle\Entity\PrivateMessage;
 use AppBundle\Entity\User;
@@ -14,6 +14,7 @@ use AppBundle\Form\Type\PrivateMessageType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -22,6 +23,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route("/private-message")
+ * @Security("has_role('ROLE_USER')")
  */
 class PrivateMessageController extends Controller
 {

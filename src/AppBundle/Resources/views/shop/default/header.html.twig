@@ -63,6 +63,7 @@
                                         {% if unreadPrivateMessagesCount != 0 %}
                                             <span class="badge">{{ unreadPrivateMessagesCount }}</span>
                                         {% endif %}
+                                    </a>
                                 </li>
                                 <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-unlock"></i> {{ 'mainmenu.logout'|trans }}</a></li>
                             {% else %}

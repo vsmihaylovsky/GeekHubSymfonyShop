@@ -16,7 +16,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
- * @ORM\Entity(repositoryClass="AppBundle\Entity\UserRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
 class User extends BaseUser
 {
@@ -48,6 +48,13 @@ class User extends BaseUser
     /** @ORM\OneToMany(targetEntity="Invoice", mappedBy="customer") */
     protected $invoices;
 
+    /** @ORM\Column(name="phone_number", type="string", length=255, nullable=true) */
+    protected $phoneNumber;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Review", mappedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $reviews;
 
     /**
      * *******************************************************
@@ -57,6 +64,7 @@ class User extends BaseUser
     public function __construct() {
         parent::__construct();
         $this->invoices = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
     }
 
     /**
@@ -229,5 +237,63 @@ class User extends BaseUser
     public function getInvoices()
     {
         return $this->invoices;
+    }
+
+    /**
+     * Add review
+     *
+     * @param Review $review
+     *
+     * @return User
+     */
+    public function addReview(Review $review)
+    {
+        $this->reviews[] = $review;
+
+        return $this;
+    }
+
+    /**
+     * Remove review
+     *
+     * @param Review $review
+     */
+    public function removeReview(Review $review)
+    {
+        $this->reviews->removeElement($review);
+    }
+
+    /**
+     * Get reviews
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReviews()
+    {
+        return $this->reviews;
+    }
+
+    /**
+     * Set phoneNumber
+     *
+     * @param string $phoneNumber
+     *
+     * @return User
+     */
+    public function setPhoneNumber($phoneNumber)
+    {
+        $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get phoneNumber
+     *
+     * @return string
+     */
+    public function getPhoneNumber()
+    {
+        return $this->phoneNumber;
     }
 }

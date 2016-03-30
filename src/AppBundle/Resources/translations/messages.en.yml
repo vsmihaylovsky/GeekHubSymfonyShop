@@ -16,6 +16,7 @@ security:
         facebook: Login with Facebook
         google: Login with Google
         vk: Login with VK
+    phone_number: Phone number
 
 user_info:
     user_info: User info
@@ -35,6 +36,7 @@ private_message:
     set_read: Set read
     set_unread: Set unread
     delete: Delete
+    send_private_message: send private message
 
 page:
   name:
@@ -45,11 +47,18 @@ page:
    categories: Categories
    categories.edit: Categories Edit
    users: Users
+   reviews: Reviews
+   review.edit: Review edit
+   private_messages: Private messages
+   private_message.edit: Private message edit
   warning:
     youMustSaveProductFirst: You must save product first.
 
 table:
   edit: Edit
+  delete: Delete
+  delete_record: Delete record?
+  update: Update
   products:
     name: Name
     type: Type
@@ -82,6 +91,19 @@ table:
     social_network: Social network
     manager: Manager
     enabled: Enabled
+    phone_number: Phone number
+  reviews:
+    product_name: Product
+    username: User
+    review_text: Text
+    rating: Rating
+    created_at: Created
+  private_messages:
+    sender_name: Sender
+    recipient_name: Recipient
+    title: Title
+    message: Text
+    sent_time: Sent
 
 DataTable:
     lengthMenu: Display _MENU_ records per page
@@ -100,6 +122,11 @@ DataTable:
     lengthMenu2_2: records per page
     info2_1: Showing page
     info2_2: of
+
+review:
+  send: Send
+  form_header: Write your review
+  not_authenticated: You must login to write review
 
 Name: Name
 Enter product name: Enter product name

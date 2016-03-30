@@ -1,0 +1,50 @@
+{% for review in pagination %}
+    <div class="review">
+        <div class="review-heading">
+        <span class="review-heading-item">
+            <i class="fa fa-user"></i>{{ review.user.username }}
+        </span>
+        <span class="review-heading-item">
+            <i class="fa fa-clock-o"></i>{{ review.createdAt|date("H:i") }}
+        </span>
+        <span class="review-heading-item">
+            <i class="fa fa-calendar-o"></i>{{ review.createdAt|date("d.m.Y") }}
+        </span>
+            <div class="rating-container rating-gly-star" data-content="">
+                <div class="rating-stars" style="width: {{ review.rating * 20 }}%" data-content=""></div>
+            </div>
+        </div>
+        <div class="review-body">
+            {{ review.reviewText|nl2br }}
+        </div>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <div class="review-footer">
+                <span class="review-footer-item">
+                    <a href="{{ path('new_private_message', {'id': review.user.id}) }}">
+                        <i class="fa fa-envelope"></i>
+                        {{ 'private_message.send_private_message'|trans }}
+                    </a>
+                </span>
+            </div>
+        {% endif %}
+    </div>
+{% endfor %}
+<div class="navigation review-navigation">
+    {{ knp_pagination_render(pagination) }}
+</div>
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <div class="review">
+        <p><b>{{ 'review.form_header'|trans }}</b></p>
+        <section id="form"><!--form-->
+            <div class="shop-form">
+                {{ form_start(form) }}
+                {{ form_widget(form.reviewText) }}
+                {{ form_widget(form.rating) }}
+                {{ form_end(form) }}            </div>
+        </section>
+    </div>
+{% else %}
+    <div class="review">
+        <p><b>{{ 'review.not_authenticated'|trans }}</b></p>
+    </div>
+{% endif %}

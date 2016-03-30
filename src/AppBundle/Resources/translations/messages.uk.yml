@@ -16,6 +16,7 @@ security:
         facebook: Увійти за допомогою Facebook
         google: Увійти за допомогою Google
         vk: Увійти за допомогою VK
+    phone_number: Номер телефону
 
 user_info:
     user_info: Іформація про користувача
@@ -35,6 +36,7 @@ private_message:
     set_read: Відмітити як прочитане
     set_unread: Відмітити як непрочитане
     delete: Видалити
+    send_private_message: відправити приватне повідомлення
 
 page:
   name:
@@ -45,11 +47,18 @@ page:
    categories: Категорії
    categories.edit: Редагування категорії
    users: Користувачі
+   reviews: Відгуки
+   review.edit: Редагування відгук
+   private_messages: Повідомлення
+   private_message.edit: Редагування повідомлення
   warning:
     youMustSaveProductFirst: Ви повинні спершу зберегти продукт.
 
 table:
   edit: Редагувати
+  delete: Видалити
+  delete_record: Видалити запис?
+  update: Зберегти
   products:
     name: Назва
     type: Тип
@@ -82,6 +91,19 @@ table:
     social_network: Соціальна мережа
     manager: Менеджер
     enabled: Активний
+    phone_number: Номер телефону
+  reviews:
+    product_name: Продукт
+    username: Користувач
+    review_text: Текст
+    rating: Оцінка
+    created_at: Створено
+  private_messages:
+    sender_name: Відправник
+    recipient_name: Одержувач
+    title: Заголовок
+    message: Текст
+    sent_time: Відіслано
 
 DataTable:
     lengthMenu: Показувати _MENU_ записів на сторінку
@@ -100,6 +122,11 @@ DataTable:
     lengthMenu2_2: записів на сторінку
     info2_1: Показано сторінку
     info2_2: з
+
+review:
+  send: Відправити
+  form_header: Напишіть свій відгук
+  not_authenticated: Ви повинні увійти до системи, щоб написати відгук
 
 Name: Назва
 Enter product name: Введіть назву продукта
