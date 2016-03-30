@@ -20,14 +20,6 @@ class InvoiceType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('items', CollectionType::class, array(
-                'entry_type'    => InvoiceItemType::class,
-                'allow_delete'  => true,
-                'by_reference'  => false,
-                'label'         => 'Item',
-            ));
-
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
             $formOptions = $event->getForm()->getConfig()->getOptions();
             $formName = $formOptions['attr']['name'];
@@ -36,7 +28,7 @@ class InvoiceType extends AbstractType
                     ->add('customerName', TextType::class, [
                             'label' => false,
                             'attr'  => [
-                                'placeholder' => 'First Name*'
+                                'placeholder' => 'Name*'
                             ]
                         ]
                     )->add('email', TextType::class, [
@@ -68,9 +60,17 @@ class InvoiceType extends AbstractType
                             'attr'  => [
                                 'placeholder' => 'Notes about your order, Special Notes for Delivery',
                                 'rows'        => '16'
-                            ]
+                            ],
+                            'required' => false
                         ]
                     );
+            } elseif ($formName == 'cart') {
+                $event->getForm()->add('items', CollectionType::class, array(
+                    'entry_type'    => InvoiceItemType::class,
+                    'allow_delete'  => true,
+                    'by_reference'  => false,
+                    'label'         => 'Item',
+                ));
             }
         });
     }

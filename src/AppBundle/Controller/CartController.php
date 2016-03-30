@@ -2,7 +2,6 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Invoice;
 use AppBundle\Entity\Product;
 use AppBundle\Form\Type\InvoiceType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -11,13 +10,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class BasketController extends Controller
+class CartController extends Controller
 {
     /**
      * @Route("/checkout", name="checkout")
@@ -143,31 +140,4 @@ class BasketController extends Controller
         return $response;
     }
 
-    /**
-     * @param Request $request
-     * @Route("/cart/save", name="saveCart")
-     * @Method({"GET"})
-     * @return JsonResponse
-     */
-    public function saveCartAction(Request $request)
-    {
-        $response = new JsonResponse();
-        $jsonCartData = $request->cookies->get('cart');
-        $cart = json_decode($jsonCartData, true);
-        $response->setData([
-            'save' => 'ok',
-            'cart' => $cart ? $cart : 'empty',
-        ]);
-
-        $invoice = $this->get('app.cart_handler')->createInvoiceEntity($jsonCartData);
-        /** @var Invoice $invoice */
-        $invoice->setCustomer($this->getUser());
-        if($invoice instanceof Invoice) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($invoice);
-            $em->flush();
-        }
-
-        return $response;
-    }
 }

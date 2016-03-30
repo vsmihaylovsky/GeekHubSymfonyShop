@@ -21,15 +21,21 @@
                     <li class="active">Shopping Cart</li>
                 </ol>
             </div>
-            {{ form_start(form) }}
-                {{ include('AppBundle:shop/cart:cart.html.twig', {'invoice': invoice, 'form': form}) }}
-                <div style="float: right; margin-left: 15px;">
-                    {{ form_widget(form.update) }}
+            {% if form.items.count  > 0%}
+                {{ form_start(form) }}
+                    {{ include('AppBundle:shop/cart:cart.html.twig', {'invoice': invoice, 'form': form}) }}
+                    <div style="float: right; margin-left: 15px;">
+                        {{ form_widget(form.update) }}
+                    </div>
+                {{ form_end(form) }}
+                <div style="float: right">
+                    <a class="btn btn-primary" id="checkout-button" href="{{ path('checkout') }}">Go to checkout</a>
                 </div>
-            {{ form_end(form) }}
-            <div style="float: right">
-                <a class="btn btn-primary" href="{{ path('checkout') }}">Go to checkout</a>
-            </div>
+            {% else %}
+                <div class="register-req">
+                    <p>Your shopping cart is empty.</p>
+                </div>
+            {% endif %}
         </div>
     </section>
 {% endblock %}
@@ -50,6 +56,7 @@
                     var value = parseInt(input.val()) - 1;
                     input.val(value == 0 ? 1 : value);
                 }
+                $('#checkout-button').addClass('not-updated');
             });
 
             $('.cart_quantity_input').on('change', function() {
@@ -62,7 +69,18 @@
                 else {
                     $(this).val('1');
                 }
+            })
 
+            $('#checkout-button').on('click', function(e){
+                if ($(this).hasClass('not-updated')) {
+                    e.preventDefault();
+                    var dialog = $('#cartModal');
+                    dialog.find('.modal-body')
+                            .html('Your shopping cart is outdated. You must update it before continue!');
+                    dialog.find('.go-to-shopping-cart').hide();
+                    dialog.find('.close-button').html('Close');
+                    dialog.modal('show');
+                }
             })
         });
     </script>

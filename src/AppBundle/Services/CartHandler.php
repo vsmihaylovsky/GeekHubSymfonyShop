@@ -5,6 +5,7 @@ namespace AppBundle\Services;
 use AppBundle\Entity\Invoice;
 use AppBundle\Entity\InvoiceItem;
 use AppBundle\Entity\Product;
+use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilder;
@@ -61,7 +62,12 @@ class CartHandler
             }
             $invoice->setAmount($amount);
             $user = $this->tokenStorage->getToken()->getUser();
-            if($user != 'anon.') $invoice->setCustomer($user);
+            if($user != 'anon.') {
+                /** @var User $user */
+                $invoice
+                    ->setCustomer($user)
+                    ->setCustomerName($user->getUsername());
+            }
         }
 
         return $invoice;

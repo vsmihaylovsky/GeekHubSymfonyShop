@@ -11,6 +11,9 @@
             width: 100%;
             font-weight: 300;
         }
+        #footer {
+            margin-top: 15px;
+        }
     </style>
 {% endblock %}
 
@@ -23,129 +26,49 @@
                     <li><a href="#">Home</a></li>
                     <li class="active">Check out</li>
                 </ol>
-            </div><!--/breadcrums-->
+            </div>
 
             <div class="step-one">
-                <h2 class="heading">Step1</h2>
+                <h2 class="heading">Checkout options</h2>
             </div>
-            <div class="checkout-options">
-                <h3>New User</h3>
-                <p>Checkout options</p>
-                <ul class="nav">
-                    <li>
-                        <label><input type="checkbox"> Register Account</label>
-                    </li>
-                    <li>
-                        <label><input type="checkbox"> Guest Checkout</label>
-                    </li>
-                    <li>
-                        <a href=""><i class="fa fa-times"></i>Cancel</a>
-                    </li>
-                </ul>
-            </div><!--/checkout-options-->
 
-            <div class="register-req">
-                <p>Please use Register And Checkout to easily get access to your order history, or use Checkout as Guest</p>
-            </div><!--/register-req-->
+            {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                <div class="register-req">
+                    <p>Please use Register And Checkout to easily get access to your order history, or use Checkout as Guest</p>
+                </div>
+            {% endif %}
 
             {{ form_start(form) }}
                 <div class="shopper-informations">
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-6">
                             <div class="shopper-info">
                                 <p>Shopper Information</p>
-                                {#<form>#}
-                                    <input type="text" placeholder="Display Name">
-                                    <input type="text" placeholder="User Name">
-                                    <input type="password" placeholder="Password">
-                                    <input type="password" placeholder="Confirm password">
-                                    <a class="btn btn-primary" href="">Get Quotes</a>
-                                    <a class="btn btn-primary" href="">Continue</a>
-                                {#</form>#}
+                                {{ form_errors(form.customerName) }}
+                                {{ form_widget(form.customerName) }}
+                                {{ form_errors(form.phone) }}
+                                {{ form_widget(form.phone) }}
+                                {{ form_errors(form.email) }}
+                                {{ form_widget(form.email) }}
+                                {{ form_errors(form.delivery) }}
+                                {{ form_widget(form.delivery) }}
+                                {{ form_errors(form.payment) }}
+                                {{ form_widget(form.payment) }}
                             </div>
                         </div>
-                        <div class="col-sm-5 clearfix">
-                            <div class="bill-to">
-                                <p>Bill To</p>
-                                <div class="form-one">
-                                    {#<form>#}
-                                    <input type="text" placeholder="Company Name">
-                                    {{ form_errors(form.email) }}
-                                    {{ form_widget(form.email) }}
-                                    <input type="text" placeholder="Title">
-                                    {{ form_errors(form.customerName) }}
-                                    {{ form_widget(form.customerName) }}
-                                    <input type="text" placeholder="Middle Name">
-                                    <input type="text" placeholder="Last Name">
-                                    {{ form_errors(form.delivery) }}
-                                    {{ form_widget(form.delivery) }}
-                                    {#</form>#}
-                                </div>
-                                <div class="form-two">
-                                    {#<form>#}
-                                        <input type="text" placeholder="Zip / Postal Code">
-                                        <select>
-                                            <option>-- Country --</option>
-                                            <option>United States</option>
-                                            <option>Bangladesh</option>
-                                            <option>UK</option>
-                                            <option>India</option>
-                                            <option>Pakistan</option>
-                                            <option>Ucrane</option>
-                                            <option>Canada</option>
-                                            <option>Dubai</option>
-                                        </select>
-                                        <select>
-                                            <option>-- State / Province / Region --</option>
-                                            <option>United States</option>
-                                            <option>Bangladesh</option>
-                                            <option>UK</option>
-                                            <option>India</option>
-                                            <option>Pakistan</option>
-                                            <option>Ucrane</option>
-                                            <option>Canada</option>
-                                            <option>Dubai</option>
-                                        </select>
-                                        <input type="password" placeholder="Confirm password">
-                                        {{ form_errors(form.phone) }}
-                                        {{ form_widget(form.phone) }}
-                                        <input type="text" placeholder="Mobile Phone">
-                                        <input type="text" placeholder="Fax">
-                                        {{ form_errors(form.payment) }}
-                                        {{ form_widget(form.payment) }}
-                                    {#</form>#}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
                             <div class="order-message">
                                 <p>Shipping Order</p>
                                 {{ form_errors(form.comment) }}
                                 {{ form_widget(form.comment) }}
-                                <label><input type="checkbox"> Shipping to bill address</label>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="review-payment">
-                    <h2>Review &amp; Payment</h2>
-                </div>
-                {{ include('AppBundle:shop/cart:cart.html.twig', {'invoice': invoice, 'form': form}) }}
                 <div style="float: right; margin-left: 15px;">
                     {{ form_widget(form.order) }}
                 </div>
             {{ form_end(form) }}
-            <div class="payment-options">
-					<span>
-						<label><input type="checkbox"> Direct Bank Transfer</label>
-					</span>
-					<span>
-						<label><input type="checkbox"> Check Payment</label>
-					</span>
-					<span>
-						<label><input type="checkbox"> Paypal</label>
-					</span>
-            </div>
         </div>
     </section>
 {% endblock %}
