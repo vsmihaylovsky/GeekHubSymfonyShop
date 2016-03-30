@@ -549,3 +549,67 @@ label.rows-per-page select{
     text-align: center;
     vertical-align: middle;
 }
+
+.dataTable_wrapper table.private-message-data-table th {
+    text-align: left;
+    vertical-align: middle;
+}
+
+.dataTable_wrapper table.private-message-data-table th.private-message-sender-name {
+    width: 10%;
+}
+
+.dataTable_wrapper table.private-message-data-table th.private-message-recipient-name {
+    width: 10%;
+}
+
+.dataTable_wrapper table.private-message-data-table th.private-message-title {
+    width: 10%;
+}
+
+.dataTable_wrapper table.private-message-data-table th.private-message-message {
+}
+
+.dataTable_wrapper table.private-message-data-table th.private-message-sent-time {
+    width: 8%;
+}
+
+.dataTable_wrapper table.private-message-data-table th.private-message-edit {
+    width: 8%;
+    padding: 8px;
+}
+
+.dataTable_wrapper table.private-message-data-table th.private-message-delete {
+    width: 8%;
+    padding: 8px;
+}
+
+.dataTable_wrapper table.private-message-data-table td.private-message-sender-name {
+    text-align: left;
+}
+
+.dataTable_wrapper table.private-message-data-table td.private-message-recipient-name {
+    text-align: left;
+}
+
+.dataTable_wrapper table.private-message-data-table td.private-message-title {
+    text-align: left;
+}
+
+.dataTable_wrapper table.private-message-data-table td.private-message-message {
+    text-align: left;
+}
+
+.dataTable_wrapper table.private-message-data-table td.private-message-sent-time {
+    text-align: right;
+}
+
+.dataTable_wrapper table.private-message-data-table td.private-message-edit {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.dataTable_wrapper table.private-message-data-table td.private-message-delete {
+    text-align: center;
+    vertical-align: middle;
+}

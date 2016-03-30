@@ -49,6 +49,8 @@ page:
    users: Users
    reviews: Reviews
    review.edit: Review edit
+   private_messages: Private messages
+   private_message.edit: Private message edit
   warning:
     youMustSaveProductFirst: You must save product first.
 
@@ -96,6 +98,12 @@ table:
     review_text: Text
     rating: Rating
     created_at: Created
+  private_messages:
+    sender_name: Sender
+    recipient_name: Recipient
+    title: Title
+    message: Text
+    sent_time: Sent
 
 DataTable:
     lengthMenu: Display _MENU_ records per page

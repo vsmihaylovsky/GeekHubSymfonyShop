@@ -56,6 +56,10 @@ class ReviewRepository extends EntityRepository
             ->getSingleScalarResult();
     }
 
+    /**
+     * @param $search
+     * @return \Doctrine\ORM\Query
+     */
     public function getAllQuery($search)
     {
         return $this->createQueryBuilder('r')

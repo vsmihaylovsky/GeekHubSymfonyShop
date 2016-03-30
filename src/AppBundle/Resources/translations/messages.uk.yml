@@ -49,6 +49,8 @@ page:
    users: Користувачі
    reviews: Відгуки
    review.edit: Редагування відгук
+   private_messages: Повідомлення
+   private_message.edit: Редагування повідомлення
   warning:
     youMustSaveProductFirst: Ви повинні спершу зберегти продукт.
 
@@ -96,6 +98,12 @@ table:
     review_text: Текст
     rating: Оцінка
     created_at: Створено
+  private_messages:
+    sender_name: Відправник
+    recipient_name: Одержувач
+    title: Заголовок
+    message: Текст
+    sent_time: Відіслано
 
 DataTable:
     lengthMenu: Показувати _MENU_ записів на сторінку
