@@ -1,56 +1,60 @@
 mainmenu:
-    home: Головна
-    logout: Вихід
-    login_registration: Вхід/Реєстрація
+  home: Головна
+  logout: Вихід
+  login_registration: Вхід/Реєстрація
 
 security:
-    username: Ім'я користувача
-    email: Електронна адреса
-    username_email: Ім'я користувача або електронна адреса
-    password: Пароль
-    password_confirmation: Підтвердіть пароль
-    login_form_header: Увійти у свій аккаунт
-    register_form_header: Реєстрація нового користувача
-    login_register_or: Або
-    login:
-        facebook: Увійти за допомогою Facebook
-        google: Увійти за допомогою Google
-        vk: Увійти за допомогою VK
-    phone_number: Номер телефону
+  username: Ім'я користувача
+  email: Електронна адреса
+  username_email: Ім'я користувача або електронна адреса
+  password: Пароль
+  password_confirmation: Підтвердіть пароль
+  login_form_header: Увійти у свій аккаунт
+  register_form_header: Реєстрація нового користувача
+  login_register_or: Або
+  login:
+    facebook: Увійти за допомогою Facebook
+    google: Увійти за допомогою Google
+    vk: Увійти за допомогою VK
+  phone_number: Номер телефону
+  address: Адреса
+  subscribe: Отримувати розсилку новин
+  subscribe.true: Так
+  subscribe.false: Ні
 
 user_info:
-    user_info: Іформація про користувача
-    messages: Повідомлення
-    received: Отримані
-    sent: Відіслані
+  user_info: Іформація про користувача
+  messages: Повідомлення
+  received: Отримані
+  sent: Відіслані
 
 private_message:
-    send: Відправити
-    title: Заголовок
-    message: Повідомлення
-    message_for: Повідомлення для
-    from: Від
-    to: Для
-    subject: Тема
-    time: Час
-    set_read: Відмітити як прочитане
-    set_unread: Відмітити як непрочитане
-    delete: Видалити
-    send_private_message: відправити приватне повідомлення
+  send: Відправити
+  title: Заголовок
+  message: Повідомлення
+  message_for: Повідомлення для
+  from: Від
+  to: Для
+  subject: Тема
+  time: Час
+  set_read: Відмітити як прочитане
+  set_unread: Відмітити як непрочитане
+  delete: Видалити
+  send_private_message: відправити приватне повідомлення
 
 page:
   name:
-   products: Товари
-   products.edit: Редагування продуктів
-   attributes: Атрибути
-   attributes.edit: Редагування атрибутів
-   categories: Категорії
-   categories.edit: Редагування категорії
-   users: Користувачі
-   reviews: Відгуки
-   review.edit: Редагування відгук
-   private_messages: Повідомлення
-   private_message.edit: Редагування повідомлення
+    products: Товари
+    products.edit: Редагування продуктів
+    attributes: Атрибути
+    attributes.edit: Редагування атрибутів
+    categories: Категорії
+    categories.edit: Редагування категорії
+    users: Користувачі
+    reviews: Відгуки
+    review.edit: Редагування відгук
+    private_messages: Повідомлення
+    private_message.edit: Редагування повідомлення
   warning:
     youMustSaveProductFirst: Ви повинні спершу зберегти продукт.
 
@@ -88,9 +92,10 @@ table:
   users:
     username: Ім'я користувача
     email: Електронна адреса
-    social_network: Соціальна мережа
+    social_network: Соц. мережа
     manager: Менеджер
     enabled: Активний
+    address: Адреса
     phone_number: Номер телефону
   reviews:
     product_name: Продукт
@@ -106,22 +111,22 @@ table:
     sent_time: Відіслано
 
 DataTable:
-    lengthMenu: Показувати _MENU_ записів на сторінку
-    zeroRecords: Нічого не знайдено - вибачте
-    info: Показано сторінку _PAGE_ з _PAGES_
-    infoEmpty: Записи не доступні
-    infoFiltered: (відфільровано загалом зі _MAX_ записів)
-    search: Шукати:
-    paginate:
-      first: Перший
-      last: Останній
-      next: Наступний
-      previous: Попередній
-    search2: Пошук
-    lengthMenu2_1: Показувати
-    lengthMenu2_2: записів на сторінку
-    info2_1: Показано сторінку
-    info2_2: з
+  lengthMenu: Показувати _MENU_ записів на сторінку
+  zeroRecords: Нічого не знайдено - вибачте
+  info: Показано сторінку _PAGE_ з _PAGES_
+  infoEmpty: Записи не доступні
+  infoFiltered: (відфільровано загалом зі _MAX_ записів)
+  search: Шукати:
+  paginate:
+    first: Перший
+    last: Останній
+    next: Наступний
+    previous: Попередній
+  search2: Пошук
+  lengthMenu2_1: Показувати
+  lengthMenu2_2: записів на сторінку
+  info2_1: Показано сторінку
+  info2_2: з
 
 review:
   send: Відправити

@@ -1,56 +1,60 @@
 mainmenu:
-    home: Home
-    logout: Logout
-    login_registration: Login/Registration
+  home: Home
+  logout: Logout
+  login_registration: Login/Registration
 
 security:
-    username: Username
-    email: Email
-    username_email: Username or email
-    password: Password
-    password_confirmation: Repeat password
-    login_form_header: Login to your account
-    register_form_header: New user registration
-    login_register_or: OR
-    login:
-        facebook: Login with Facebook
-        google: Login with Google
-        vk: Login with VK
-    phone_number: Phone number
+  username: Username
+  email: Email
+  username_email: Username or email
+  password: Password
+  password_confirmation: Repeat password
+  login_form_header: Login to your account
+  register_form_header: New user registration
+  login_register_or: OR
+  login:
+      facebook: Login with Facebook
+      google: Login with Google
+      vk: Login with VK
+  phone_number: Phone number
+  address: Address
+  subscribe: Receive newsletters
+  subscribe.true: Yes
+  subscribe.false: No
 
 user_info:
-    user_info: User info
-    messages: Messages
-    received: Received
-    sent: Sent
+  user_info: User info
+  messages: Messages
+  received: Received
+  sent: Sent
 
 private_message:
-    send: Send
-    title: Title
-    message: Message
-    message_for: Message for
-    from: From
-    to: To
-    subject: Subject
-    time: Time
-    set_read: Set read
-    set_unread: Set unread
-    delete: Delete
-    send_private_message: send private message
+  send: Send
+  title: Title
+  message: Message
+  message_for: Message for
+  from: From
+  to: To
+  subject: Subject
+  time: Time
+  set_read: Set read
+  set_unread: Set unread
+  delete: Delete
+  send_private_message: send private message
 
 page:
   name:
-   products: Products
-   products.edit: Products Edit
-   attributes: Attributes
-   attributes.edit: Attributes Edit
-   categories: Categories
-   categories.edit: Categories Edit
-   users: Users
-   reviews: Reviews
-   review.edit: Review edit
-   private_messages: Private messages
-   private_message.edit: Private message edit
+    products: Products
+    products.edit: Products Edit
+    attributes: Attributes
+    attributes.edit: Attributes Edit
+    categories: Categories
+    categories.edit: Categories Edit
+    users: Users
+    reviews: Reviews
+    review.edit: Review edit
+    private_messages: Private messages
+    private_message.edit: Private message edit
   warning:
     youMustSaveProductFirst: You must save product first.
 
@@ -91,6 +95,7 @@ table:
     social_network: Social network
     manager: Manager
     enabled: Enabled
+    address: Address
     phone_number: Phone number
   reviews:
     product_name: Product
@@ -106,22 +111,22 @@ table:
     sent_time: Sent
 
 DataTable:
-    lengthMenu: Display _MENU_ records per page
-    zeroRecords: Nothing found - sorry
-    info: Showing page _PAGE_ of _PAGES_
-    infoEmpty: No records available
-    infoFiltered: (filtered from _MAX_ total records)
-    search: Search:
-    paginate:
-      first: First
-      last: Last
-      next: Next
-      previous: Previous
-    search2: Search
-    lengthMenu2_1: Display
-    lengthMenu2_2: records per page
-    info2_1: Showing page
-    info2_2: of
+  lengthMenu: Display _MENU_ records per page
+  zeroRecords: Nothing found - sorry
+  info: Showing page _PAGE_ of _PAGES_
+  infoEmpty: No records available
+  infoFiltered: (filtered from _MAX_ total records)
+  search: Search:
+  paginate:
+    first: First
+    last: Last
+    next: Next
+    previous: Previous
+  search2: Search
+  lengthMenu2_1: Display
+  lengthMenu2_2: records per page
+  info2_1: Showing page
+  info2_2: of
 
 review:
   send: Send

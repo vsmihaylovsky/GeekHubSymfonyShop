@@ -4,7 +4,11 @@
               class="fos_user_profile_edit">
             {{ form_row(form.username) }}
             {{ form_row(form.email) }}
+            {{ form_row(form.address) }}
             {{ form_row(form.phoneNumber) }}
+            <span>
+                {{ form_row(form.subscribe, {'label': 'security.subscribe'|trans }) }}
+            </span>
             {{ form_row(form.current_password) }}
             {{ form_widget(form._token) }}
             <button type="submit" id="_submit" name="_submit"

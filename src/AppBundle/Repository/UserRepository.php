@@ -16,8 +16,8 @@ class UserRepository extends EntityRepository
     {
         return $this->createQueryBuilder('u')
             ->select('u')
-            ->where('u.username like :username or u.email like :email')
-            ->setParameters(['username' => "%$search%", 'email' => "%$search%"])
+            ->where('u.username like :username or u.email like :email or u.address like :address')
+            ->setParameters(['username' => "%$search%", 'email' => "%$search%", 'address' => "%$search%"])
             ->getQuery();
     }
 }

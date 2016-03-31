@@ -423,27 +423,30 @@ label.rows-per-page select{
 }
 
 .dataTable_wrapper table.user-data-table th.user-username {
-    width: 25%;
+    width: 20%;
 }
 
 .dataTable_wrapper table.user-data-table th.user-email {
-    width: 20%;
+    width: 15%;
 }
 
-.dataTable_wrapper table.user-data-table th.user-phone_number {
-    width: 20%;
+.dataTable_wrapper table.user-data-table th.user-phone-number {
+    width: 15%;
 }
 
-.dataTable_wrapper table.user-data-table th.user-social_network {
-    width: 11%;
+.dataTable_wrapper table.user-data-table th.user-address {
+}
+
+.dataTable_wrapper table.user-data-table th.user-social-network {
+    width: 10%;
 }
 
 .dataTable_wrapper table.user-data-table th.user-roles {
-    width: 12%;
+    width: 10%;
 }
 
 .dataTable_wrapper table.user-data-table th.user-enabled {
-    width: 12%;
+    width: 10%;
 }
 
 .dataTable_wrapper table.user-data-table td {
@@ -458,11 +461,15 @@ label.rows-per-page select{
     text-align: left;
 }
 
-.dataTable_wrapper table.user-data-table td.user-phone_number {
+.dataTable_wrapper table.user-data-table th.user-address {
     text-align: left;
 }
 
-.dataTable_wrapper table.user-data-table td.user-social_network {
+.dataTable_wrapper table.user-data-table td.user-phone-number {
+    text-align: left;
+}
+
+.dataTable_wrapper table.user-data-table td.user-social-network {
     text-align: center;
 }
 
