@@ -67,6 +67,7 @@ class CartHandler
                 $invoice
                     ->setCustomer($user)
                     ->setCustomerName($user->getUsername() ? $user->getUsername() : null)
+                    ->setDelivery($user->getAddress() ? $user->getAddress() : null)
                     ->setPhone($user->getPhoneNumber() ? $user->getPhoneNumber() : null)
                     ->setEmail($user->getEmail() ? $user->getEmail() : null);
             }

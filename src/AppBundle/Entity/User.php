@@ -45,14 +45,20 @@ class User extends BaseUser
     /** @ORM\Column(name="$vkontakte_access_token", type="string", length=255, nullable=true) */
     protected $vkontakte_access_token;
 
-    /** @ORM\OneToMany(targetEntity="Invoice", mappedBy="customer") */
-    protected $invoices;
+    /** @ORM\Column(name="address", type="string", length=255, nullable=true) */
+    protected $address;
 
     /** @ORM\Column(name="phone_number", type="string", length=255, nullable=true) */
     protected $phoneNumber;
 
+    /** @ORM\Column(name="subscribe", type="boolean") */
+    protected $subscribe;
+
+    /** @ORM\OneToMany(targetEntity="Invoice", mappedBy="customer") */
+    protected $invoices;
+
     /**
-     * @ORM\OneToMany(targetEntity="Review", mappedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Review", mappedBy="user")
      */
     private $reviews;
 
@@ -63,6 +69,8 @@ class User extends BaseUser
      */
     public function __construct() {
         parent::__construct();
+
+        $this->setSubscribe(true);
         $this->invoices = new ArrayCollection();
         $this->reviews = new ArrayCollection();
     }
@@ -295,5 +303,53 @@ class User extends BaseUser
     public function getPhoneNumber()
     {
         return $this->phoneNumber;
+    }
+
+    /**
+     * Set address
+     *
+     * @param string $address
+     *
+     * @return User
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Set subscribe
+     *
+     * @param boolean $subscribe
+     *
+     * @return User
+     */
+    public function setSubscribe($subscribe)
+    {
+        $this->subscribe = $subscribe;
+
+        return $this;
+    }
+
+    /**
+     * Get subscribe
+     *
+     * @return boolean
+     */
+    public function getSubscribe()
+    {
+        return $this->subscribe;
     }
 }

@@ -48,10 +48,13 @@
                         <th class="user-email">
                             {{ knp_pagination_sortable(pagination, 'table.users.email'|trans, 'u.email') }}
                         </th>
-                        <th class="user-phone_number">
+                        <th class="user-address">
+                            {{ knp_pagination_sortable(pagination, 'table.users.address'|trans, 'u.address') }}
+                        </th>
+                        <th class="user-phone-number">
                             {{ knp_pagination_sortable(pagination, 'table.users.phone_number'|trans, 'u.phoneNumber') }}
                         </th>
-                        <th class="user-social_network">
+                        <th class="user-social-network">
                             {{ knp_pagination_sortable(pagination, 'table.users.social_network'|trans, ['u.facebook_id', 'u.google_id', 'u.vkontakte_id']) }}
                         </th>
                         <th class="user-roles">
@@ -71,10 +74,13 @@
                             <td class="user-email">
                                 {{ user.email }}
                             </td>
-                            <td class="user-phone_number">
+                            <td class="user-address">
+                                {{ user.address }}
+                            </td>
+                            <td class="user-phone-number">
                                 {{ user.phoneNumber }}
                             </td>
-                            <td class="user-social_network">
+                            <td class="user-social-network">
                                 {% if user.facebookId %}
                                     <i class="fa fa-facebook"></i>
                                 {% elseif user.googleId %}

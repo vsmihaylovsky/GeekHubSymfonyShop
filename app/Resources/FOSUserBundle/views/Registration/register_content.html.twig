@@ -4,8 +4,13 @@
     {{ form_widget(form.username, {'attr': {'placeholder': 'security.username'|trans }}) }}
     {{ form_errors(form.email) }}
     {{ form_widget(form.email, {'attr': {'placeholder': 'security.email'|trans }}) }}
+    {{ form_errors(form.address) }}
+    {{ form_widget(form.address, {'attr': {'placeholder': 'security.address'|trans }}) }}
     {{ form_errors(form.phoneNumber) }}
     {{ form_widget(form.phoneNumber, {'attr': {'placeholder': 'security.phone_number'|trans }}) }}
+    <span>
+        {{ form_row(form.subscribe, {'label': 'security.subscribe'|trans }) }}
+    </span>
     {{ form_errors(form.plainPassword.first) }}
     {{ form_widget(form.plainPassword.first, {'attr': {'placeholder': 'security.password'|trans }}) }}
     {{ form_errors(form.plainPassword.second) }}
