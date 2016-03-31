@@ -9,9 +9,9 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -45,18 +45,25 @@ class User extends BaseUser
     /** @ORM\Column(name="$vkontakte_access_token", type="string", length=255, nullable=true) */
     protected $vkontakte_access_token;
 
+    /** @ORM\OneToMany(targetEntity="Invoice", mappedBy="customer") */
+    protected $invoices;
+
     /** @ORM\Column(name="phone_number", type="string", length=255, nullable=true) */
     protected $phoneNumber;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Review", mappedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $reviews;
 
-    public function __construct()
-    {
+    /**
+     * *******************************************************
+     * Constructor
+     * *******************************************************
+     */
+    public function __construct() {
         parent::__construct();
-
+        $this->invoices = new ArrayCollection();
         $this->reviews = new ArrayCollection();
     }
 
@@ -196,6 +203,40 @@ class User extends BaseUser
     public function getVkontakteAccessToken()
     {
         return $this->vkontakte_access_token;
+    }
+
+    /**
+     * Add invoice
+     *
+     * @param \AppBundle\Entity\Invoice $invoice
+     *
+     * @return User
+     */
+    public function addInvoice(\AppBundle\Entity\Invoice $invoice)
+    {
+        $this->invoices[] = $invoice;
+
+        return $this;
+    }
+
+    /**
+     * Remove invoice
+     *
+     * @param \AppBundle\Entity\Invoice $invoice
+     */
+    public function removeInvoice(\AppBundle\Entity\Invoice $invoice)
+    {
+        $this->invoices->removeElement($invoice);
+    }
+
+    /**
+     * Get invoices
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getInvoices()
+    {
+        return $this->invoices;
     }
 
     /**

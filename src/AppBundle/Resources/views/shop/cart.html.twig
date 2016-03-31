@@ -1,106 +1,87 @@
 {% extends 'AppBundle:shop:1-column.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        #cart_items .cart_info {
+            margin-bottom: 0;
+        }
+        #footer {
+            margin-top: 15px;
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
     <section id="cart_items">
         <div class="container">
             <div class="breadcrumbs">
                 <ol class="breadcrumb">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="{{ path('homepage') }}">Home</a></li>
                     <li class="active">Shopping Cart</li>
                 </ol>
             </div>
-            <div class="table-responsive cart_info">
-                <table class="table table-condensed">
-                    <thead>
-                    <tr class="cart_menu">
-                        <td class="image">Item</td>
-                        <td class="description"></td>
-                        <td class="price">Price</td>
-                        <td class="quantity">Quantity</td>
-                        <td class="total">Total</td>
-                        <td></td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td class="cart_product">
-                            <a href=""><img src="images/cart/one.png" alt=""></a>
-                        </td>
-                        <td class="cart_description">
-                            <h4><a href="">Colorblock Scuba</a></h4>
-                            <p>Web ID: 1089772</p>
-                        </td>
-                        <td class="cart_price">
-                            <p>$59</p>
-                        </td>
-                        <td class="cart_quantity">
-                            <div class="cart_quantity_button">
-                                <a class="cart_quantity_up" href=""> + </a>
-                                <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-                                <a class="cart_quantity_down" href=""> - </a>
-                            </div>
-                        </td>
-                        <td class="cart_total">
-                            <p class="cart_total_price">$59</p>
-                        </td>
-                        <td class="cart_delete">
-                            <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="cart_product">
-                            <a href=""><img src="images/cart/two.png" alt=""></a>
-                        </td>
-                        <td class="cart_description">
-                            <h4><a href="">Colorblock Scuba</a></h4>
-                            <p>Web ID: 1089772</p>
-                        </td>
-                        <td class="cart_price">
-                            <p>$59</p>
-                        </td>
-                        <td class="cart_quantity">
-                            <div class="cart_quantity_button">
-                                <a class="cart_quantity_up" href=""> + </a>
-                                <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-                                <a class="cart_quantity_down" href=""> - </a>
-                            </div>
-                        </td>
-                        <td class="cart_total">
-                            <p class="cart_total_price">$59</p>
-                        </td>
-                        <td class="cart_delete">
-                            <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="cart_product">
-                            <a href=""><img src="images/cart/three.png" alt=""></a>
-                        </td>
-                        <td class="cart_description">
-                            <h4><a href="">Colorblock Scuba</a></h4>
-                            <p>Web ID: 1089772</p>
-                        </td>
-                        <td class="cart_price">
-                            <p>$59</p>
-                        </td>
-                        <td class="cart_quantity">
-                            <div class="cart_quantity_button">
-                                <a class="cart_quantity_up" href=""> + </a>
-                                <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-                                <a class="cart_quantity_down" href=""> - </a>
-                            </div>
-                        </td>
-                        <td class="cart_total">
-                            <p class="cart_total_price">$59</p>
-                        </td>
-                        <td class="cart_delete">
-                            <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+            {% if form.items.count  > 0%}
+                {{ form_start(form) }}
+                    {{ include('AppBundle:shop/cart:cart.html.twig', {'invoice': invoice, 'form': form}) }}
+                    <div style="float: right; margin-left: 15px;">
+                        {{ form_widget(form.update) }}
+                    </div>
+                {{ form_end(form) }}
+                <div style="float: right">
+                    <a class="btn btn-primary" id="checkout-button" href="{{ path('checkout') }}">Go to checkout</a>
+                </div>
+            {% else %}
+                <div class="register-req">
+                    <p>Your shopping cart is empty.</p>
+                </div>
+            {% endif %}
         </div>
     </section>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function() {
+            $('.cart_quantity_up, .cart_quantity_down').on('click', function(e){
+                e.preventDefault();
+                var button = $(this);
+                var input = button.parent().find('.cart_quantity_input');
+                if (button.hasClass('cart_quantity_up')) {
+                    input.val(parseInt(input.val()) + 1);
+                }
+                else if (button.hasClass('cart_quantity_down')) {
+                    var value = parseInt(input.val()) - 1;
+                    input.val(value == 0 ? 1 : value);
+                }
+                $('#checkout-button').addClass('not-updated');
+            });
+
+            $('.cart_quantity_input').on('change', function() {
+                var value = $(this).val();
+                if($.isNumeric(value)) {
+                    if (value <= 0) {
+                        $(this).val('1');
+                    }
+                }
+                else {
+                    $(this).val('1');
+                }
+            })
+
+            $('#checkout-button').on('click', function(e){
+                if ($(this).hasClass('not-updated')) {
+                    e.preventDefault();
+                    var dialog = $('#cartModal');
+                    dialog.find('.modal-body')
+                            .html('Your shopping cart is outdated. You must update it before continue!');
+                    dialog.find('.go-to-shopping-cart').hide();
+                    dialog.find('.close-button').html('Close');
+                    dialog.modal('show');
+                }
+            })
+        });
+    </script>
 {% endblock %}
