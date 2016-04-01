@@ -23,10 +23,10 @@ security:
   subscribe.false: Ні
 
 user_info:
-  user_info: Іформація про користувача
-  messages: Повідомлення
-  received: Отримані
-  sent: Відіслані
+  personal_info: Особисті дані
+  received_messages: Отримані повідомлення
+  sent_messages: Відіслані повідомлення
+  invoices: Замовлення
 
 private_message:
   send: Відправити
@@ -41,6 +41,13 @@ private_message:
   set_unread: Відмітити як непрочитане
   delete: Видалити
   send_private_message: відправити приватне повідомлення
+
+invoice:
+  id: Номер замовлення
+  created_at: Дата
+  quantity: Кількість товарів
+  amount: Сума
+  status: Статус
 
 page:
   name:

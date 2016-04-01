@@ -23,10 +23,10 @@ security:
   subscribe.false: No
 
 user_info:
-  user_info: User info
-  messages: Messages
-  received: Received
-  sent: Sent
+  personal_info: Personal info
+  received_messages: Received messages
+  sent_messages: Sent messages
+  invoices: Orders
 
 private_message:
   send: Send
@@ -41,6 +41,13 @@ private_message:
   set_unread: Set unread
   delete: Delete
   send_private_message: send private message
+
+invoice:
+  id: Order number
+  created_at: Date
+  quantity: Items quantity
+  amount: Amount
+  status: Status
 
 page:
   name:

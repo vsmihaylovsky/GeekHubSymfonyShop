@@ -61,7 +61,7 @@
                                         {{ app.user.username }}
                                         {% set unreadPrivateMessagesCount = getUnreadPrivateMessagesCount() %}
                                         {% if unreadPrivateMessagesCount != 0 %}
-                                            <span class="badge">{{ unreadPrivateMessagesCount }}</span>
+                                            <span class="badge" id="not-viewed-private-messages">{{ unreadPrivateMessagesCount }}</span>
                                         {% endif %}
                                     </a>
                                 </li>

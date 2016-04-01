@@ -1,0 +1,47 @@
+{% extends 'AppBundle:shop:user-info.html.twig' %}
+
+{% block content %}
+    <table class="table table-bordered table-striped table-hover table-condensed invoices-table linked-row-table">
+        <thead>
+        <tr>
+            <th class="invoice-id">{{ 'invoice.id'|trans }}</th>
+            <th class="invoice-created-at">{{ 'invoice.created_at'|trans }}</th>
+            <th class="invoice-quantity">{{ 'invoice.quantity'|trans }}</th>
+            <th class="invoice-amount">{{ 'invoice.amount'|trans }}</th>
+            <th class="invoice-status">{{ 'invoice.status'|trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for invoice in invoices %}
+            <tr>
+                <td class="invoice-id">
+                    <a href="{{ path('homepage') }}">
+                        № {{ invoice.id }}
+                    </a>
+                </td>
+                <td class="invoice-created-at">
+                    <a href="{{ path('homepage') }}">
+                        {{ invoice.createdAt|date("d.m.Y H:i") }}
+                    </a>
+                </td>
+                <td class="invoice-quantity">
+                    <a href="{{ path('homepage') }}">
+                        {{ invoice.quantity }}
+                    </a>
+                </td>
+                <td class="invoice-amount">
+                    <a href="{{ path('homepage') }}">
+                        {{ invoice.amount }}
+                    </a>
+                </td>
+                <td class="invoice-status">
+                    <a href="{{ path('homepage') }}">
+                        {{ invoice.statuses|length }}
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+

@@ -399,9 +399,13 @@ label.rows-per-page select{
     vertical-align: middle;
 }
 
-.dataTable_wrapper .data-table {
+.dataTable_wrapper table.data-table {
     margin-top: 10px;
     margin-bottom: 2px;
+}
+
+.dataTable_wrapper table.data-table tbody tr td {
+    padding: 5px;
 }
 
 .dataTable_wrapper .page-count {
