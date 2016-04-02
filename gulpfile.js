@@ -64,7 +64,8 @@ gulp.task('pages-js', function() {
             'bower_components/datatables/media/js/jquery.dataTables.min.js',
             'bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js',
             'bower_components/datatables-responsive/js/dataTables.responsive.js',
-            'bower_components/bootstrap-star-rating/js/star-rating.js'
+            'bower_components/bootstrap-star-rating/js/star-rating.js',
+            'bower_components/js-cookie/src/js.cookie.js'
         ])
         .pipe(minifyJs())
         .pipe(gulp.dest('web/js/'));
