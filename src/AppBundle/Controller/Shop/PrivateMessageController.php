@@ -142,14 +142,13 @@ class PrivateMessageController extends Controller
      * @Route("/{id}", requirements={"id": "\d+"}, name="show_private_message")
      * @ParamConverter("privateMessage", class="AppBundle:PrivateMessage")
      * @Method("GET")
+     * @Security("is_granted('read_message', privateMessage)")
      * @Template("AppBundle:shop/PrivateMessage:show.html.twig")
      * @param PrivateMessage $privateMessage
      * @return array
      */
     public function showAction(PrivateMessage $privateMessage)
     {
-        $this->denyAccessUnlessGranted('read_message', $privateMessage);
-
         if ((!$privateMessage->getIsViewed()) && ($this->getUser() === $privateMessage->getRecipient())) {
             $this->get('app.private_messages_service')->setPrivateMessagesRead([$privateMessage]);
         }

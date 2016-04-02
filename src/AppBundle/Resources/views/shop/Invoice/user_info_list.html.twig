@@ -15,28 +15,30 @@
         {% for invoice in invoices %}
             <tr>
                 <td class="invoice-id">
-                    <a href="{{ path('homepage') }}">
+                    <a href="{{ path('user_info_invoice', {'id': invoice.id}) }}">
                         № {{ invoice.id }}
                     </a>
                 </td>
                 <td class="invoice-created-at">
-                    <a href="{{ path('homepage') }}">
+                    <a href="{{ path('user_info_invoice', {'id': invoice.id}) }}">
                         {{ invoice.createdAt|date("d.m.Y H:i") }}
                     </a>
                 </td>
                 <td class="invoice-quantity">
-                    <a href="{{ path('homepage') }}">
+                    <a href="{{ path('user_info_invoice', {'id': invoice.id}) }}">
                         {{ invoice.quantity }}
                     </a>
                 </td>
                 <td class="invoice-amount">
-                    <a href="{{ path('homepage') }}">
+                    <a href="{{ path('user_info_invoice', {'id': invoice.id}) }}">
                         {{ invoice.amount }}
                     </a>
                 </td>
                 <td class="invoice-status">
-                    <a href="{{ path('homepage') }}">
-                        {{ invoice.statuses|length }}
+                    <a href="{{ path('user_info_invoice', {'id': invoice.id}) }}">
+                        {% if invoice.statuses|length == 0 %}
+                            {{ 'invoice.status.is_processed'|trans }}
+                        {% endif %}
                     </a>
                 </td>
             </tr>

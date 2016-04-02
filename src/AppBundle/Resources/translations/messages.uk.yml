@@ -48,6 +48,7 @@ invoice:
   quantity: Кількість товарів
   amount: Сума
   status: Статус
+  status.is_processed: Оброблюється
 
 page:
   name:
@@ -162,3 +163,5 @@ text: текс
 Filterable: Чи фільтрується
 Attribute option: Опції атрибута
 Enter option: Введіть опцію
+pieces: шт.
+currency: грн

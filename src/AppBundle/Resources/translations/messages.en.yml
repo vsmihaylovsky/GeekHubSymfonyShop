@@ -48,6 +48,7 @@ invoice:
   quantity: Items quantity
   amount: Amount
   status: Status
+  status.is_processed: Is processed
 
 page:
   name:
@@ -164,3 +165,5 @@ true: true
 false: false
 Attribute option: Attribute option
 Enter option: Enter option
+pieces: PC.
+currency: UAH
