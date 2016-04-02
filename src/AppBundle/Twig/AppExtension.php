@@ -9,6 +9,8 @@
 
 namespace AppBundle\Twig;
 
+use AppBundle\Entity\Product;
+use AppBundle\Entity\ProductPicture;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Twig_Extension;
@@ -19,11 +21,13 @@ class AppExtension extends Twig_Extension
 {
     private $em;
     private $tokenStorage;
+    private $comingSoonPicture;
 
-    public function __construct(EntityManager $entityManager, TokenStorage $tokenStorage)
+    public function __construct(EntityManager $entityManager, TokenStorage $tokenStorage, $comingSoonPicture)
     {
         $this->em = $entityManager;
         $this->tokenStorage = $tokenStorage;
+        $this->comingSoonPicture = $comingSoonPicture;
     }
 
     public function getFunctions()
@@ -36,6 +40,7 @@ class AppExtension extends Twig_Extension
             ),
             new Twig_SimpleFunction('getProductRating', [$this, 'getProductRating']),
             new Twig_SimpleFunction('getProductReviewsCount', [$this, 'getProductReviewsCount']),
+            new Twig_SimpleFunction('getProductMainPicture', [$this, 'getProductMainPicture']),
         ];
     }
 
@@ -70,5 +75,23 @@ class AppExtension extends Twig_Extension
     public function getProductRating($slug)
     {
         return $this->em->getRepository('AppBundle:Review')->getProductRating($slug);
+    }
+
+    public function getProductMainPicture(Product $product)
+    {
+        if ($product->getPictures()->count() > 0) {
+            $mainPicture = $product->getPictures()->get(0)->getWebPath();
+
+            /** @var ProductPicture $picture */
+            foreach ($product->getPictures() as $picture ) {
+                if ($picture->getIsMain()) {
+                    $mainPicture = $picture->getWebPath();
+                }
+            }
+
+            return $mainPicture;
+        } else {
+            return $this->comingSoonPicture;
+        }
     }
 }

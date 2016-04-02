@@ -21,19 +21,21 @@
                                 <ul class="nav navbar-nav">
                                     {% set active_route = app.request.get('_route') %}
                                     <li {% if active_route == 'fos_user_profile_show' %}class="active"{% endif %}>
-                                        <a href="{{ path('fos_user_profile_show') }}">{{ 'user_info.user_info'|trans }}</a>
+                                        <a href="{{ path('fos_user_profile_show') }}">{{ 'user_info.personal_info'|trans }}</a>
                                     </li>
-                                    <li><h4>{{ 'user_info.messages'|trans }}</h4></li>
-                                    <li {% if active_route == 'show_received_private_message' %}class="active"{% endif %}>
-                                        <a href="{{ path('show_received_private_message') }}">{{ 'user_info.received'|trans }}
+                                    <li {% if active_route == 'user_info_invoices' %}class="active"{% endif %}>
+                                        <a href="{{ path('user_info_invoices') }}">{{ 'user_info.invoices'|trans }}</a>
+                                    </li>
+                                    <li {% if active_route == 'show_received_private_messages' %}class="active"{% endif %}>
+                                        <a href="{{ path('show_received_private_messages') }}">{{ 'user_info.received_messages'|trans }}
                                             {% set unreadPrivateMessagesCount = getUnreadPrivateMessagesCount() %}
                                             {% if unreadPrivateMessagesCount != 0 %}
-                                                <span class="badge">{{ unreadPrivateMessagesCount }}</span>
+                                                <span class="badge" id="not-viewed-private-messages">{{ unreadPrivateMessagesCount }}</span>
                                             {% endif %}
                                         </a>
                                     </li>
-                                    <li {% if active_route == 'show_sent_private_message' %}class="active"{% endif %}>
-                                        <a href="{{ path('show_sent_private_message') }}">{{ 'user_info.sent'|trans }}</a>
+                                    <li {% if active_route == 'show_sent_private_messages' %}class="active"{% endif %}>
+                                        <a href="{{ path('show_sent_private_messages') }}">{{ 'user_info.sent_messages'|trans }}</a>
                                     </li>
                                 </ul>
                             </div><!--/.nav-collapse -->
