@@ -28,17 +28,18 @@
                 </ol>
             </div>
 
-            <div class="step-one">
-                <h2 class="heading">Checkout options</h2>
-            </div>
-
-            {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-                <div class="register-req">
-                    <p>Please use Register And Checkout to easily get access to your order history, or use Checkout as Guest</p>
+            {% if invoice.items.count  > 0 %}
+                <div class="step-one">
+                    <h2 class="heading">Checkout options</h2>
                 </div>
-            {% endif %}
 
-            {{ form_start(form) }}
+                {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <div class="register-req">
+                        <p>Please use Register And Checkout to easily get access to your order history, or use Checkout as Guest</p>
+                    </div>
+                {% endif %}
+
+                {{ form_start(form) }}
                 <div class="shopper-informations">
                     <div class="row">
                         <div class="col-sm-6">
@@ -68,7 +69,12 @@
                 <div style="float: right; margin-left: 15px;">
                     {{ form_widget(form.order) }}
                 </div>
-            {{ form_end(form) }}
+                {{ form_end(form) }}
+            {% else %}
+                <div class="register-req">
+                    <p>Your shopping cart is empty.</p>
+                </div>
+            {% endif %}
         </div>
     </section>
 {% endblock %}

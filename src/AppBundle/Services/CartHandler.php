@@ -89,7 +89,7 @@ class CartHandler
         $date = new \DateTime('now');
         $date->add(new \DateInterval('P1M'));
 
-        return new Cookie('cart', json_encode($cart, 15), $date);
+        return new Cookie('cart', json_encode($cart, 15), $date, $path = '/', $domain = null, $secure = false, $httpOnly = false);
     }
 
     /**

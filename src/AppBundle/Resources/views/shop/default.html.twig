@@ -54,6 +54,7 @@
     <script src="{{ asset('js/price-range.js') }}"></script>
     <script src="{{ asset('js/jquery.prettyPhoto.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('js/js.cookie.js') }}"></script>
     <script>
         $(function() {
             $('.add-to-cart').on('click', function(e){
@@ -67,9 +68,27 @@
                                            + '</b> successfully added to your shopping cart!'
                                     );
                             dialog.modal('show');
+                            updateCartLabelCount();
                         });
             });
+
             $('#cartModal').on('show.bs.modal', function (event){});
+
+            function updateCartLabelCount() {
+                var badge = $('#badge-cart-items');
+                var cart = Cookies.getJSON('cart');
+                var cartItemsCount = 0;
+                $.each(cart, function(index, value) {
+                    cartItemsCount += value;
+                });
+                if (cartItemsCount > 0) {
+                    badge.html(cartItemsCount).show();
+                } else {
+                    badge.html('0').hide();
+                }
+            }
+
+            updateCartLabelCount();
         });
     </script>
 {% endblock %}

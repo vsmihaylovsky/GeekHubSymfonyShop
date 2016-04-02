@@ -54,7 +54,11 @@
                         <ul class="nav navbar-nav">
                             <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
                             <li><a href="{{ path('checkout') }}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                            <li><a href="{{ path('cart') }}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                            <li><a href="{{ path('cart') }}">
+                                    <i class="fa fa-shopping-cart"></i> Cart
+                                    <span id="badge-cart-items" class="badge" style="display: none">0</span>
+                                </a>
+                            </li>
                             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                                 <li>
                                     <a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-user"></i>
