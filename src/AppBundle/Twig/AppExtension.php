@@ -10,6 +10,8 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Services\SearchFormService;
+use AppBundle\Entity\Product;
+use AppBundle\Entity\ProductPicture;
 use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\Category;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
@@ -23,6 +25,7 @@ class AppExtension extends Twig_Extension
 {
     private $em;
     private $tokenStorage;
+    private $comingSoonPicture;
     private $formFactory;
     private $router;
     private $search;
@@ -31,10 +34,12 @@ class AppExtension extends Twig_Extension
                                 TokenStorage $tokenStorage,
                                 FormFactory $formFactory,
                                 Router $router,
-                                SearchFormService $search)
+                                SearchFormService $search,
+                                $comingSoonPicture)
     {
         $this->em = $entityManager;
         $this->tokenStorage = $tokenStorage;
+        $this->comingSoonPicture = $comingSoonPicture;
         $this->formFactory = $formFactory;
         $this->router = $router;
         $this->search = $search;
@@ -50,6 +55,7 @@ class AppExtension extends Twig_Extension
             ),
             new Twig_SimpleFunction('getProductRating', [$this, 'getProductRating']),
             new Twig_SimpleFunction('getProductReviewsCount', [$this, 'getProductReviewsCount']),
+            new Twig_SimpleFunction('getProductMainPicture', [$this, 'getProductMainPicture']),
             new Twig_SimpleFunction('categoryFilters',
                 [$this, 'getCategoryFilters'],
                 ['needs_environment' => true, 'is_safe' => ['html']]
@@ -129,5 +135,23 @@ class AppExtension extends Twig_Extension
                 'search' => $this->search->getSearchForm()->createView(),
             ]
         );
+    }
+
+    public function getProductMainPicture(Product $product)
+    {
+        if ($product->getPictures()->count() > 0) {
+            $mainPicture = $product->getPictures()->get(0)->getWebPath();
+
+            /** @var ProductPicture $picture */
+            foreach ($product->getPictures() as $picture ) {
+                if ($picture->getIsMain()) {
+                    $mainPicture = $picture->getWebPath();
+                }
+            }
+
+            return $mainPicture;
+        } else {
+            return $this->comingSoonPicture;
+        }
     }
 }

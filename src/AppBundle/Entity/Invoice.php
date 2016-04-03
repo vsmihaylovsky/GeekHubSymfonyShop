@@ -35,6 +35,13 @@ class Invoice
     private $statuses;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="quantity", type="integer", nullable=true)
+     */
+    private $quantity;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="amount", type="decimal", precision=10, scale=2, nullable=true)
@@ -401,5 +408,29 @@ class Invoice
     public function getCustomer()
     {
         return $this->customer;
+    }
+
+    /**
+     * Set quantity
+     *
+     * @param integer $quantity
+     *
+     * @return Invoice
+     */
+    public function setQuantity($quantity)
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    /**
+     * Get quantity
+     *
+     * @return integer
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
     }
 }

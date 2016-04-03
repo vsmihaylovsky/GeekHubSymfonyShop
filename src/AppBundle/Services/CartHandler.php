@@ -44,6 +44,7 @@ class CartHandler
         $cart = json_decode($json, true);
         $invoice = new Invoice();
         if($cart && is_array($cart)) {
+            $quantity = 0;
             $amount = 0;
             foreach($cart as $id => $qty) {
                 $product = $this->em->getRepository('AppBundle\Entity\Product')->find($id);
@@ -55,10 +56,13 @@ class CartHandler
                         ->setPrice($price)
                         ->setQty((int)$qty);
                     $invoice->addItem($item);
+                    $quantity += $qty;
                     $amount += $price * $qty;
                 }
             }
-            $invoice->setAmount($amount);
+            $invoice
+                ->setQuantity($quantity)
+                ->setAmount($amount);
             $user = $this->tokenStorage->getToken()->getUser();
             if($user != 'anon.') {
                 /** @var User $user */

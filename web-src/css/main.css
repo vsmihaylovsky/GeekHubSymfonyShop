@@ -2450,6 +2450,10 @@ ul.category-tab li.active a:focus {
     }
 }
 
+span#not-viewed-private-messages {
+    background-color: #00b3ee;
+}
+
 .not-viewed-private-messages {
     font-weight: bold;
 }
@@ -2539,4 +2543,36 @@ table.private-messages-table td.private-message-time {
 
 .review-navigation {
     text-align: center;
+}
+
+table.linked-row-table tbody tr td {
+    cursor: pointer;
+    padding: 0;
+}
+
+table.linked-row-table tbody tr td a {
+    display: block;
+    color: black;
+    text-decoration: none;
+    padding: 5px;
+}
+
+table.invoices-table tbody tr td.invoice-id {
+    text-align: left;
+}
+
+table.invoices-table tbody tr td.invoice-created-at {
+    text-align: right;
+}
+
+table.invoices-table tbody tr td.invoice-quantity {
+    text-align: right;
+}
+
+table.invoices-table tbody tr td.invoice-amount {
+    text-align: right;
+}
+
+table.invoices-table tbody tr td.invoice-status {
+    text-align: left;
 }

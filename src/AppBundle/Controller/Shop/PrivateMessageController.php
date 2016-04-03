@@ -22,7 +22,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Route("/private-message")
+ * @Route("/private-messages")
  * @Security("has_role('ROLE_USER')")
  */
 class PrivateMessageController extends Controller
@@ -80,7 +80,7 @@ class PrivateMessageController extends Controller
             $em->persist($privateMessage);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('show_sent_private_message'));
+            return $this->redirect($this->generateUrl('show_sent_private_messages'));
         }
 
         return
@@ -91,7 +91,7 @@ class PrivateMessageController extends Controller
     }
 
     /**
-     * @Route("/received", name="show_received_private_message")
+     * @Route("/received", name="show_received_private_messages")
      * @Method("GET")
      * @Template("AppBundle:shop/PrivateMessage:received.html.twig")
      * @return array
@@ -116,7 +116,7 @@ class PrivateMessageController extends Controller
     }
 
     /**
-     * @Route("/sent", name="show_sent_private_message")
+     * @Route("/sent", name="show_sent_private_messages")
      * @Method("GET")
      * @Template("AppBundle:shop/PrivateMessage:sent.html.twig")
      * @return array
@@ -142,14 +142,13 @@ class PrivateMessageController extends Controller
      * @Route("/{id}", requirements={"id": "\d+"}, name="show_private_message")
      * @ParamConverter("privateMessage", class="AppBundle:PrivateMessage")
      * @Method("GET")
+     * @Security("is_granted('read_message', privateMessage)")
      * @Template("AppBundle:shop/PrivateMessage:show.html.twig")
      * @param PrivateMessage $privateMessage
      * @return array
      */
     public function showAction(PrivateMessage $privateMessage)
     {
-        $this->denyAccessUnlessGranted('read_message', $privateMessage);
-
         if ((!$privateMessage->getIsViewed()) && ($this->getUser() === $privateMessage->getRecipient())) {
             $this->get('app.private_messages_service')->setPrivateMessagesRead([$privateMessage]);
         }
@@ -200,7 +199,7 @@ class PrivateMessageController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('show_received_private_message'));
+        return $this->redirect($this->generateUrl('show_received_private_messages'));
     }
 
     /**
@@ -229,6 +228,6 @@ class PrivateMessageController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('show_sent_private_message'));
+        return $this->redirect($this->generateUrl('show_sent_private_messages'));
     }
 }

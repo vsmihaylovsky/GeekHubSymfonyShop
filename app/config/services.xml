@@ -6,6 +6,7 @@
 
     <parameters>
         <parameter key="my_user_provider.class">AppBundle\Security\Core\User\FOSUBUserProvider</parameter>
+        <parameter key="picture.coming_soon">media/products/coming_soon.jpg</parameter>
     </parameters>
 
     <services>
@@ -40,6 +41,7 @@
             <tag name="twig.extension"/>
             <argument type="service" id="doctrine.orm.entity_manager"/>
             <argument type="service" id="security.token_storage"/>
+            <argument>%picture.coming_soon%</argument>
             <argument type="service" id="form.factory"/>
             <argument type="service" id="router"/>
             <argument type="service" id="app.search_form_service"/>
@@ -92,6 +94,15 @@
             <argument type="service" id="form.factory"/>
             <argument type="service" id="router"/>
             <argument type="service" id="security.token_storage"/>
+        </service>
+
+        <service id="app.invoice_voter"
+                 class="AppBundle\Security\InvoiceVoter"
+                 public="false"
+        >
+            <argument type="service" id="security.access.decision_manager"/>
+
+            <tag name="security.voter"/>
         </service>
 
     </services>
