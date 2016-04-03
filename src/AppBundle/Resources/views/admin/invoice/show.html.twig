@@ -27,19 +27,8 @@
         <div class="col-sm-8">
             <div class="row">
                 <div class="col-sm-12">
-                    {{ 'invoice.customer_name'|trans }}: {{ invoice.customerName }}
-                    <br>
-                    {{ 'invoice.phone'|trans }}: {{ invoice.phone }}
-                    <br>
-                    {{ 'invoice.email'|trans }}: {{ invoice.email }}
-                    <br>
-                    {{ 'invoice.delivery'|trans }}: {{ invoice.delivery }}
-                    <br>
-                    {{ 'invoice.payment'|trans }}: {{ invoice.payment }}
-                    <br>
-                    {{ 'invoice.comment'|trans }}:
-                    <br>
-                    {{ invoice.comment|nl2br }}
+                    {% form_theme invoiceForm 'bootstrap_3_horizontal_layout.html.twig' %}
+                    {{ form(invoiceForm) }}
                 </div>
             </div>
             <hr>
@@ -75,8 +64,8 @@
                 </div>
                 <ul class="list-group">
                     <li class="list-group-item">
-                        {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
-                        {{ form(form) }}
+                        {% form_theme invoiceStatusForm 'bootstrap_3_horizontal_layout.html.twig' %}
+                        {{ form(invoiceStatusForm) }}
                     </li>
                     {% if invoice.statuses|length == 0 %}
                         <li class="list-group-item">{{ 'invoice.status.is_processed'|trans }}</li>

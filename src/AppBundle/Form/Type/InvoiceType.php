@@ -24,37 +24,37 @@ class InvoiceType extends AbstractType
             if ($formName == 'checkout') {
                 $event->getForm()
                     ->add('customerName', TextType::class, [
-                            'label' => false,
+                            'label' => 'invoice.customer_name',
                             'attr'  => [
                                 'placeholder' => 'Name*'
                             ]
                         ]
                     )->add('email', TextType::class, [
-                            'label' => false,
+                            'label' => 'invoice.email',
                             'attr'  => [
                                 'placeholder' => 'Email*'
                             ]
                         ]
                     )->add('phone', TextType::class, [
-                            'label' => false,
+                            'label' => 'invoice.phone',
                             'attr'  => [
                                 'placeholder' => 'Phone*'
                             ]
                         ]
                     )->add('delivery', TextType::class, [
-                            'label' => false,
+                            'label' => 'invoice.delivery',
                             'attr'  => [
                                 'placeholder' => 'Address*'
                             ]
                         ]
                     )->add('payment', TextType::class, [
-                            'label' => false,
+                            'label' => 'invoice.payment',
                             'attr'  => [
                                 'placeholder' => 'Payment*'
                             ]
                         ]
                     )->add('comment', TextareaType::class, [
-                            'label' => false,
+                            'label' => 'invoice.comment',
                             'attr'  => [
                                 'placeholder' => 'Notes about your order, Special Notes for Delivery',
                                 'rows'        => '16'

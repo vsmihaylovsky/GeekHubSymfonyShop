@@ -365,11 +365,11 @@ class Invoice
     /**
      * Add status
      *
-     * @param \AppBundle\Entity\InvoiceStatuses $status
+     * @param \AppBundle\Entity\InvoiceStatus $status
      *
      * @return Invoice
      */
-    public function addStatus(InvoiceStatuses $status)
+    public function addStatus(InvoiceStatus $status)
     {
         $this->statuses[] = $status;
 
@@ -379,9 +379,9 @@ class Invoice
     /**
      * Remove status
      *
-     * @param \AppBundle\Entity\InvoiceStatuses $status
+     * @param \AppBundle\Entity\InvoiceStatus $status
      */
-    public function removeStatus(InvoiceStatuses $status)
+    public function removeStatus(InvoiceStatus $status)
     {
         $this->statuses->removeElement($status);
     }

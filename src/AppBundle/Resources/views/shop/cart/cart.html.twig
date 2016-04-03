@@ -14,26 +14,8 @@
         {% for key, item in invoice.items %}
             <tr>
                 <td class="cart_product">
-                    {% set picFirst = null %}
-                    {% set picMain = null %}
-
-                    {% for key, picture in item.product.pictures %}
-                        {% if key == 0 %}
-                            {% set picFirst = picture %}
-                        {% endif %}
-                        {% if picture.isMain is not null %}
-                            {% set picMain = picture %}
-                        {% endif %}
-                    {% endfor %}
-
                     <a href="{{ path('product_view', {'slug': item.product.slug}) }}">
-                        {% if picMain != null %}
-                            <img src="{{ asset(picMain.getWebPath|imagine_filter('mini_thumbnail')) }}" alt="">
-                        {% elseif picFirst != null %}
-                            <img src="{{ asset(picFirst.getWebPath|imagine_filter('mini_thumbnail')) }}" alt="">
-                        {% else %}
-                            <img src="{{ asset('media/products/coming_soon.jpg'|imagine_filter('mini_thumbnail')) }}" alt="">
-                        {% endif %}
+                        <img src="{{ asset(getProductMainPicture(item.product)|imagine_filter('mini_thumbnail')) }}" alt="">
                     </a>
                 </td>
                 <td class="cart_description">
