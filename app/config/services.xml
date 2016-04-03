@@ -41,10 +41,10 @@
             <tag name="twig.extension"/>
             <argument type="service" id="doctrine.orm.entity_manager"/>
             <argument type="service" id="security.token_storage"/>
-            <argument>%picture.coming_soon%</argument>
             <argument type="service" id="form.factory"/>
             <argument type="service" id="router"/>
             <argument type="service" id="app.search_form_service"/>
+            <argument>%picture.coming_soon%</argument>
         </service>
 
         <service id="app.private_message_voter"
