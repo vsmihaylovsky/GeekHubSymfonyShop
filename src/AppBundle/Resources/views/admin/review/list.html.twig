@@ -74,9 +74,7 @@
                                 </a>
                             </td>
                             <td class="review-user">
-                                <a href="{{ path('admin_users', {'search': review.user.username}) }}">
-                                    {{ review.user.username }}
-                                </a>
+                                {{ review.user.username }}
                             </td>
                             <td class="review-text">
                                 {{ review.reviewText }}

@@ -624,3 +624,59 @@ label.rows-per-page select{
     text-align: center;
     vertical-align: middle;
 }
+
+.dataTable_wrapper table.invoice-data-table th {
+    text-align: left;
+    vertical-align: middle;
+}
+
+.dataTable_wrapper table.invoice-data-table th.invoice-id {
+}
+
+.dataTable_wrapper table.invoice-data-table th.invoice-user {
+}
+
+.dataTable_wrapper table.invoice-data-table th.invoice-created {
+}
+
+.dataTable_wrapper table.invoice-data-table th.invoice-quantity {
+}
+
+.dataTable_wrapper table.invoice-data-table th.invoice-amount {
+}
+
+.dataTable_wrapper table.invoice-data-table th.invoice-status {
+}
+
+.dataTable_wrapper table.invoice-data-table th.invoice-show {
+    padding: 8px;
+}
+
+.dataTable_wrapper table.invoice-data-table td.invoice-id {
+    text-align: left;
+}
+
+.dataTable_wrapper table.invoice-data-table td.invoice-user {
+    text-align: left;
+}
+
+.dataTable_wrapper table.invoice-data-table td.invoice-created {
+    text-align: right;
+}
+
+.dataTable_wrapper table.invoice-data-table td.invoice-quantity {
+    text-align: right;
+}
+
+.dataTable_wrapper table.invoice-data-table td.invoice-amount {
+    text-align: right;
+}
+
+.dataTable_wrapper table.invoice-data-table td.invoice-status {
+    text-align: left;
+}
+
+.dataTable_wrapper table.invoice-data-table td.invoice-show {
+    text-align: center;
+    vertical-align: middle;
+}

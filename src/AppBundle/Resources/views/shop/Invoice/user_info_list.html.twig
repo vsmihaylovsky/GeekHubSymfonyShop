@@ -26,19 +26,17 @@
                 </td>
                 <td class="invoice-quantity">
                     <a href="{{ path('user_info_invoice', {'id': invoice.id}) }}">
-                        {{ invoice.quantity }}
+                        {{ invoice.quantity }} {{ 'pieces'|trans }}
                     </a>
                 </td>
                 <td class="invoice-amount">
                     <a href="{{ path('user_info_invoice', {'id': invoice.id}) }}">
-                        {{ invoice.amount }}
+                        {{ invoice.amount }} {{ 'currency'|trans }}
                     </a>
                 </td>
                 <td class="invoice-status">
                     <a href="{{ path('user_info_invoice', {'id': invoice.id}) }}">
-                        {% if invoice.statuses|length == 0 %}
-                            {{ 'invoice.status.is_processed'|trans }}
-                        {% endif %}
+                        {{ invoice.status|trans }}
                     </a>
                 </td>
             </tr>

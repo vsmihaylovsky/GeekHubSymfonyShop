@@ -63,6 +63,8 @@ page:
     review.edit: Review edit
     private_messages: Private messages
     private_message.edit: Private message edit
+    invoices: Invoices
+    invoice: Invoice
   warning:
     youMustSaveProductFirst: You must save product first.
 
@@ -71,6 +73,7 @@ table:
   delete: Delete
   delete_record: Delete record?
   update: Update
+  show: Show
   products:
     name: Name
     type: Type
@@ -117,6 +120,13 @@ table:
     title: Title
     message: Text
     sent_time: Sent
+  invoices:
+    id: Order number
+    username: User
+    created_at: Created
+    quantity: Items quantity
+    amount: Amount
+    status: Status
 
 DataTable:
   lengthMenu: Display _MENU_ records per page

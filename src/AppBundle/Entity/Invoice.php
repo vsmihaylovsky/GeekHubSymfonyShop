@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OrderBy;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -31,6 +32,7 @@ class Invoice
 
     /**
      * @ORM\OneToMany(targetEntity="InvoiceStatuses", mappedBy="invoice", cascade={"remove"})
+     * @OrderBy({"createdAt" = "DESC"})
      */
     private $statuses;
 
@@ -97,6 +99,13 @@ class Invoice
     private $comment;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=100, nullable=true)
+     */
+    private $status;
+    
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="createdAt", type="datetime")
@@ -113,6 +122,7 @@ class Invoice
     public function __construct() {
         $this->items = new ArrayCollection();
         $this->statuses = new ArrayCollection();
+        $this->setStatus('invoice.status.is_processed');
     }
 
     /**
@@ -432,5 +442,29 @@ class Invoice
     public function getQuantity()
     {
         return $this->quantity;
+    }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     *
+     * @return Invoice
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }

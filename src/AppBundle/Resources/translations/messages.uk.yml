@@ -63,6 +63,8 @@ page:
     review.edit: Редагування відгук
     private_messages: Повідомлення
     private_message.edit: Редагування повідомлення
+    invoices: Замовлення
+    invoice: Замовлення
   warning:
     youMustSaveProductFirst: Ви повинні спершу зберегти продукт.
 
@@ -71,6 +73,7 @@ table:
   delete: Видалити
   delete_record: Видалити запис?
   update: Зберегти
+  show: Показати
   products:
     name: Назва
     type: Тип
@@ -117,6 +120,13 @@ table:
     title: Заголовок
     message: Текст
     sent_time: Відіслано
+  invoices:
+    id: Номер замовлення
+    username: Користувач
+    created_at: Дата
+    quantity: Кількість товарів
+    amount: Сума
+    status: Статус
 
 DataTable:
   lengthMenu: Показувати _MENU_ записів на сторінку
