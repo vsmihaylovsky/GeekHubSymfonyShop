@@ -1,1 +1,13 @@
-{{ categories() }}
+{% if define app.request.attributes %}
+    {% set params = app.request.attributes.get('_route_params') %}
+    {% if params['filter'] == 'category' %}
+        {% set currentCategory = params['param'] %}
+    {% else %}
+        {% set currentCategory = '' %}
+    {% endif %}
+{% else %}
+    {% set currentCategory = '' %}
+{% endif %}
+
+{{ categories(currentCategory) }}
+{{ categoryFilters(currentCategory) }}

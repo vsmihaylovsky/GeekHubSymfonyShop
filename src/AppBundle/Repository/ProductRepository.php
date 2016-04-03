@@ -44,21 +44,37 @@ class ProductRepository extends EntityRepository
             ->getResult();
     }
 
-    public function getFilteredProductsWithPictures($filter, $param)
+    public function getFilteredProductsWithPictures($filter, $params)
     {
         $query = $this->createQueryBuilder('p')
-            ->select('p, pic, cat')
+            ->select('p, pic, cat', 'opt')
             ->leftJoin('p.pictures', 'pic')
             ->leftJoin('p.category', 'cat')
+            ->leftJoin('p.attributeValues', 'opt')
             ->orderBy('p.createdAt', 'DESC');
 
         switch ($filter) {
             case 'category':
                 $query
                     ->where('cat.slug = ?1')
-                    ->setParameter(1, $param);
+                    ->setParameter(1, $params['category']);
                 break;
-
+            case 'filter':
+                $query->where('cat.id = :category');
+                $paramsData['category'] = $params['category'];
+                if(isset($params['options']) && count($params['options']) > 0) {
+                    foreach($params['options'] as $key => $value) {
+                        $query->andWhere('opt.attributeOption = (:option'.$key.')');
+                        $paramsData['option'.$key] = $value;
+                    }
+                }
+                $query->setParameters($paramsData);
+                break;
+            case 'search':
+                $query
+                    ->where('p.name like ?1')
+                    ->setParameter(1, '%'.$params['name'].'%');
+                break;
         }
 
         return $query->getQuery();

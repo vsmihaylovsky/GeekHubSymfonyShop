@@ -8,23 +8,40 @@
                         {% if category.children.count() > 0 %}
                             <a data-toggle="collapse" data-parent="#accordian" href="#category{{ category.id }}">
                                 <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                {{ category.title }}
+                                {% if category.slug == currentCategory['parentSlug'] %}
+                                    <span style="font-weight: 900; color: black;">{{ category.title }}</span>
+                                {% else %}
+                                    {{ category.title }}
+                                {% endif %}
                             </a>
                         {% else %}
                             <a href="{{ path('products_filtered', {'filter': 'category', 'param': category.slug}) }}">
-                                {{ category.title }}
+                                {% if category.slug == currentCategory['currentSlug'] %}
+                                    <span style="font-weight: 900; color: black;">{{ category.title }}</span>
+                                {% else %}
+                                    {{ category.title }}
+                                {% endif %}
                             </a>
                         {% endif %}
                     </h4>
                 </div>
                 {% if category.children.count() > 0 %}
-                    <div id="category{{ category.id }}" class="panel-collapse collapse">
+                    {% if category.slug == currentCategory['parentSlug'] %}
+                        {% set classIn = 'in' %}
+                    {% else %}
+                        {% set classIn = '' %}
+                    {% endif %}
+                    <div id="category{{ category.id }}" class="panel-collapse collapse {{ classIn }}">
                         <div class="panel-body">
                             <ul>
                                 {% for subcategory in category.children %}
                                     <li>
                                         <a href="{{ path('products_filtered', {'filter': 'category', 'param': subcategory.slug}) }}">
-                                            {{ subcategory.title }}
+                                            {% if subcategory.slug == currentCategory['currentSlug'] %}
+                                                <span style="font-weight: 900; color: black;">{{ subcategory.title }}</span>
+                                            {% else %}
+                                                {{ subcategory.title }}
+                                            {% endif %}
                                         </a>
                                     </li>
                                 {% endfor %}

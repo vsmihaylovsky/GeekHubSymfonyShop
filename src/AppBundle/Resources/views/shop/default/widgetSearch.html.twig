@@ -1,0 +1,8 @@
+{% if search is defined and search != '' %}
+    <div class="search_box pull-right">
+        {{ form_start(search) }}
+           <span>{{ form_widget(search.input) }}</span>
+            <span>{{ form_widget(search.search) }}</span>
+        {{ form_end(search) }}
+    </div>
+{% endif %}

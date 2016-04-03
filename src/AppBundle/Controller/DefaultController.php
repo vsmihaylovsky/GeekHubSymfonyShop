@@ -8,6 +8,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -62,7 +64,7 @@ class DefaultController extends Controller
      * @Route("/products/{filter}/{param}/{pager}/{page}", name="products_filtered",
      *     defaults={"filter": "none", "param": "none", "pager": "page", "page": 1},
      *     requirements={
-     *          "filter": "none|category",
+     *          "filter": "none|category|filter",
      *          "pager": "page",
      *          "page": "[1-9]\d*"
      *     })
@@ -71,14 +73,64 @@ class DefaultController extends Controller
      */
     public function productsFilteredAction($filter, $param, $page, Request $request)
     {
+        $params = $filter == 'category' ? ['category' => $param] : '';
+
+        $searchService = $this->get('app.search_form_service');
+        $filterForm = $searchService->getFilterForm($param);
+        /** @var Form $filterForm */
+        $filterForm->handleRequest($request);
+        if ($filterForm->isValid()) {
+            if($filterForm->has('search') && $filterForm->get('search')->isClicked()) {
+                $filterN = 'search';
+                $paramN = $filterForm->getData();
+            } elseif($filterForm->has('filter') && $filterForm->get('filter')->isClicked()) {
+                $filter = 'filter';
+                $params = $searchService->prepareFiltersData($filterForm->getData());
+            }
+        }
+
         $em = $this->getDoctrine()->getManager();
-        $query = $em->getRepository('AppBundle:Product')->getFilteredProductsWithPictures($filter, $param);
+        $query = $em->getRepository('AppBundle:Product')->getFilteredProductsWithPictures($filter, $params);
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate($query, $page, $limit = 9);
 
         return [
             'products'  => $pagination,
         ];
+    }
+
+    /**
+     * @param $page
+     * @param Request $request
+     * @return Response
+     * @Route("/search/{pager}/{page}", name="products_search",
+     *     defaults={"pager": "page", "page": 1},
+     *     requirements={
+     *          "pager": "page",
+     *          "page": "[1-9]\d*"
+     *     })
+     * @Method("GET")
+     * @Template("AppBundle:shop:products.html.twig")
+     */
+    public function searchAction($page, Request $request)
+    {
+        $searchService = $this->get('app.search_form_service');
+        $filterForm = $searchService->getSearchForm();
+        /** @var Form $filterForm */
+        $filterForm->handleRequest($request);
+        if ($filterForm->isValid()) {
+            $params['name'] = $filterForm->get('input') ? $filterForm->get('input')->getData() : '';
+            $em = $this->getDoctrine()->getManager();
+            $query = $em->getRepository('AppBundle:Product')->getFilteredProductsWithPictures('search', $params);
+            $paginator  = $this->get('knp_paginator');
+            $pagination = $paginator->paginate($query, $page, $limit = 9);
+
+            return [
+                'products'  => $pagination,
+            ];
+        }
+
+        return $this->redirectToRoute('homepage');
     }
 
     /**
