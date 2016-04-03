@@ -1,0 +1,98 @@
+{% extends 'AppBundle:admin:default.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{ 'page.name.invoice'|trans }}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span>
+                        № {{ invoice.id }}
+                    </span>
+                    <span style="margin-left: 15px">
+                        {{ invoice.createdAt|date("d.m.Y H:i") }}
+                    </span>
+                    <span style="margin-left: 15px">
+                        {{ invoice.amount }} {{ 'currency'|trans }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col-sm-12">
+                    {{ 'invoice.customer_name'|trans }}: {{ invoice.customerName }}
+                    <br>
+                    {{ 'invoice.phone'|trans }}: {{ invoice.phone }}
+                    <br>
+                    {{ 'invoice.email'|trans }}: {{ invoice.email }}
+                    <br>
+                    {{ 'invoice.delivery'|trans }}: {{ invoice.delivery }}
+                    <br>
+                    {{ 'invoice.payment'|trans }}: {{ invoice.payment }}
+                    <br>
+                    {{ 'invoice.comment'|trans }}:
+                    <br>
+                    {{ invoice.comment|nl2br }}
+                </div>
+            </div>
+            <hr>
+            {% for item in invoice.items %}
+                <div class="row">
+                    <div class="col-sm-3">
+                        <a href="{{ path('product_view', {'slug': item.product.slug}) }}">
+                            <img src="{{ asset(getProductMainPicture(item.product)|imagine_filter('mini_thumbnail')) }}"
+                                 alt="{{ item.product.name }}">
+                        </a>
+                    </div>
+                    <div class="col-sm-3">
+                        <a href="{{ path('product_view', {'slug': item.product.slug}) }}">
+                            {{ item.product.name }}
+                        </a>
+                        <br>
+                        {{ item.product.price }} {{ 'currency'|trans }}
+                    </div>
+                    <div class="col-sm-3 text-center">
+                        {{ item.qty }} {{ 'pieces'|trans }}
+                    </div>
+                    <div class="col-sm-3 text-center">
+                        {{ item.price * item.qty }} {{ 'currency'|trans }}
+                    </div>
+                </div>
+                <hr>
+            {% endfor %}
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ 'invoice.status'|trans }}</h3>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+                        {{ form(form) }}
+                    </li>
+                    {% if invoice.statuses|length == 0 %}
+                        <li class="list-group-item">{{ 'invoice.status.is_processed'|trans }}</li>
+                    {% else %}
+                        {% for status in invoice.statuses %}
+                            <li class="list-group-item">
+                                {{ status.status|trans }}
+                                <div class="pull-right">
+                                    {{ status.createdAt|date("d.m.Y H:i") }}
+                                </div>
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

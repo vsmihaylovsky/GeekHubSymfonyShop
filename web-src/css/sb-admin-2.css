@@ -645,6 +645,10 @@ label.rows-per-page select{
 .dataTable_wrapper table.invoice-data-table th.invoice-amount {
 }
 
+.dataTable_wrapper table.invoice-data-table th.invoice-info {
+    padding: 8px;
+}
+
 .dataTable_wrapper table.invoice-data-table th.invoice-status {
 }
 
@@ -670,6 +674,10 @@ label.rows-per-page select{
 
 .dataTable_wrapper table.invoice-data-table td.invoice-amount {
     text-align: right;
+}
+
+.dataTable_wrapper table.invoice-data-table td.invoice-info {
+    text-align: left;
 }
 
 .dataTable_wrapper table.invoice-data-table td.invoice-status {

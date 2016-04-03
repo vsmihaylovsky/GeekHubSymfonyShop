@@ -53,7 +53,7 @@
             <p>Web ID: {{ product.id }}</p>
             {#<img src="{{ asset('images/product-details/rating.png') }}" alt="">#}
             <div class="rating-container rating-gly-star rating-xs" data-content="">
-                <div class="rating-stars" style="width: {{ getProductRating(product.slug) * 20 }}%" data-content=""></div>
+                <div class="rating-stars" style="width: {{ product.rating * 20 }}%" data-content=""></div>
             </div>
 
             <span>
@@ -86,7 +86,7 @@
                         href="{{ path('product_view', {'slug': product.slug, 'tab': 'details'}) }}">Details</a></li>
             <li {% if tab == 'reviews' %} class="active" {% endif %}><a
                         href="{{ path('product_view', {'slug': product.slug, 'tab': 'reviews'}) }}">Reviews
-                    ({{ getProductReviewsCount(product.slug) }})</a></li>
+                    ({{ product.reviewsCount }})</a></li>
         </ul>
     </div>
     {% if tab == 'details' %}

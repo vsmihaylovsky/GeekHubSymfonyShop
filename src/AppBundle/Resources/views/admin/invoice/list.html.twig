@@ -57,6 +57,9 @@
                         <th class="invoice-amount">
                             {{ knp_pagination_sortable(pagination, 'table.invoices.amount'|trans, 'i.amount') }}
                         </th>
+                        <th class="invoice-info">
+                            {{ 'table.invoices.info'|trans }}
+                        </th>
                         <th class="invoice-status">
                             {{ knp_pagination_sortable(pagination, 'table.invoices.status'|trans, 'i.status') }}
                         </th>
@@ -84,6 +87,21 @@
                             </td>
                             <td class="invoice-amount">
                                 {{ invoice.amount }} {{ 'currency'|trans }}
+                            </td>
+                            <td class="invoice-info">
+                                {{ 'invoice.customer_name'|trans }}: {{ invoice.customerName }}
+                                <br>
+                                {{ 'invoice.phone'|trans }}: {{ invoice.phone }}
+                                <br>
+                                {{ 'invoice.email'|trans }}: {{ invoice.email }}
+                                <br>
+                                {{ 'invoice.delivery'|trans }}: {{ invoice.delivery }}
+                                <br>
+                                {{ 'invoice.payment'|trans }}: {{ invoice.payment }}
+                                <br>
+                                {{ 'invoice.comment'|trans }}:
+                                <br>
+                                {{ invoice.comment|nl2br }}
                             </td>
                             <td class="invoice-status">
                                 {{ invoice.status|trans }}

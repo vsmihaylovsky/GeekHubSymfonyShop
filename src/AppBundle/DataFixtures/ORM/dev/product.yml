@@ -11,6 +11,7 @@ AppBundle\Entity\Product:
     price: <randomFloat(2, 0, 100)>
     priceSpecial: <randomFloat(2, 0, $price)>
     rating: <randomFloat(2, 0, 5)>
+    reviewsCount: <numberBetween(1, 20)>
     available: <randomElement(array ('0','1'))>
     createdAt: <dateTimeBetween('-1 years', 'now')>
     updatedAt: 30%? <dateTimeBetween($createdAt, 'now')>

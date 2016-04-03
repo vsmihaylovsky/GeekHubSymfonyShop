@@ -8,7 +8,8 @@
 
 namespace AppBundle\Controller\Admin;
 
-use AppBundle\Form\Type\InvoiceType;
+use AppBundle\Entity\InvoiceStatus;
+use AppBundle\Form\Type\InvoiceStatusType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -50,19 +51,23 @@ class InvoiceController extends Controller
      * @param Invoice $invoice
      * @return array
      * @Route("/edit/{id}", name="show_invoice")
-     * @ParamConverter("invoice", class="AppBundle:Invoice")
+     * @ParamConverter("invoice", class="AppBundle:Invoice", options={"repository_method" = "getInvoice"})
      * @Method("GET")
-     * @Template("AppBundle:admin/invoice:form.html.twig")
+     * @Template("AppBundle:admin/invoice:show.html.twig")
      */
-    public function editAction(Invoice $invoice)
+    public function showAction(Invoice $invoice)
     {
-        $form = $this->createForm(InvoiceType::class, $invoice, [
+        $invoiceStatus = new InvoiceStatus;
+        $form = $this->createForm(InvoiceStatusType::class, $invoiceStatus, [
             'action' => $this->generateUrl('update_invoice', ['id' => $invoice->getId()]),
             'method' => 'PUT',
         ])
-            ->add('save', SubmitType::class, ['label' => 'table.update']);
+            ->add('save', SubmitType::class, ['label' => 'invoice.add_status']);
 
-        return ['form' => $form->createView()];
+        return [
+            'invoice' => $invoice,
+            'form' => $form->createView(),
+        ];
     }
 
     /**
@@ -70,25 +75,34 @@ class InvoiceController extends Controller
      * @param Invoice $invoice
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("/{id}", name="update_invoice")
-     * @ParamConverter("invoice", class="AppBundle:Invoice")
+     * @ParamConverter("invoice", class="AppBundle:Invoice", options={"repository_method" = "getInvoice"})
      * @Method("PUT")
-     * @Template("AppBundle:admin/invoice:form.html.twig")
+     * @Template("AppBundle:admin/invoice:show.html.twig")
      */
     public function updateAction(Request $request, Invoice $invoice)
     {
-        $form = $this->createForm(InvoiceType::class, $invoice, [
+        $invoiceStatus = new InvoiceStatus;
+        $form = $this->createForm(InvoiceStatusType::class, $invoiceStatus, [
             'action' => $this->generateUrl('update_invoice', ['id' => $invoice->getId()]),
             'method' => 'PUT',
         ])
-            ->add('save', SubmitType::class, ['label' => 'Update']);
+            ->add('save', SubmitType::class, ['label' => 'invoice.add_status']);
 
         $form->handleRequest($request);
         if ($form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $invoiceStatus->setInvoice($invoice);
+            $user = $this->getUser();
+            $invoiceStatus->setManager($user);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($invoiceStatus);
+            $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_invoices'));
+            return $this->redirect($this->generateUrl('show_invoice', ['id' => $invoice->getId()]));
         }
 
-        return ['form' => $form->createView()];
+        return [
+            'invoice' => $invoice,
+            'form' => $form->createView(),
+        ];
     }
 }

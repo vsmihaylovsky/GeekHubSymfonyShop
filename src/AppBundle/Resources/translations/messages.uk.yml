@@ -49,6 +49,18 @@ invoice:
   amount: Сума
   status: Статус
   status.is_processed: Оброблюється
+  status.is_gathered: Комплектується
+  status.is_sent: Доставляється
+  status.is_done: Виконано
+  status.is_canceled: Відмінено
+  customer_name: Ім'я покупця
+  phone: Номер телефону
+  email: Електронна адреса
+  delivery: Адреса доставки
+  payment: Спосіб оплати
+  comment: Коментар
+  add_status: Додати статус
+  status_label: Статус
 
 page:
   name:
@@ -126,6 +138,7 @@ table:
     created_at: Дата
     quantity: Кількість товарів
     amount: Сума
+    info: Інформація
     status: Статус
 
 DataTable:

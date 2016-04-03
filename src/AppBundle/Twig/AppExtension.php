@@ -38,8 +38,6 @@ class AppExtension extends Twig_Extension
                     [$this, 'getCategories'],
                     ['needs_environment' => true, 'is_safe' => ['html']]
             ),
-            new Twig_SimpleFunction('getProductRating', [$this, 'getProductRating']),
-            new Twig_SimpleFunction('getProductReviewsCount', [$this, 'getProductReviewsCount']),
             new Twig_SimpleFunction('getProductMainPicture', [$this, 'getProductMainPicture']),
         ];
     }
@@ -65,16 +63,6 @@ class AppExtension extends Twig_Extension
                 'categories' => $this->em->getRepository('AppBundle:Category')->getFirstLevel(),
             )
         );
-    }
-
-    public function getProductReviewsCount($slug)
-    {
-        return $this->em->getRepository('AppBundle:Review')->getProductReviewsCount($slug);
-    }
-
-    public function getProductRating($slug)
-    {
-        return $this->em->getRepository('AppBundle:Review')->getProductRating($slug);
     }
 
     public function getProductMainPicture(Product $product)

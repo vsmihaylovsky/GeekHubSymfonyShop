@@ -31,7 +31,7 @@ class Invoice
     private $items;
 
     /**
-     * @ORM\OneToMany(targetEntity="InvoiceStatuses", mappedBy="invoice", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="InvoiceStatus", mappedBy="invoice", cascade={"remove"})
      * @OrderBy({"createdAt" = "DESC"})
      */
     private $statuses;

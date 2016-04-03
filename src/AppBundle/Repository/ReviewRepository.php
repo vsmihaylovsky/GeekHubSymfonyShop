@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Product;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 
@@ -29,29 +30,29 @@ class ReviewRepository extends EntityRepository
     }
 
     /**
-     * @param $slug
+     * @param Product $product
      * @return mixed
      */
-    public function getProductReviewsCount($slug)
+    public function getProductReviewsCount(Product $product)
     {
         return $this->createQueryBuilder('r')
             ->select('count(r.id)')
-            ->innerJoin('r.product', 'p', Join::WITH, 'p.slug = :slug')
-            ->setParameters(['slug' => $slug])
+            ->where('r.product = :product')
+            ->setParameters(['product' => $product])
             ->getQuery()
             ->getSingleScalarResult();
     }
 
     /**
-     * @param $slug
+     * @param Product $product
      * @return mixed
      */
-    public function getProductRating($slug)
+    public function getProductRating(Product $product)
     {
         return $this->createQueryBuilder('r')
             ->select('avg(r.rating)')
-            ->innerJoin('r.product', 'p', Join::WITH, 'p.slug = :slug')
-            ->setParameters(['slug' => $slug])
+            ->where('r.product = :product')
+            ->setParameters(['product' => $product])
             ->getQuery()
             ->getSingleScalarResult();
     }
