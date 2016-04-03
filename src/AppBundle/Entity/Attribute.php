@@ -65,6 +65,8 @@ class Attribute
      */
     private $attributeValues;
 
+    private $params;
+
     /**
      * *******************************************************
      * Constructor
@@ -74,6 +76,7 @@ class Attribute
         $this->options = new ArrayCollection();
 //        $this->products = new ArrayCollection();
         $this->categories = new ArrayCollection();
+        $this->params = new ArrayCollection();
     }
 
     /**
@@ -305,5 +308,41 @@ class Attribute
     public function getAttributeValues()
     {
         return $this->attributeValues;
+    }
+
+
+
+    /**
+     * Add param
+     *
+     * @param \AppBundle\Entity\AttributeOption $param
+     *
+     * @return SearchParam
+     */
+    public function addParam(AttributeOption $param)
+    {
+        $this->params[] = $param;
+
+        return $this;
+    }
+
+    /**
+     * Remove param
+     *
+     * @param \AppBundle\Entity\AttributeOption $param
+     */
+    public function removeParam(AttributeOption $param)
+    {
+        $this->params->removeElement($param);
+    }
+
+    /**
+     * Get params
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getParams()
+    {
+        return $this->params;
     }
 }

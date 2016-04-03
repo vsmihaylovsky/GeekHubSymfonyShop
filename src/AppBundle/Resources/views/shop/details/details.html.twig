@@ -60,9 +60,8 @@
                 <span>{{ product.price }}</span>
                 <label for="qty">Quantity:</label>
                 <input name="qty" id="qty" type="text" value="1">
-                <button type="button" class="btn btn-fefault cart">
-                    <i class="fa fa-shopping-cart"></i>
-                    Add to cart
+                <button formaction="{{ path('addToCart', {'id': product.id}) }}" class="btn btn-default cart add-to-cart">
+                    <i class="fa fa-shopping-cart"></i>Add to cart
                 </button>
             </span>
             <p><b>Availability:</b>
@@ -91,7 +90,9 @@
     </div>
     {% if tab == 'details' %}
         <div class="col-sm-12">
-            {{ product.description|nl2br }}
+            <div style="padding: 0 25px">
+                {{ product.description|nl2br }}
+            </div>
         </div>
     {% elseif tab == 'reviews' %}
         <div class="col-sm-12">

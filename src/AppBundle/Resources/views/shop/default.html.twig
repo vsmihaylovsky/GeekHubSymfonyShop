@@ -17,6 +17,7 @@
     <link href="{{ asset('css/animate.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -79,7 +80,7 @@
                 var cart = Cookies.getJSON('cart');
                 var cartItemsCount = 0;
                 $.each(cart, function(index, value) {
-                    cartItemsCount += value;
+                    cartItemsCount += parseInt(value);
                 });
                 if (cartItemsCount > 0) {
                     badge.html(cartItemsCount).show();

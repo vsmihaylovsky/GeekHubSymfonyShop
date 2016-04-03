@@ -7,8 +7,6 @@ use AppBundle\Entity\InvoiceItem;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +21,7 @@ class CartHandler
     private $tokenStorage;
 
     /**
-     * PrivateMessagesService constructor.
+     * CartHandler constructor.
      * @param EntityManager $entityManager
      * @param FormFactory $formFactory
      * @param Router $router
