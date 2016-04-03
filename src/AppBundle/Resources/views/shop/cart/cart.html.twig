@@ -15,7 +15,8 @@
             <tr>
                 <td class="cart_product">
                     <a href="{{ path('product_view', {'slug': item.product.slug}) }}">
-                        <img src="{{ asset(getProductMainPicture(item.product)|imagine_filter('mini_thumbnail')) }}" alt="">
+                        <img src="{{ asset(getProductMainPicture(item.product)|imagine_filter('mini_thumbnail')) }}"
+                             alt="">
                     </a>
                 </td>
                 <td class="cart_description">
@@ -47,10 +48,11 @@
             </tr>
         {% endfor %}
         <tr>
-            <td colspan="4">&nbsp;</td>
-            <td colspan="2">
+            <td colspan="3">&nbsp;</td>
+            <td colspan="3">
                 <table class="table table-condensed total-result">
-                    <tbody><tr>
+                    <tbody>
+                    <tr>
                         <td>Cart Sub Total</td>
                         <td>${{ invoice.amount }}</td>
                     </tr>
@@ -66,7 +68,8 @@
                         <td>Total</td>
                         <td><span>${{ invoice.amount }}</span></td>
                     </tr>
-                    </tbody></table>
+                    </tbody>
+                </table>
             </td>
         </tr>
         </tbody>
