@@ -9,25 +9,40 @@
 
 namespace AppBundle\Twig;
 
+use AppBundle\Services\SearchFormService;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductPicture;
 use Doctrine\ORM\EntityManager;
+use AppBundle\Entity\Category;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Twig_Extension;
 use Twig_SimpleFunction;
 use Twig_Environment;
+use Symfony\Component\Form\FormFactory;
+use Symfony\Component\Routing\Router;
 
 class AppExtension extends Twig_Extension
 {
     private $em;
     private $tokenStorage;
     private $comingSoonPicture;
+    private $formFactory;
+    private $router;
+    private $search;
 
-    public function __construct(EntityManager $entityManager, TokenStorage $tokenStorage, $comingSoonPicture)
+    public function __construct(EntityManager $entityManager,
+                                TokenStorage $tokenStorage,
+                                FormFactory $formFactory,
+                                Router $router,
+                                SearchFormService $search,
+                                $comingSoonPicture)
     {
         $this->em = $entityManager;
         $this->tokenStorage = $tokenStorage;
         $this->comingSoonPicture = $comingSoonPicture;
+        $this->formFactory = $formFactory;
+        $this->router = $router;
+        $this->search = $search;
     }
 
     public function getFunctions()
@@ -41,6 +56,14 @@ class AppExtension extends Twig_Extension
             new Twig_SimpleFunction('getProductRating', [$this, 'getProductRating']),
             new Twig_SimpleFunction('getProductReviewsCount', [$this, 'getProductReviewsCount']),
             new Twig_SimpleFunction('getProductMainPicture', [$this, 'getProductMainPicture']),
+            new Twig_SimpleFunction('categoryFilters',
+                [$this, 'getCategoryFilters'],
+                ['needs_environment' => true, 'is_safe' => ['html']]
+            ),
+            new Twig_SimpleFunction('searchForm',
+                [$this, 'getSearchForm'],
+                ['needs_environment' => true, 'is_safe' => ['html']]
+            ),
         ];
     }
 
@@ -57,13 +80,30 @@ class AppExtension extends Twig_Extension
         return $this->em->getRepository('AppBundle:PrivateMessage')->getUnreadPrivateMessagesCount($this->tokenStorage->getToken()->getUser());
     }
 
-    public function getCategories(Twig_Environment $twig)
+    public function getCategories(Twig_Environment $twig, $slug)
     {
+        $currentCategory = $this->em->getRepository('AppBundle:Category')->findOneBy(['slug' => $slug]);
+        if($currentCategory instanceof Category) {
+            $currentSlug = $slug;
+            $parentCategory = $currentCategory->getParent();
+            if($parentCategory instanceof Category) {
+                $parentSlug = $parentCategory->getSlug();
+            }
+            else $parentSlug = '';
+        }
+        else {
+            $parentSlug = '';
+            $currentSlug = '';
+        }
+
         return $twig->render(
-            'AppBundle:shop:default/widgetCategories.html.twig',
-            array(
+            'AppBundle:shop:default/widgetCategories.html.twig', [
+                'currentCategory' => [
+                    'parentSlug' => $parentSlug,
+                    'currentSlug' => $currentSlug,
+                ],
                 'categories' => $this->em->getRepository('AppBundle:Category')->getFirstLevel(),
-            )
+            ]
         );
     }
 
@@ -75,6 +115,26 @@ class AppExtension extends Twig_Extension
     public function getProductRating($slug)
     {
         return $this->em->getRepository('AppBundle:Review')->getProductRating($slug);
+    }
+
+    public function getCategoryFilters(Twig_Environment $twig, $slug)
+    {
+        $filterForm = $this->search->getFilterForm($slug);
+
+        return $twig->render(
+            'AppBundle:shop:default/widgetFilters.html.twig', [
+                'formFilter' => $filterForm ? $filterForm->createView() : '',
+            ]
+        );
+    }
+
+    public function getSearchForm(Twig_Environment $twig)
+    {
+        return $twig->render(
+            'AppBundle:shop:default/widgetSearch.html.twig', [
+                'search' => $this->search->getSearchForm()->createView(),
+            ]
+        );
     }
 
     public function getProductMainPicture(Product $product)

@@ -1,0 +1,9 @@
+{% set params = app.request.attributes.get('_route_params') %}
+{% if params['filter'] is defined and params['filter'] == 'category' %}
+    {% set currentCategory = params['param'] %}
+{% else %}
+    {% set currentCategory = '' %}
+{% endif %}
+
+{{ categories(currentCategory) }}
+{{ categoryFilters(currentCategory) }}
