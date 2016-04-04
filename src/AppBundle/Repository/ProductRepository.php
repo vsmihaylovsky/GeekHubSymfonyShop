@@ -14,7 +14,7 @@ class ProductRepository extends EntityRepository
 {
     public function getProductsWithPictures()
     {
-         return $query = $this->createQueryBuilder('p')
+        return $query = $this->createQueryBuilder('p')
             ->select('p, pic')
             ->leftJoin('p.pictures', 'pic')
             ->orderBy('p.createdAt', 'DESC')
@@ -62,18 +62,23 @@ class ProductRepository extends EntityRepository
             case 'filter':
                 $query->where('cat.id = :category');
                 $paramsData['category'] = $params['category'];
-                if(isset($params['options']) && count($params['options']) > 0) {
-                    foreach($params['options'] as $key => $value) {
-                        $query->andWhere('opt.attributeOption = (:option'.$key.')');
-                        $paramsData['option'.$key] = $value;
+                if (isset($params['options']) && count($params['options']) > 0) {
+                    $optionsConditions = '';
+                    foreach ($params['options'] as $key => $value) {
+                        if ($optionsConditions !== '') {
+                            $optionsConditions .= ' OR ';
+                        }
+                        $optionsConditions .= 'opt.attributeOption = (:option' . $key . ')';
+                        $paramsData['option' . $key] = $value;
                     }
+                    $query->andWhere($optionsConditions);
                 }
                 $query->setParameters($paramsData);
                 break;
             case 'search':
                 $query
                     ->where('p.name like ?1')
-                    ->setParameter(1, '%'.$params['name'].'%');
+                    ->setParameter(1, '%' . $params['name'] . '%');
                 break;
         }
 
