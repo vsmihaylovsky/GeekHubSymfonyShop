@@ -49,6 +49,18 @@ invoice:
   amount: Amount
   status: Status
   status.is_processed: Is processed
+  status.is_gathered: Is gathered
+  status.is_sent: Is sent
+  status.is_done: Is done
+  status.is_canceled: Is canceled
+  customer_name: Customer name
+  phone: Phone
+  email: Email
+  delivery: Delivery
+  payment: Payment
+  comment: Comment
+  add_status: Add status
+  status_label: Status
 
 page:
   name:
@@ -63,6 +75,8 @@ page:
     review.edit: Review edit
     private_messages: Private messages
     private_message.edit: Private message edit
+    invoices: Invoices
+    invoice: Invoice
   warning:
     youMustSaveProductFirst: You must save product first.
 
@@ -71,6 +85,7 @@ table:
   delete: Delete
   delete_record: Delete record?
   update: Update
+  show: Show
   products:
     name: Name
     type: Type
@@ -117,6 +132,14 @@ table:
     title: Title
     message: Text
     sent_time: Sent
+  invoices:
+    id: Order number
+    username: User
+    created_at: Created
+    quantity: Items quantity
+    amount: Amount
+    info: Informaton
+    status: Status
 
 DataTable:
   lengthMenu: Display _MENU_ records per page

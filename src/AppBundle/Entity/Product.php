@@ -91,6 +91,13 @@ class Product
     private $rating;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="reviews_count", type="integer", nullable=true)
+     */
+    private $reviewsCount;
+
+    /**
      * @var bool
      *
      * @ORM\Column(name="available", type="boolean")
@@ -524,5 +531,29 @@ class Product
     public function getReviews()
     {
         return $this->reviews;
+    }
+
+    /**
+     * Set reviewsCount
+     *
+     * @param integer $reviewsCount
+     *
+     * @return Product
+     */
+    public function setReviewsCount($reviewsCount)
+    {
+        $this->reviewsCount = $reviewsCount;
+
+        return $this;
+    }
+
+    /**
+     * Get reviewsCount
+     *
+     * @return integer
+     */
+    public function getReviewsCount()
+    {
+        return $this->reviewsCount;
     }
 }

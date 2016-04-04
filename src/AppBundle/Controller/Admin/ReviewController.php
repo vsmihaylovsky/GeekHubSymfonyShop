@@ -10,7 +10,6 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Form\Type\ReviewType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -21,7 +20,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route("/admin/review")
- * @Security("has_role('ROLE_SUPER_ADMIN')")
  */
 class ReviewController extends Controller
 {

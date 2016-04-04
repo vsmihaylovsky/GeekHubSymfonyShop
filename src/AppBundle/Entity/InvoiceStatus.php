@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -13,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="invoice_statuses")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\InvoiceStatusesRepository")
  */
-class InvoiceStatuses
+class InvoiceStatus
 {
     /**
      * @var int
@@ -67,7 +66,7 @@ class InvoiceStatuses
      *
      * @param string $status
      *
-     * @return InvoiceStatuses
+     * @return InvoiceStatus
      */
     public function setStatus($status)
     {
@@ -91,7 +90,7 @@ class InvoiceStatuses
      *
      * @param \DateTime $createdAt
      *
-     * @return InvoiceStatuses
+     * @return InvoiceStatus
      */
     public function setCreatedAt($createdAt)
     {
@@ -115,7 +114,7 @@ class InvoiceStatuses
      *
      * @param \AppBundle\Entity\Invoice $invoice
      *
-     * @return InvoiceStatuses
+     * @return InvoiceStatus
      */
     public function setInvoice(Invoice $invoice = null)
     {
@@ -139,7 +138,7 @@ class InvoiceStatuses
      *
      * @param \AppBundle\Entity\User $manager
      *
-     * @return InvoiceStatuses
+     * @return InvoiceStatus
      */
     public function setManager(User $manager = null)
     {

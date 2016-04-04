@@ -13,6 +13,10 @@ use Doctrine\ORM\EntityRepository;
  */
 class InvoiceRepository extends EntityRepository
 {
+    /**
+     * @param User $user
+     * @return array
+     */
     public function getUserInvoices(User $user)
     {
         return $this->createQueryBuilder('i')
@@ -20,12 +24,17 @@ class InvoiceRepository extends EntityRepository
             ->leftJoin('i.statuses', 's')
             ->where('i.customer = :customer')
             ->addOrderBy('i.createdAt', 'desc')
-            ->addOrderBy('s.createdAt', 'desc')
             ->setParameters(['customer' => $user])
             ->getQuery()
             ->getResult();
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function getInvoice($id)
     {
         return $this->createQueryBuilder('i')
@@ -34,9 +43,23 @@ class InvoiceRepository extends EntityRepository
             ->leftJoin('it.product', 'p')
             ->leftJoin('i.statuses', 's')
             ->where('i.id = :id')
-            ->addOrderBy('s.createdAt', 'desc')
             ->setParameters(['id' => $id])
             ->getQuery()
             ->getSingleResult();
+    }
+
+    /**
+     * @param $search
+     * @return \Doctrine\ORM\Query
+     */
+    public function getAllQuery($search)
+    {
+        return $this->createQueryBuilder('i')
+            ->select('i, c, s')
+            ->leftJoin('i.customer', 'c')
+            ->leftJoin('i.statuses', 's')
+//            ->where('r.reviewText like :review_text or p.name like :product_name or u.username like :username')
+//            ->setParameters(['review_text' => "%$search%", 'product_name' => "%$search%", 'username' => "%$search%"])
+            ->getQuery();
     }
 }

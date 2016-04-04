@@ -2,7 +2,10 @@
 namespace AppBundle\EventListener;
 
 use AppBundle\Entity\Category;
+use AppBundle\Entity\InvoiceStatus;
 use AppBundle\Entity\ProductPicture;
+use AppBundle\Entity\Review;
+use AppBundle\Entity\Product;
 use AppBundle\Services\MediaHandler;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -49,6 +52,10 @@ class DoctrineEventSubscriber implements EventSubscriber
                 );
             }
         }
+
+        if($entity instanceof InvoiceStatus) {
+            $entity->getInvoice()->setStatus($entity->getStatus());
+        }
     }
 
     /**
@@ -71,6 +78,10 @@ class DoctrineEventSubscriber implements EventSubscriber
             $parentCategoryTemp = $entity->getParentTemp();
             isset($parentCategoryTemp) ? $this->updateHasChildren($parentCategoryTemp) : '';
         }
+
+        if($entity instanceof Review) {
+            $this->updateProduct($entity->getProduct());
+        }
     }
 
     /**
@@ -85,6 +96,10 @@ class DoctrineEventSubscriber implements EventSubscriber
             isset($parentCategory) ? $this->updateHasChildren($parentCategory) : '';
             $parentCategoryTemp = $entity->getParentTemp();
             isset($parentCategoryTemp) ? $this->updateHasChildren($parentCategoryTemp) : '';
+        }
+
+        if($entity instanceof Review) {
+            $this->updateProduct($entity->getProduct());
         }
     }
 
@@ -112,4 +127,14 @@ class DoctrineEventSubscriber implements EventSubscriber
         $em->persist($parentCategory);
         $em->flush();
     }
+
+    protected function updateProduct(Product $product)
+    {
+        $em = $this->doctrine->getManager();
+        $repository = $em->getRepository('AppBundle:Review');
+        $product->setRating($repository->getProductRating($product));
+        $product->setReviewsCount($repository->getProductReviewsCount($product));
+        $em->flush();
+    }
+    
 }
