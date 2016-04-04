@@ -21,10 +21,20 @@ class ProductRepository extends EntityRepository
             ->getQuery();
     }
 
+    public function getProductsWithCategory($search)
+    {
+        return $query = $this->createQueryBuilder('p')
+            ->select('p, cat')
+            ->leftJoin('p.category', 'cat')
+            ->where('p.name like :product_name')
+            ->setParameters(['product_name' => "%$search%"])
+            ->getQuery();
+    }
+
     public function getProductWithJoins($slug)
     {
         return $this->createQueryBuilder('p')
-            ->select('p, pic')
+            ->select('p, pic, cat')
             ->leftJoin('p.pictures', 'pic')
             ->where('p.slug = ?1')
             ->setParameter(1, $slug)

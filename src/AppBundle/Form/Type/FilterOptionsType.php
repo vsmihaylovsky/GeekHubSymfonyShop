@@ -28,31 +28,18 @@ class FilterOptionsType extends AbstractType
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
             /** @var Attribute $attribute */
             $attribute = $event->getData();
-            /** @var ArrayCollection $options */
-            $options = $attribute->getOptions();
             $form = $event->getForm();
 
-            if (true) {
-                $form->add('params', EntityType::class, array(
-                    'class'             => 'AppBundle:AttributeOption',
-                    'choices'           => $attribute->getOptions(),
-                    'label'             => $attribute->getName(),
-                    'choice_label'      => 'attributeOption',
-                    'choices_as_values' => true,
-                    'expanded'          => true,
-                    'multiple'          => true,
-                    'required'          => false,
-                    //'mapped'            => false
-                ));
-            }
-            else {
-                $form->add('options', CheckboxType::class, array(
-                    //'data'      => '111',
-                    'value'     => '1',
-                    'label'     => $attribute->getName(),
-                    'required'  => false,
-                ));
-            }
+            $form->add('params', EntityType::class, [
+                'class'             => 'AppBundle:AttributeOption',
+                'choices'           => $attribute->getOptions(),
+                'label'             => $attribute->getName(),
+                'choice_label'      => 'attributeOption',
+                'choices_as_values' => true,
+                'expanded'          => true,
+                'multiple'          => true,
+                'required'          => false,
+            ]);
         });
     }
 
