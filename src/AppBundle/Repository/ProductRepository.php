@@ -47,7 +47,7 @@ class ProductRepository extends EntityRepository
     public function getFilteredProductsWithPictures($filter, $params)
     {
         $query = $this->createQueryBuilder('p')
-            ->select('p, pic, cat', 'opt')
+            ->select('p, pic, cat, opt')
             ->leftJoin('p.pictures', 'pic')
             ->leftJoin('p.category', 'cat')
             ->leftJoin('p.attributeValues', 'opt')
@@ -63,15 +63,24 @@ class ProductRepository extends EntityRepository
                 $query->where('cat.id = :category');
                 $paramsData['category'] = $params['category'];
                 if (isset($params['options']) && count($params['options']) > 0) {
-                    $optionsConditions = '';
-                    foreach ($params['options'] as $key => $value) {
-                        if ($optionsConditions !== '') {
-                            $optionsConditions .= ' OR ';
+                    foreach ($params['options'] as $attributeId => $attributeOptions) {
+                        $productAlias = 'p' . $attributeId;
+                        $attributesValuesAlias = 'a' . $attributeId;
+                        $optionsConditions = '';
+                        foreach ($attributeOptions as $optionId) {
+                            if ($optionsConditions !== '') {
+                                $optionsConditions .= ' OR ';
+                            }
+                            $optionsConditions .= "$attributesValuesAlias.attributeOption = :option$optionId";
+                            $paramsData["option$optionId"] = $optionId;
                         }
-                        $optionsConditions .= 'opt.attributeOption = (:option' . $key . ')';
-                        $paramsData['option' . $key] = $value;
+
+                        $subQuery = $this->createQueryBuilder($productAlias)
+                            ->select("$productAlias.id")
+                            ->innerJoin("$productAlias.attributeValues", $attributesValuesAlias, 'WITH', $optionsConditions)
+                        ->andWhere("$productAlias.id = p.id");
+                        $query->andWhere($query->expr()->exists($subQuery->getDQL()));
                     }
-                    $query->andWhere($optionsConditions);
                 }
                 $query->setParameters($paramsData);
                 break;

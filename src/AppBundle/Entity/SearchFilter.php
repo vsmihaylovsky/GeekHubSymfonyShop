@@ -51,7 +51,7 @@ class SearchFilter
      */
     public function addFilter(Attribute $filter)
     {
-        $this->filters[] = $filter;
+        $this->filters[$filter->getId()] = $filter;
 
         return $this;
     }
