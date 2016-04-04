@@ -63,7 +63,6 @@ class ProductRepository extends EntityRepository
                 $query->where('cat.id = :category');
                 $paramsData['category'] = $params['category'];
                 if (isset($params['options']) && count($params['options']) > 0) {
-
                     $optionsConditions = '';
                     foreach ($params['options'] as $key => $value) {
                         if ($optionsConditions !== '') {
