@@ -117,7 +117,7 @@ class SearchFormService
                     if($params && count($params) > 0) {
                         foreach($params as $param) {
                             /** @var AttributeOption $param */
-                            $preparedParams['options'][] = $param->getId();
+                            $preparedParams['options'][$filter->getId()][$param->getId()] = $param->getId();
                         }
                     }
                 }
