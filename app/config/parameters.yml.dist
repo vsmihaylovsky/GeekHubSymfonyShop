@@ -30,3 +30,5 @@ parameters:
 
     from_noreply_email_address: noreply@shop.my
     from_noreply_sender_name: e-shop
+
+    default_currency: грн.

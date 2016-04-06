@@ -31,31 +31,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * @param $page
-     * @param Request $request
-     * @return Response
-     * @Route("/products/{pager}/{page}", name="products",
-     *     defaults={"pager": "page", "page": 1},
-     *     requirements={
-     *          "pager": "page",
-     *          "page": "[1-9]\d*"
-     *     })
-     * @Method("GET")
-     * @Template("AppBundle:shop:products.html.twig")
-     */
-    public function productsAction($page, Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $query = $em->getRepository('AppBundle:Product')->getProductsWithPictures();
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($query, $page, $limit = 9);
-
-        return [
-            'products'  => $pagination,
-        ];
-    }
-
-    /**
      * @param $filter
      * @param $param
      * @param $page
@@ -76,17 +51,13 @@ class DefaultController extends Controller
         $params = $filter == 'category' ? ['category' => $param] : '';
 
         $searchService = $this->get('app.search_form_service');
-        $filterForm = $searchService->getFilterForm($param);
+        $filterFormData = $searchService->getFilterForm($param);
+        $filterForm = $filterFormData['form'];
         /** @var Form $filterForm */
         $filterForm->handleRequest($request);
         if ($filterForm->isValid()) {
-            if($filterForm->has('search') && $filterForm->get('search')->isClicked()) {
-                $filterN = 'search';
-                $paramN = $filterForm->getData();
-            } elseif($filterForm->has('filter') && $filterForm->get('filter')->isClicked()) {
-                $filter = 'filter';
-                $params = $searchService->prepareFiltersData($filterForm->getData());
-            }
+            $filter = 'filter';
+            $params = $searchService->prepareFiltersData($filterForm->getData());
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -95,6 +66,7 @@ class DefaultController extends Controller
         $pagination = $paginator->paginate($query, $page, $limit = 9);
 
         return [
+            'title'     => $filterFormData['category'],
             'products'  => $pagination,
         ];
     }
@@ -126,6 +98,7 @@ class DefaultController extends Controller
             $pagination = $paginator->paginate($query, $page, $limit = 9);
 
             return [
+                'title'     => 'Search result',
                 'products'  => $pagination,
             ];
         }
@@ -148,8 +121,8 @@ class DefaultController extends Controller
     public function detailsAction(Product $product, $tab)
     {
         return [
-            'product'  => $product,
-            'tab'  => $tab,
+            'product'   => $product,
+            'tab'       => $tab,
         ];
     }
 

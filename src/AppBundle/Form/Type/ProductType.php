@@ -55,6 +55,13 @@ class ProductType extends AbstractType
                         'false'  => '0'
                     ],
                     'choices_as_values' => true
+            ))
+            ->add('sale', ChoiceType::class, array(
+                'choices'           => [
+                    'false'  => '0',
+                    'true'   => '1'
+                ],
+                'choices_as_values' => true
             ));
     }
 

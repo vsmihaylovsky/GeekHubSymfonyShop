@@ -37,6 +37,8 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    globals:
+        default_currency: "%default_currency%"
 
 # Doctrine Configuration
 doctrine:
