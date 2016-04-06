@@ -32,7 +32,7 @@ class ProductController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $query = $em->getRepository('AppBundle:Product')->getProductsWithCategory($request->query->get('search'));
+        $query = $em->getRepository('AppBundle:Product')->getProductsWithCategoryAdmin($request->query->get('search'));
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(

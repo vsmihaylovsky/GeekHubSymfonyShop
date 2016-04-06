@@ -45,10 +45,11 @@ class SearchFormService
             ->add('input', TextType::class, [
                 'label'         => false,
                 'required'      => true,
-                'attr'          => ['placeholder' => 'search']
+                'attr'          => ['placeholder' => 'form.search_term']
             ])
             ->add('search', SubmitType::class, [
-                'attr' => ['class' => 'btn btn-primary']
+                'label'         => 'form.search',
+                'attr'          => ['class' => 'btn btn-primary']
             ])
             ->getForm();
     }
@@ -74,7 +75,7 @@ class SearchFormService
                     ]
                 );
 
-                return $formBuilder
+                $form = $formBuilder
                     ->setAction($this->router->generate('products_filtered', [
                         'filter' => 'category',
                         'param'  => $categorySlug
@@ -86,9 +87,15 @@ class SearchFormService
                         'required'      => false
                     ))
                     ->add('filter', SubmitType::class, [
-                        'attr' => ['class' => 'btn btn-primary']
+                        'label'         => 'form.filter',
+                        'attr'          => ['class' => 'btn btn-primary']
                     ])
                     ->getForm();
+                
+                return [
+                    'category'  => $currentCategory->getTitle(),
+                    'form'      => $form,
+                ];
             } else {
                 return '';
             }

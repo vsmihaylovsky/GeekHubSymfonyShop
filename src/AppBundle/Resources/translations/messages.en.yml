@@ -2,6 +2,12 @@ mainmenu:
   home: Home
   logout: Logout
   login_registration: Login/Registration
+  cart: Cart
+  checkout: Checkout
+  shop: Shop
+  category: Category
+  filters: Filters
+  latest_products: Latest products
 
 security:
   username: Username
@@ -190,3 +196,11 @@ Attribute option: Attribute option
 Enter option: Enter option
 pieces: PC.
 currency: UAH
+
+add_to_cart: Add to cart
+search_empty: Sorry, nothing found.
+
+form:
+  search: Search
+  search_term: Search term
+  filter: Filter

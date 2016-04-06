@@ -1,6 +1,6 @@
 {% if formFilter is defined and formFilter != '' %}
     <div class="left-sidebar">
-        <h2>Filters</h2>
+        <h2>{{ 'mainmenu.filters'|trans }}</h2>
         <div class="filters-block" id="filters">
             {{ form_start(formFilter) }}
                 {% for key, filter in formFilter.filters %}
