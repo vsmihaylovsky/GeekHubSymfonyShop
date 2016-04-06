@@ -111,7 +111,7 @@ class AppExtension extends Twig_Extension
 
         return $twig->render(
             'AppBundle:shop:default/widgetFilters.html.twig', [
-                'formFilter' => $filterFormData['form'] ? $filterFormData['form']->createView() : '',
+                'formFilter' => $filterFormData ? $filterFormData['form']->createView() : '',
             ]
         );
     }

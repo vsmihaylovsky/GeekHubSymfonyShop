@@ -7,7 +7,7 @@
                     <img src="{{ asset(getProductMainPicture(product)|imagine_filter('list_thumbnail')) }}" alt="">
                 </a>
 
-                <h2>{{ product.price }}</h2>
+                <h2>{{ product.price }} {{ default_currency }}</h2>
                 <p>{{ product.name }}</p>
                 <button formaction="{{ path('addToCart', {'id': product.id}) }}" class="btn btn-default add-to-cart">
                     <i class="fa fa-shopping-cart"></i>{{ 'add_to_cart'|trans }}
