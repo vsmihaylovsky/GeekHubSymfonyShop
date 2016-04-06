@@ -2,6 +2,12 @@ mainmenu:
   home: Головна
   logout: Вихід
   login_registration: Вхід/Реєстрація
+  cart: Кошик
+  checkout: Оформити замовлення
+  shop: Магазин
+  category: Категорії
+  filters: Фільтри
+  latest_products: Останні продукти
 
 security:
   username: Ім'я користувача
@@ -188,3 +194,11 @@ Attribute option: Опції атрибута
 Enter option: Введіть опцію
 pieces: шт.
 currency: грн
+
+add_to_cart: Додати до кошика
+search_empty: Вибачте, нічого не знайдено.
+
+form:
+  search: Шукати
+  search_term: Пошуковий запит
+  filter: Фільтрувати

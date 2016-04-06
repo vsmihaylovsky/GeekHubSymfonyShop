@@ -107,11 +107,11 @@ class AppExtension extends Twig_Extension
 
     public function getCategoryFilters(Twig_Environment $twig, $slug)
     {
-        $filterForm = $this->search->getFilterForm($slug);
+        $filterFormData = $this->search->getFilterForm($slug);
 
         return $twig->render(
             'AppBundle:shop:default/widgetFilters.html.twig', [
-                'formFilter' => $filterForm ? $filterForm->createView() : '',
+                'formFilter' => $filterFormData ? $filterFormData['form']->createView() : '',
             ]
         );
     }

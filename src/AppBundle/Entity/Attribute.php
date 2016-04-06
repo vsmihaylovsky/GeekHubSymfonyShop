@@ -45,11 +45,6 @@ class Attribute
      */
     private $filterable;
 
-//    /**
-//     * @ORM\ManyToMany(targetEntity="Product", mappedBy="attributes")
-//     */
-//    private $products;
-
     /**
      * @ORM\ManyToMany(targetEntity="Category", mappedBy="attributes")
      */
@@ -74,7 +69,6 @@ class Attribute
      */
     public function __construct() {
         $this->options = new ArrayCollection();
-//        $this->products = new ArrayCollection();
         $this->categories = new ArrayCollection();
         $this->params = new ArrayCollection();
     }
@@ -208,40 +202,6 @@ class Attribute
         return $options;
     }
 
-//    /**
-//     * Add product
-//     *
-//     * @param \AppBundle\Entity\Product $product
-//     *
-//     * @return Attribute
-//     */
-//    public function addProduct(Product $product)
-//    {
-//        $this->products[] = $product;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * Remove product
-//     *
-//     * @param \AppBundle\Entity\Product $product
-//     */
-//    public function removeProduct(Product $product)
-//    {
-//        $this->products->removeElement($product);
-//    }
-
-    /**
-     * Get products
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getProducts()
-    {
-        return $this->products;
-    }
-
     /**
      * Add category
      *
@@ -283,7 +243,7 @@ class Attribute
      *
      * @return Attribute
      */
-    public function addAttributeValue(\AppBundle\Entity\AttributeValue $attributeValue)
+    public function addAttributeValue(AttributeValue $attributeValue)
     {
         $this->attributeValues[] = $attributeValue;
 
@@ -295,7 +255,7 @@ class Attribute
      *
      * @param \AppBundle\Entity\AttributeValue $attributeValue
      */
-    public function removeAttributeValue(\AppBundle\Entity\AttributeValue $attributeValue)
+    public function removeAttributeValue(AttributeValue $attributeValue)
     {
         $this->attributeValues->removeElement($attributeValue);
     }
@@ -317,7 +277,7 @@ class Attribute
      *
      * @param \AppBundle\Entity\AttributeOption $param
      *
-     * @return SearchParam
+     * @return Attribute
      */
     public function addParam(AttributeOption $param)
     {

@@ -1,27 +1,4 @@
 <header id="header"><!--header-->
-    <div class="header_top"><!--header_top-->
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="contactinfo">
-                        <ul class="nav nav-pills">
-                            <li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
-                            <li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
-                        </ul>
-                    </div>
-                </div>
-                {#<div class="col-sm-6">#}
-                    {#<div class="social-icons pull-right">#}
-                        {#<ul class="nav navbar-nav">#}
-                            {#<li><a href="#"><i class="fa fa-facebook"></i></a></li>#}
-                            {#<li><a href="#"><i class="fa fa-vk"></i></a></li>#}
-                            {#<li><a href="#"><i class="fa fa-google-plus"></i></a></li>#}
-                        {#</ul>#}
-                    {#</div>#}
-                {#</div>#}
-            </div>
-        </div>
-    </div><!--/header_top-->
 
     <div class="header-middle"><!--header-middle-->
         <div class="container">
@@ -52,10 +29,9 @@
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-                            <li><a href="{{ path('checkout') }}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                            <li><a href="{{ path('checkout') }}"><i class="fa fa-crosshairs"></i> {{ 'mainmenu.checkout'|trans }}</a></li>
                             <li><a href="{{ path('cart') }}">
-                                    <i class="fa fa-shopping-cart"></i> Cart
+                                    <i class="fa fa-shopping-cart"></i> {{ 'mainmenu.cart'|trans }}
                                     <span id="badge-cart-items" class="badge" style="display: none">0</span>
                                 </a>
                             </li>
@@ -95,23 +71,17 @@
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
                             <li><a href="{{ path('homepage') }}" class="active">{{ 'mainmenu.home'|trans }}</a></li>
-                            <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
+                            <li class="dropdown"><a href="#">{{ 'mainmenu.shop'|trans }}<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
-                                    <li><a href="{{ path('products') }}">Products</a></li>
-                                    <li><a href="#">Product Details</a></li>
-                                    <li><a href="{{ path('checkout') }}">Checkout</a></li>
-                                    <li><a href="{{ path('cart') }}">Cart</a></li>
-                                    <li><a href="{{ path('login1') }}">Login</a></li>
+                                    <li><a href="{{ path('checkout') }}">{{ 'mainmenu.checkout'|trans }}</a></li>
+                                    <li><a href="{{ path('cart') }}">{{ 'mainmenu.cart'|trans }}</a></li>
+                                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                        <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-unlock"></i> {{ 'mainmenu.logout'|trans }}</a></li>
+                                    {% else %}
+                                        <li><a href="{{ path('fos_user_security_login') }}"><i class="fa fa-lock"></i> {{ 'mainmenu.login_registration'|trans }}</a></li>
+                                    {% endif %}
                                 </ul>
                             </li>
-                            <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
-                                <ul role="menu" class="sub-menu">
-                                    <li><a href="blog.html">Blog List</a></li>
-                                    <li><a href="blog-single.html">Blog Single</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="404.html">404</a></li>
-                            <li><a href="contact-us.html">Contact</a></li>
                         </ul>
                     </div>
                 </div>

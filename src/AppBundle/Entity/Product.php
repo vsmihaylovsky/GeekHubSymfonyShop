@@ -105,6 +105,13 @@ class Product
     private $available;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="sale", type="boolean", nullable=true)
+     */
+    private $sale;
+
+    /**
      * @var \DateTime
      *
      * @Gedmo\Timestampable(on="create")
@@ -555,5 +562,28 @@ class Product
     public function getReviewsCount()
     {
         return $this->reviewsCount;
+    }
+
+    /**
+     * Set sale
+     *
+     * @param boolean $sale
+     * @return Product
+     */
+    public function setSale($sale)
+    {
+        $this->sale = $sale;
+
+        return $this;
+    }
+
+    /**
+     * Get sale
+     *
+     * @return boolean
+     */
+    public function getSale()
+    {
+        return $this->sale;
     }
 }

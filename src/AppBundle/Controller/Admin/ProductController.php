@@ -23,42 +23,27 @@ use Symfony\Component\HttpFoundation\Response;
 class ProductController extends Controller
 {
     /**
+     * @param Request $request
      * @Route("/products", name="admin_products")
      * @Template("AppBundle:admin/products:products.html.twig")
+     *
+     * @return Response
      */
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $products = $em->getRepository('AppBundle:Product')
-            ->findAll();
+        $query = $em->getRepository('AppBundle:Product')->getProductsWithCategoryAdmin($request->query->get('search'));
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            $request->query->getInt('row-per-page', 10),
+            ['defaultSortFieldName' => 'p.createdAt', 'defaultSortDirection' => 'desc']
+        );
 
         return [
-            'products'  => $products,
-            'delete' => $this->createForm(DeleteType::class, null, [])->createView(),
-        ];
-    }
-
-    /**
-     * @param $filter
-     * @param $param
-     * @return Response
-     * @Route("/products/{filter}/{param}", name="admin_products_filtered",
-     *     defaults={"filter": "none", "param": "none"},
-     *     requirements={
-     *          "filter": "none|category"
-     *     })
-     * @Template("AppBundle:admin/products:products.html.twig")
-     */
-    public function productsFilteredAction($filter, $param, Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $products = $em->getRepository('AppBundle:Product')
-            ->getFilteredProductsWithPictures($filter, $param)
-            ->getResult();
-
-        return [
-            'products'  => $products,
-            'delete' => $this->createForm(DeleteType::class, null, [])->createView(),
+            'pagination' => $pagination
         ];
     }
 

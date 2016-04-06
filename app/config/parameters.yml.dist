@@ -24,3 +24,5 @@ parameters:
     google_app_secret:
     vkontakte_app_id:
     vkontakte_app_secret:
+
+    default_currency: грн.

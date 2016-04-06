@@ -30,22 +30,30 @@
     </div>
     <div class="col-sm-7">
         <div class="product-information"><!--/product-information-->
-            <img src="{{ asset('images/product-details/new.jpg') }}" class="newarrival" alt="">
+            {% if product.sale == 1 %}
+                <img src="{{ asset('images/product-details/new.jpg') }}" class="newarrival" alt="">
+            {% elseif date(product.createdAt) > date('-7days') %}
+                <img src="{{ asset('images/product-details/new.jpg') }}" class="newarrival" alt="">
+            {% endif %}
             <h2>{{ product.name }}</h2>
             <p>Web ID: {{ product.id }}</p>
-            {#<img src="{{ asset('images/product-details/rating.png') }}" alt="">#}
             <div class="rating-container rating-gly-star rating-xs" data-content="">
                 <div class="rating-stars" style="width: {{ product.rating * 20 }}%" data-content=""></div>
             </div>
-
-            <span>
-                <span>{{ product.price }}</span>
-                <label for="qty">Quantity:</label>
-                <input name="qty" id="qty" type="text" value="1">
-                <button formaction="{{ path('addToCart', {'id': product.id}) }}" class="btn btn-default cart add-to-cart">
-                    <i class="fa fa-shopping-cart"></i>Add to cart
-                </button>
-            </span>
+            <div>
+                <span>
+                    {% if product.sale == 1 %}
+                        <span class="price-sale">{{ product.priceSpecial }} {{ default_currency }}</span>
+                    {% else %}
+                        <span>{{ product.price }} {{ default_currency }}</span>
+                    {% endif %}
+                    {#<label for="qty">Quantity:</label>#}
+                    {#<input name="qty" id="qty" type="text" value="1">#}
+                    <button formaction="{{ path('addToCart', {'id': product.id}) }}" class="btn btn-default cart add-to-cart">
+                        <i class="fa fa-shopping-cart"></i>{{ 'add_to_cart'|trans }}
+                    </button>
+                </span>
+            </div>
             <p><b>Availability:</b>
                 {% if product.available %}
                     In Stock
@@ -53,10 +61,10 @@
                     Out of Stock
                 {% endif %}
             </p>
-            {#<p><b>Condition:</b> New</p>#}
             <p><b>Category:</b> {{ product.category.title }}</p>
-            <a href=""><img src="{{ asset('images/product-details/share.png') }}" class="share img-responsive"
-                            alt=""></a>
+            {% for item in product.attributeValues %}
+                <p><b>{{ item.attribute.name }}:</b> {{ item.attributeValue }}</p>
+            {% endfor %}
         </div><!--/product-information-->
     </div>
 </div>

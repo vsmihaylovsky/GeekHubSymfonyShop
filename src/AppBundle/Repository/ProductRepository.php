@@ -17,15 +17,42 @@ class ProductRepository extends EntityRepository
         return $query = $this->createQueryBuilder('p')
             ->select('p, pic')
             ->leftJoin('p.pictures', 'pic')
+            ->where('p.deletedAt is null')
+            ->andWhere('p.available = 1')
             ->orderBy('p.createdAt', 'DESC')
+            ->getQuery();
+    }
+
+    public function getProductsWithCategory($search)
+    {
+        return $query = $this->createQueryBuilder('p')
+            ->select('p, cat')
+            ->leftJoin('p.category', 'cat')
+            ->where('p.name like :product_name')
+            ->andWhere('p.deletedAt is null')
+            ->andWhere('p.available = 1')
+            ->setParameters(['product_name' => "%$search%"])
+            ->getQuery();
+    }
+
+    public function getProductsWithCategoryAdmin($search)
+    {
+        return $query = $this->createQueryBuilder('p')
+            ->select('p, cat')
+            ->leftJoin('p.category', 'cat')
+            ->where('p.name like :product_name')
+            ->setParameters(['product_name' => "%$search%"])
             ->getQuery();
     }
 
     public function getProductWithJoins($slug)
     {
         return $this->createQueryBuilder('p')
-            ->select('p, pic')
+            ->select('p, pic, cat, val, attr')
             ->leftJoin('p.pictures', 'pic')
+            ->leftJoin('p.category', 'cat')
+            ->leftJoin('p.attributeValues', 'val')
+            ->leftJoin('val.attribute', 'attr')
             ->where('p.slug = ?1')
             ->setParameter(1, $slug)
             ->getQuery()
@@ -38,7 +65,9 @@ class ProductRepository extends EntityRepository
             ->select('p, pic')
             ->leftJoin('p.pictures', 'pic')
             ->orderBy('p.createdAt', 'DESC')
-            ->setFirstResult(1)
+            ->where('p.deletedAt is null')
+            ->andWhere('p.available = 1')
+            ->setFirstResult(0)
             ->setMaxResults($max)
             ->getQuery()
             ->getResult();
@@ -90,6 +119,10 @@ class ProductRepository extends EntityRepository
                     ->setParameter(1, '%' . $params['name'] . '%');
                 break;
         }
+
+        $query
+            ->andWhere('p.deletedAt is null')
+            ->andWhere('p.available = 1');
 
         return $query->getQuery();
     }
