@@ -16,9 +16,9 @@ class ProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('address')
-            ->add('phoneNumber')
-            ->add('subscribe');
+            ->add('address', null, ['label' => 'security.address'])
+            ->add('phoneNumber', null, ['label' => 'security.phone_number'])
+            ->add('subscribe', null, ['label' => 'security.subscribe']);
     }
 
     public function getParent()

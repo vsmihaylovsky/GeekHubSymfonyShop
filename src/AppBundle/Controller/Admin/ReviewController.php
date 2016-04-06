@@ -43,7 +43,7 @@ class ReviewController extends Controller
             ['defaultSortFieldName' => 'r.createdAt', 'defaultSortDirection' => 'desc']
         );
 
-        $delete_forms = $this->get('app.delete_form_service')->getReviewsDeleteForms($pagination);
+        $delete_forms = $this->get('app.delete_form_service')->getEntitiesDeleteForms($pagination, 'delete_review');
 
         return
             [
@@ -55,7 +55,7 @@ class ReviewController extends Controller
     /**
      * @param Review $review
      * @return array
-     * @Route("/edit/{id}", name="edit_review")
+     * @Route("/edit/{id}", requirements={"id": "\d+"}, name="edit_review")
      * @ParamConverter("review", class="AppBundle:Review")
      * @Method("GET")
      * @Template("AppBundle:admin/review:form.html.twig")
@@ -75,7 +75,7 @@ class ReviewController extends Controller
      * @param Request $request
      * @param Review $review
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @Route("/{id}", name="update_review")
+     * @Route("/{id}", requirements={"id": "\d+"}, name="update_review")
      * @ParamConverter("review", class="AppBundle:Review")
      * @Method("PUT")
      * @Template("AppBundle:admin/review:form.html.twig")
@@ -102,13 +102,13 @@ class ReviewController extends Controller
      * @param Request $request
      * @param Review $review
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @Route("/{id}", name="delete_review")
+     * @Route("/{id}", requirements={"id": "\d+"}, name="delete_review")
      * @ParamConverter("review", class="AppBundle:Review")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Review $review)
     {
-        $form = $this->get('app.delete_form_service')->createReviewDeleteForm($review->getId());
+        $form = $this->get('app.delete_form_service')->createEntityDeleteForm($review->getId(), 'delete_review');
 
         $form->handleRequest($request);
 

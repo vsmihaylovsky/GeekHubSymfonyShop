@@ -28,7 +28,8 @@
         "stof/doctrine-extensions-bundle": "^1.2",
         "liip/imagine-bundle": "^1.5",
         "knplabs/knp-paginator-bundle": "^2.5",
-        "ibrows/newsletter-bundle": "^3.0"
+        "stfalcon/tinymce-bundle": "^2.0",
+        "cspoo/swiftmailer-mailgun-bundle": "^0.2.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",

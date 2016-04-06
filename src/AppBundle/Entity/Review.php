@@ -41,8 +41,8 @@ class Review
     private $reviewText;
 
     /**
+     * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="integer")
      */
     private $createdAt;
 
@@ -117,30 +117,6 @@ class Review
     }
 
     /**
-     * Set createdAt
-     *
-     * @param integer $createdAt
-     *
-     * @return Review
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return integer
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
      * Set product
      *
      * @param \AppBundle\Entity\Product $product
@@ -186,5 +162,29 @@ class Review
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Review
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
     }
 }

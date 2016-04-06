@@ -24,3 +24,9 @@ parameters:
     google_app_secret:
     vkontakte_app_id:
     vkontakte_app_secret:
+
+    mailgun_key: "key-xxxxxxxxxx"
+    mailgun_domain: "mydomain.com"
+
+    from_noreply_email_address: noreply@shop.my
+    from_noreply_sender_name: e-shop

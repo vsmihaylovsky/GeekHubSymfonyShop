@@ -23,17 +23,17 @@
                                 {{ 'DataTable.lengthMenu2_2' | trans }}
                             </label>
                         </div>
-                        <div class="col-lg-3 col-lg-offset-3">
-                            <div class="input-group">
-                                <input type="text" name="search" class="form-control"
-                                       placeholder="{{ 'DataTable.search2' | trans }}" value="{{ app.request.get('search') }}">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="submit">
-                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                            </button>
-                        </span>
-                            </div>
-                        </div>
+                        {#<div class="col-lg-3 col-lg-offset-3">#}
+                            {#<div class="input-group">#}
+                                {#<input type="text" name="search" class="form-control"#}
+                                       {#placeholder="{{ 'DataTable.search2' | trans }}" value="{{ app.request.get('search') }}">#}
+                        {#<span class="input-group-btn">#}
+                            {#<button class="btn btn-default" type="submit">#}
+                                {#<span class="glyphicon glyphicon-search" aria-hidden="true"></span>#}
+                            {#</button>#}
+                        {#</span>#}
+                            {#</div>#}
+                        {#</div>#}
                     </div>
                     <input type="hidden" name="sort" value="{{ pagination.params.sort }}">
                     <input type="hidden" name="direction" value="{{ pagination.params.direction }}">

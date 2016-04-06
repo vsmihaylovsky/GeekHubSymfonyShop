@@ -4,3 +4,4 @@ AppBundle\Entity\PrivateMessage:
         recipient: <user_or_admin_or_super_admin(@user_*, @admin, @super_admin)>
         title: <text(30)>
         message: <paragraph()>
+        sentTime: <dateTime()>

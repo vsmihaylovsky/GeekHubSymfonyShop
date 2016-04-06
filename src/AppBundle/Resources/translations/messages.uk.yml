@@ -62,6 +62,12 @@ invoice:
   add_status: Додати статус
   status_label: Статус
 
+newsletter:
+  subject: Тема
+  message: Повідомлення
+  send: Відправити
+  test.send: Відправити тестове повідомлення
+
 page:
   name:
     products: Товари
@@ -77,6 +83,9 @@ page:
     private_message.edit: Редагування повідомлення
     invoices: Замовлення
     invoice: Замовлення
+    newsletters: Розсилки
+    newsletter.edit: Редагування розсилки
+    newsletter.send: Відправити розсилку
   warning:
     youMustSaveProductFirst: Ви повинні спершу зберегти продукт.
 
@@ -86,6 +95,7 @@ table:
   delete_record: Видалити запис?
   update: Зберегти
   show: Показати
+  create: Створити
   products:
     name: Назва
     type: Тип
@@ -140,6 +150,10 @@ table:
     amount: Сума
     info: Інформація
     status: Статус
+  newsletters:
+    create: Створити
+    subject: Тема
+    send: Відправити
 
 DataTable:
   lengthMenu: Показувати _MENU_ записів на сторінку

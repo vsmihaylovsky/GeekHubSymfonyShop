@@ -52,7 +52,7 @@ class InvoiceController extends Controller
      * @param Request $request
      * @param Invoice $invoice
      * @return array
-     * @Route("/edit/{id}", name="show_invoice")
+     * @Route("/edit/{id}", requirements={"id": "\d+"}, name="show_invoice")
      * @ParamConverter("invoice", class="AppBundle:Invoice", options={"repository_method" = "getInvoice"})
      * @Method({"GET", "POST", "PUT"})
      * @Template("AppBundle:admin/invoice:show.html.twig")
