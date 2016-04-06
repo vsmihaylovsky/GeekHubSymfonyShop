@@ -4,4 +4,4 @@ AppBundle\Entity\Review:
         reviewText: <paragraph()>
         product: "@product*"
         user: "@user_*"
-        createdAt: <unixTime()>
+        createdAt: <dateTime()>

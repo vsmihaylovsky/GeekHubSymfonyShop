@@ -105,6 +105,16 @@
             <tag name="security.voter"/>
         </service>
 
+        <service id="app.newsletter_service" class="AppBundle\Services\NewsletterService">
+            <argument type="service" id="form.factory"/>
+            <argument type="service" id="router"/>
+            <argument type="service" id="security.token_storage"/>
+            <argument type="service" id="mailer"/>
+            <argument type="service" id="templating"/>
+            <argument>%from_noreply_email_address%</argument>
+            <argument>%from_noreply_sender_name%</argument>
+        </service>
+
     </services>
 
 </container>

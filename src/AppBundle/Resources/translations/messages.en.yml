@@ -68,6 +68,12 @@ invoice:
   add_status: Add status
   status_label: Status
 
+newsletter:
+  subject: Subject
+  message: Message
+  send: Send
+  test.send: Send test message
+
 page:
   name:
     products: Products
@@ -83,6 +89,9 @@ page:
     private_message.edit: Private message edit
     invoices: Invoices
     invoice: Invoice
+    newsletters: Newsletters
+    newsletter.edit: Newsletter edit
+    newsletter.send: Send newsletter
   warning:
     youMustSaveProductFirst: You must save product first.
 
@@ -92,6 +101,7 @@ table:
   delete_record: Delete record?
   update: Update
   show: Show
+  create: Create
   products:
     name: Name
     type: Type
@@ -146,6 +156,10 @@ table:
     amount: Amount
     info: Informaton
     status: Status
+  newsletters:
+    create: Create
+    subject: Subject
+    send: Send
 
 DataTable:
   lengthMenu: Display _MENU_ records per page

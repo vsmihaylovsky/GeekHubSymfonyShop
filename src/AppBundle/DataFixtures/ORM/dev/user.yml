@@ -6,10 +6,11 @@ AppBundle\Entity\User:
         enabled: true
         address: <address()>
         phoneNumber: <phoneNumber()>
+        subscribe: false
     admin:
         username: manager
         password: <password(1)>
-        email: manager@example.com
+        email: vsmihaylovsky@ukr.net
         roles: <(['ROLE_ADMIN'])>
         enabled: true
         address: <address()>
@@ -17,7 +18,7 @@ AppBundle\Entity\User:
     super_admin:
         username: admin
         password: <password(1)>
-        email: admin@example.com
+        email: vsmihaylovsky@list.ru
         roles: <(['ROLE_SUPER_ADMIN'])>
         enabled: true
         address: <address()>

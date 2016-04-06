@@ -688,3 +688,46 @@ label.rows-per-page select{
     text-align: center;
     vertical-align: middle;
 }
+
+.dataTable_wrapper table.newsletter-data-table th {
+    text-align: left;
+    vertical-align: middle;
+}
+
+.dataTable_wrapper table.newsletter-data-table th.newsletter-subject {
+    padding: 8px;
+}
+
+.dataTable_wrapper table.newsletter-data-table th.newsletter-send {
+    padding: 8px;
+    width: 10%;
+}
+
+.dataTable_wrapper table.newsletter-data-table th.newsletter-edit {
+    padding: 8px;
+    width: 10%;
+}
+
+.dataTable_wrapper table.newsletter-data-table th.newsletter-delete {
+    padding: 8px;
+    width: 10%;
+}
+
+.dataTable_wrapper table.newsletter-data-table td.newsletter-subject {
+    text-align: left;
+}
+
+.dataTable_wrapper table.newsletter-data-table td.newsletter-send {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.dataTable_wrapper table.newsletter-data-table td.newsletter-edit {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.dataTable_wrapper table.newsletter-data-table td.newsletter-delete {
+    text-align: center;
+    vertical-align: middle;
+}
