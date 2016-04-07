@@ -1,0 +1,13 @@
+.modal-footer > form {
+    float: right;
+}
+.modal-footer > button {
+    float: right;
+    margin-right: 10px;
+}
+#deleteModal .modal-body {
+    text-align: center;
+}
+.dataTable_wrapper table.data-table, .dataTables_scroll {
+    margin-bottom: 10px;
+}

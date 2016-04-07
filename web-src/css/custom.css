@@ -40,6 +40,6 @@
     margin-bottom: 0;
 }
 .productinfo h2.price-sale,
-.product-information span span.price-sale {
+.product-information span .price-sale {
     color: #2ECC71;
 }

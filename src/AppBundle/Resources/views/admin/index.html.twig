@@ -1,18 +1,5 @@
 {% extends 'AppBundle:admin:default.html.twig' %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    <link href="{{ asset('css/timeline.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/morris.css') }}" rel="stylesheet">
-{% endblock %}
-
 {% block content %}
     {{ include( 'AppBundle:admin:index/content.html.twig' ) }}
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script src="{{ asset('js/morris.min.js') }}"></script>
-    <script src="{{ asset('js/raphael-min.js') }}"></script>
-    <script src="{{ asset('js/morris-data.js') }}"></script>
 {% endblock %}

@@ -8,6 +8,7 @@ mainmenu:
   category: Category
   filters: Filters
   latest_products: Latest products
+  admin: Admin panel
 
 security:
   username: Username
