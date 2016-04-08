@@ -7,6 +7,7 @@ use AppBundle\Entity\AttributeOption;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\SearchFilter;
 use AppBundle\Form\Type\FilterOptionsType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -81,11 +82,24 @@ class SearchFormService
                         'param'  => $categorySlug
                     ]))
                     ->setMethod('GET')
-                    ->add('filters', CollectionType::class, array(
+                    ->add('filters', CollectionType::class, [
                         'entry_type'    => FilterOptionsType::class,
                         'label'         => false,
                         'required'      => false
-                    ))
+                    ])
+                    ->add('sort', ChoiceType::class, [
+                        'choices'  => [
+                                'date up',
+                                'date down',
+                                'price up',
+                                'price down',
+                        ],
+                        'expanded'          => false,
+                        'multiple'          => false,
+                        'label'             => 'Sort',
+                        'choices_as_values' => true,
+                        'mapped'            => false,
+                    ])
                     ->add('filter', SubmitType::class, [
                         'label'         => 'form.filter',
                         'attr'          => ['class' => 'btn btn-primary']
