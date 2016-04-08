@@ -18,12 +18,12 @@ parameters:
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
 
-    facebook_app_id:
-    facebook_app_secret:
-    google_app_id:
-    google_app_secret:
-    vkontakte_app_id:
-    vkontakte_app_secret:
+    facebook_app_id: 1
+    facebook_app_secret: 1
+    google_app_id: 1
+    google_app_secret: 1
+    vkontakte_app_id: 1
+    vkontakte_app_secret: 1
 
     mailgun_key: "key-xxxxxxxxxx"
     mailgun_domain: "mydomain.com"
