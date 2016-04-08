@@ -8,6 +8,7 @@ mainmenu:
   category: Категорії
   filters: Фільтри
   latest_products: Останні продукти
+  admin: Адмін панель
 
 security:
   username: Ім'я користувача
@@ -112,6 +113,7 @@ table:
     priceSpecial: Спецціна
     rating: Рейтинг
     available: Доступність
+    sale: Sale
     createdAt: Створений
     updatedAt: Змінений
     deletedAt: Видалений
@@ -216,3 +218,4 @@ form:
   search: Шукати
   search_term: Пошуковий запит
   filter: Фільтрувати
+  delete: Видалити

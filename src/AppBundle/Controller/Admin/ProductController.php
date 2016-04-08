@@ -48,6 +48,35 @@ class ProductController extends Controller
     }
 
     /**
+     * @param $filter
+     * @param $param
+     * @return Response
+     * @Route("/products/{filter}/{param}", name="admin_products_filtered",
+     *     defaults={"filter": "none", "param": "none"},
+     *     requirements={
+     *          "filter": "none|category"
+     *     })
+     * @Template("AppBundle:admin/products:products.html.twig")
+     */
+    public function productsFilteredAction($filter, $param, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->getRepository('AppBundle:Product')->getProductsFilteredByCategoryAdmin($param);
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            $request->query->getInt('row-per-page', 10),
+            ['defaultSortFieldName' => 'p.createdAt', 'defaultSortDirection' => 'desc']
+        );
+
+        return [
+            'pagination' => $pagination
+        ];
+    }
+
+    /**
      * @param $id
      * @param $action
      * @param Request $request

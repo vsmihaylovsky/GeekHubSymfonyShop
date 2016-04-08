@@ -8,6 +8,7 @@ mainmenu:
   category: Category
   filters: Filters
   latest_products: Latest products
+  admin: Admin panel
 
 security:
   username: Username
@@ -112,6 +113,7 @@ table:
     priceSpecial: SpecialPrice
     rating: Rating
     available: Available
+    sale: Sale
     createdAt: Created
     updatedAt: Updated
     deletedAt: Deleted
@@ -218,3 +220,4 @@ form:
   search: Search
   search_term: Search term
   filter: Filter
+  delete: Delete
