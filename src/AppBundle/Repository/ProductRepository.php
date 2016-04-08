@@ -45,6 +45,16 @@ class ProductRepository extends EntityRepository
             ->getQuery();
     }
 
+    public function getProductsFilteredByCategoryAdmin($category)
+    {
+        return $query = $this->createQueryBuilder('p')
+            ->select('p, cat')
+            ->leftJoin('p.category', 'cat')
+            ->where('cat.slug = ?1')
+            ->setParameter(1, $category)
+            ->getQuery();
+    }
+
     public function getProductWithJoins($slug)
     {
         return $this->createQueryBuilder('p')

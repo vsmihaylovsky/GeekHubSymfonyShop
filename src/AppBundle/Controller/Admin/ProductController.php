@@ -61,13 +61,18 @@ class ProductController extends Controller
     public function productsFilteredAction($filter, $param, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $products = $em->getRepository('AppBundle:Product')
-            ->getFilteredProductsWithPictures($filter, $param)
-            ->getResult();
+        $query = $em->getRepository('AppBundle:Product')->getProductsFilteredByCategoryAdmin($param);
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            $request->query->getInt('row-per-page', 10),
+            ['defaultSortFieldName' => 'p.createdAt', 'defaultSortDirection' => 'desc']
+        );
 
         return [
-            'products'  => $products,
-            'delete' => $this->createForm(DeleteType::class, null, [])->createView(),
+            'pagination' => $pagination
         ];
     }
 

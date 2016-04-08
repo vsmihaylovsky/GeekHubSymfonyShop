@@ -84,6 +84,7 @@ class Category
      */
     public function __construct() {
         $this->children = new ArrayCollection();
+        $this->products = new ArrayCollection();
         $this->attributes = new ArrayCollection();
     }
 

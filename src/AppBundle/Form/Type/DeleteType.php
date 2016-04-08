@@ -16,7 +16,7 @@ class DeleteType extends AbstractType
     {
         $builder
             ->add('delete', SubmitType::class, [
-                'label' => 'delete',
+                'label' => 'form.delete',
                 'attr' => ['class' => 'btn btn-danger'],
             ]);
     }

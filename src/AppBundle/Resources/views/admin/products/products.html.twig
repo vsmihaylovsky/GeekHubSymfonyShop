@@ -70,6 +70,9 @@
                             {{ knp_pagination_sortable(pagination, 'table.products.available'|trans, 'p.available') }}
                         </th>
                         <th>
+                            {{ knp_pagination_sortable(pagination, 'table.products.sale'|trans, 'p.sale') }}
+                        </th>
+                        <th>
                             {{ knp_pagination_sortable(pagination, 'table.products.createdAt'|trans, 'p.createdAt') }}
                         </th>
                         <th>
@@ -91,6 +94,7 @@
                             <td>{{ product.priceSpecial }}</td>
                             <td>{{ product.rating }}</td>
                             <td>{{ product.available }}</td>
+                            <td>{{ product.sale }}</td>
                             <td>{{ product.createdAt|date("d.m.Y") }}</td>
                             <td>
                                 {% if product.deletedAt is not null %}
