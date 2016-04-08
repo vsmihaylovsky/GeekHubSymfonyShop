@@ -22,14 +22,7 @@ class CategoryType extends AbstractType
             ->add('title', TextType::class, array(
                     'attr' => array('placeholder' => 'Enter category title')
                 )
-            )
-            ->add('attributes', EntityType::class, array(
-                'class'         => 'AppBundle:Attribute',
-                'choice_label'  => 'name',
-                'placeholder'   => 'Choose attributes',
-                'multiple'      => 'true',
-                'required'      => false,
-            ));
+            );
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
             if ($event->getData()->getChildren()->isEmpty()) {
@@ -45,6 +38,14 @@ class CategoryType extends AbstractType
                         'choice_label'  => 'title',
                         'placeholder'   => 'without parent category',
                         'empty_data'    => null,
+                        'required'      => false,
+                    ))
+                    ->add('attributes', EntityType::class, array(
+                        'class'         => 'AppBundle:Attribute',
+                        'choice_label'  => 'name',
+                        'placeholder'   => 'Choose attributes',
+                        'expanded'      => 'true',
+                        'multiple'      => 'true',
                         'required'      => false,
                     ));
             }
