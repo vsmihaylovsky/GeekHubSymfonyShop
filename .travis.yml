@@ -3,10 +3,14 @@ language: php
 php:
   - 5.6
 
+services:
+  - mysql
+
 before_script:
-  - composer self-update
-  - composer install --dev --no-interaction --prefer-source
-  - app/console cache:warmup --env=test --quiet
+    - mysql -e 'create database symfony;'
+    - composer self-update
+    - composer install --no-interaction --prefer-source
+    - app/console cache:warmup --env=test --quiet
 
 script:
   - php bin/phpunit -c app --coverage-clover=coverage.clover
