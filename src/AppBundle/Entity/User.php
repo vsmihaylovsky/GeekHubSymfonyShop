@@ -39,10 +39,10 @@ class User extends BaseUser
     /** @ORM\Column(name="google_access_token", type="string", length=255, nullable=true) */
     protected $google_access_token;
 
-    /** @ORM\Column(name="$vkontakte_id", type="string", length=255, nullable=true) */
+    /** @ORM\Column(name="vkontakte_id", type="string", length=255, nullable=true) */
     protected $vkontakte_id;
 
-    /** @ORM\Column(name="$vkontakte_access_token", type="string", length=255, nullable=true) */
+    /** @ORM\Column(name="vkontakte_access_token", type="string", length=255, nullable=true) */
     protected $vkontakte_access_token;
 
     /** @ORM\Column(name="address", type="string", length=255, nullable=true) */

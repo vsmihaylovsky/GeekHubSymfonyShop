@@ -1,0 +1,7 @@
+AppBundle\Entity\Review:
+    comment_{1..200}:
+        rating: <numberBetween(1, 5)>
+        reviewText: <paragraph()>
+        product: "@product*"
+        user: "@user_*"
+        createdAt: <dateTime()>
