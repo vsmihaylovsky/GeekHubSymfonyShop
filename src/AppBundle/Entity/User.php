@@ -39,10 +39,10 @@ class User extends BaseUser
     /** @ORM\Column(name="google_access_token", type="string", length=255, nullable=true) */
     protected $google_access_token;
 
-    /** @ORM\Column(name="$vkontakte_id", type="string", length=255, nullable=true) */
+    /** @ORM\Column(name="vkontakte_id", type="string", length=255, nullable=true) */
     protected $vkontakte_id;
 
-    /** @ORM\Column(name="$vkontakte_access_token", type="string", length=255, nullable=true) */
+    /** @ORM\Column(name="vkontakte_access_token", type="string", length=255, nullable=true) */
     protected $vkontakte_access_token;
 
     /** @ORM\Column(name="address", type="string", length=255, nullable=true) */
@@ -73,6 +73,13 @@ class User extends BaseUser
         $this->setSubscribe(true);
         $this->invoices = new ArrayCollection();
         $this->reviews = new ArrayCollection();
+    }
+
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+
+        return $this;
     }
 
     /**

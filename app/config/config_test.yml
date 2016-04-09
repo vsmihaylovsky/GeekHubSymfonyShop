@@ -14,3 +14,12 @@ web_profiler:
 
 swiftmailer:
     disable_delivery: true
+
+doctrine:
+   dbal:
+       driver:   pdo_sqlite
+       memory:   true
+       charset:  UTF8
+       mapping_types:
+           enum: string
+       path:     "%database_path%"

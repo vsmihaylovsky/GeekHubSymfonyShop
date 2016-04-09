@@ -40,8 +40,12 @@ class LoadFixtureData implements FixtureInterface, ContainerAwareInterface
 
         if ($env == 'test') {
             return [
-                __DIR__.'/test/category.yml',
+                __DIR__.'/test/attribute.yml',
                 __DIR__.'/test/product.yml',
+                __DIR__.'/test/user.yml',
+                __DIR__.'/test/private_message.yml',
+                __DIR__.'/test/review.yml',
+                $this->categories(),
             ];
         }
         return [
@@ -144,6 +148,7 @@ class LoadFixtureData implements FixtureInterface, ContainerAwareInterface
     public function password($plainPassword)
     {
         $user = new User();
+        $user->setSalt(null);
         $encoder = $this->container->get('security.password_encoder');
         return $encoder->encodePassword($user, $plainPassword);
     }
