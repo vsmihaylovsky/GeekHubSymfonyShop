@@ -1,5 +1,5 @@
 AppBundle\Entity\Review:
-    comment_{1..200}:
+    comment_{1..10}:
         rating: <numberBetween(1, 5)>
         reviewText: <paragraph()>
         product: "@product*"

@@ -1,5 +1,5 @@
 AppBundle\Entity\ProductPicture:
-  prodPicture{1..12}:
+  prodPicture{1..10}:
     path: "product<current()>.jpg"
 
 AppBundle\Entity\Product:
