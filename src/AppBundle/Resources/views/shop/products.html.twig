@@ -4,6 +4,8 @@
     {#{{ include( 'AppBundle:shop/products:advertisement.html.twig' ) }}#}
 {% endblock %}
 
+{% block title %}E-Shopper | {{ title }}{% endblock %}
+
 {% block content %}
     {{ include( 'AppBundle:shop/products:list.html.twig' ) }}
 {% endblock %}
