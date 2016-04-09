@@ -1,4 +1,5 @@
 E-Commerce Web Site
+
 master:
 [![Build Status](https://travis-ci.org/vsmihaylovsky/GeekHubSymfonyShop.svg?branch=master)](https://travis-ci.org/vsmihaylovsky/GeekHubSymfonyShop)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/vsmihaylovsky/GeekHubSymfonyShop/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/vsmihaylovsky/GeekHubSymfonyShop/?branch=master)
