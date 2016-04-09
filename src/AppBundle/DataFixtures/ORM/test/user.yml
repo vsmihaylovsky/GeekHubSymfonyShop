@@ -1,0 +1,25 @@
+AppBundle\Entity\User:
+    user_{1..5}:
+        username: <name()>
+        password: <password(1)>
+        email: <email()>
+        enabled: true
+        address: <address()>
+        phoneNumber: <phoneNumber()>
+        subscribe: false
+    admin:
+        username: manager
+        password: <password(1)>
+        email: vsmihaylovsky@ukr.net
+        roles: <(['ROLE_ADMIN'])>
+        enabled: true
+        address: <address()>
+        phoneNumber: <phoneNumber()>
+    super_admin:
+        username: admin
+        password: <password(1)>
+        email: vsmihaylovsky@list.ru
+        roles: <(['ROLE_SUPER_ADMIN'])>
+        enabled: true
+        address: <address()>
+        phoneNumber: <phoneNumber()>
