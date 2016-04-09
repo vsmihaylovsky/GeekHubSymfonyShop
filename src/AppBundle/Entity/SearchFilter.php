@@ -8,6 +8,9 @@ class SearchFilter
 {
     private $category;
     private $filters;
+    private $sale;
+    private $sort;
+    private $directions;
 
     /**
      * *******************************************************
@@ -16,6 +19,10 @@ class SearchFilter
      */
     public function __construct() {
         $this->filters = new ArrayCollection();
+        $this->directions = new ArrayCollection();
+        $this
+            ->addDirection('up')
+            ->addDirection('down');
     }
 
     /**
@@ -74,5 +81,46 @@ class SearchFilter
     public function getFilters()
     {
         return $this->filters;
+    }
+
+    public function setSale($sale = null)
+    {
+        $this->sale = $sale;
+
+        return $this;
+    }
+
+    public function getSale()
+    {
+        return $this->sale;
+    }
+
+    public function setSort($sort = null)
+    {
+        $this->sort = $sort;
+
+        return $this;
+    }
+
+    public function getSort()
+    {
+        return $this->sort;
+    }
+
+    public function addDirection($direction)
+    {
+        $this->directions[$direction] = $direction;
+
+        return $this;
+    }
+
+    public function removeDirection($direction)
+    {
+        $this->directions->removeElement($direction);
+    }
+
+    public function getDirections()
+    {
+        return $this->directions;
     }
 }

@@ -58,8 +58,48 @@ class SearchFormService
     public function getFilterForm($categorySlug)
     {
         $currentCategory = $this->em->getRepository('AppBundle:Category')->findOneBy(['slug' => $categorySlug]);
+        $search = new SearchFilter();
+        /** @var FormBuilder $formBuilder */
+        $formBuilder = $this->formFactory->createBuilder(
+            'Symfony\Component\Form\Extension\Core\Type\FormType',
+            $search, [
+                'csrf_protection' => false,
+            ]
+        );
+        $dir = $search->getDirections();
+        $formBuilder
+            ->setMethod('GET')
+            ->add('sort', ChoiceType::class, [
+                'choices'  => [
+                    'date'  => 'date',
+                    'price' => 'price',
+                    'name'  => 'name',
+                ],
+                'label'             => 'Sort',
+                'choices_as_values' => true,
+                'mapped'            => false,
+            ])
+            ->add('directions', ChoiceType::class, [
+                'choices'           => $search->getDirections(),
+                'label'             => 'Directions',
+                'choices_as_values' => true,
+                //'mapped'            => false,
+            ])
+            ->add('sale', ChoiceType::class, [
+                'choices'  => [
+                    'sale' => 'sale',
+                ],
+                'expanded'          => true,
+                'multiple'          => true,
+                'label'             => 'Sale',
+                'choices_as_values' => true,
+                'mapped'            => false,
+            ])
+            ->add('filter', SubmitType::class, [
+                'label'         => 'form.filter',
+                'attr'          => ['class' => 'btn btn-primary']
+            ]);
         if($currentCategory instanceof Category) {
-            $search = new SearchFilter();
             $search->setCategory($currentCategory);
             if($currentCategory->getAttributes()->count() > 0) {
                 foreach ($currentCategory->getAttributes() as $filter) {
@@ -68,54 +108,30 @@ class SearchFormService
                         $search->addFilter($filter);
                     }
                 }
-                /** @var FormBuilder $formBuilder */
-                $formBuilder = $this->formFactory->createBuilder(
-                    'Symfony\Component\Form\Extension\Core\Type\FormType',
-                    $search, [
-                        'csrf_protection' => false,
-                    ]
-                );
 
-                $form = $formBuilder
+                $formBuilder
                     ->setAction($this->router->generate('products_filtered', [
                         'filter' => 'category',
                         'param'  => $categorySlug
                     ]))
-                    ->setMethod('GET')
                     ->add('filters', CollectionType::class, [
                         'entry_type'    => FilterOptionsType::class,
                         'label'         => false,
                         'required'      => false
-                    ])
-                    ->add('sort', ChoiceType::class, [
-                        'choices'  => [
-                                'date up',
-                                'date down',
-                                'price up',
-                                'price down',
-                        ],
-                        'expanded'          => false,
-                        'multiple'          => false,
-                        'label'             => 'Sort',
-                        'choices_as_values' => true,
-                        'mapped'            => false,
-                    ])
-                    ->add('filter', SubmitType::class, [
-                        'label'         => 'form.filter',
-                        'attr'          => ['class' => 'btn btn-primary']
-                    ])
-                    ->getForm();
-                
-                return [
-                    'category'  => $currentCategory->getTitle(),
-                    'form'      => $form,
-                ];
-            } else {
-                return '';
+                    ]);
+                $data['category'] = $currentCategory->getTitle();
             }
         } else {
-            return '';
+            $formBuilder
+                ->setAction($this->router->generate('products_filtered', [
+                    'filter' => 'filter',
+                ]));
+            $data['category'] = "Filtered";
         }
+
+        $data['form'] = $formBuilder->getForm();
+
+        return $data;
     }
 
     public function prepareFiltersData($data)

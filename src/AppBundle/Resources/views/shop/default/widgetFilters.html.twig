@@ -3,17 +3,19 @@
         <h2>{{ 'mainmenu.filters'|trans }}</h2>
         <div class="filters-block" id="filters">
             {{ form_start(formFilter) }}
-                {% for key, filter in formFilter.filters %}
-                    <div class="filter">
-                        <div class="filter-name">{{ filter.vars.value.name }}</div>
-                        {% for key, param in filter.params %}
-                            <div class="parameter">
-                                {{ form_widget(param) }}
-                                {{ form_label(param) }}
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endfor %}
+                {% if formFilter.filters is defined %}
+                    {% for key, filter in formFilter.filters %}
+                        <div class="filter">
+                            <div class="filter-name">{{ filter.vars.value.name }}</div>
+                            {% for key, param in filter.params %}
+                                <div class="parameter">
+                                    {{ form_widget(param) }}
+                                    {{ form_label(param) }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                {% endif %}
                 <div class="submit">{{ form_widget(formFilter.filter) }}</div>
             {{ form_end(formFilter) }}
         </div>
