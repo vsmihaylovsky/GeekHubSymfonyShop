@@ -75,6 +75,13 @@ class User extends BaseUser
         $this->reviews = new ArrayCollection();
     }
 
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+
+        return $this;
+    }
+
     /**
      * Set facebook_id
      *

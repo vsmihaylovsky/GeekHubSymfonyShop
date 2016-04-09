@@ -148,6 +148,7 @@ class LoadFixtureData implements FixtureInterface, ContainerAwareInterface
     public function password($plainPassword)
     {
         $user = new User();
+        $user->setSalt(null);
         $encoder = $this->container->get('security.password_encoder');
         return $encoder->encodePassword($user, $plainPassword);
     }
