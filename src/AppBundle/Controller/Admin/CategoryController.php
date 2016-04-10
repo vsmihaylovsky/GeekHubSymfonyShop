@@ -25,7 +25,7 @@ class CategoryController extends Controller
      * @Template("AppBundle:admin/categories:categories.html.twig")
      * @return Response
      */
-    public function indexAction(Request $request)
+    public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
         $categories = $em->getRepository('AppBundle:Category')
@@ -99,7 +99,7 @@ class CategoryController extends Controller
      * @Method({"POST"})
      * @ParamConverter("category", class="AppBundle:Category")
      * @Template("AppBundle:admin:messages.html.twig")
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function deleteCategoryAction(Category $category, Request $request)
     {

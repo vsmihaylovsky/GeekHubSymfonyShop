@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Form\Type;
 
+use Doctrine\ORM\EntityManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
@@ -12,12 +13,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CategoryType extends AbstractType
 {
+    protected $em;
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $this->em = $options['em'];
+
         $builder
             ->add('title', TextType::class, array(
                     'attr' => array('placeholder' => 'Enter category title')
@@ -26,15 +31,11 @@ class CategoryType extends AbstractType
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
             if ($event->getData()->getChildren()->isEmpty()) {
+                $choices = $this->getChoices();
                 $event->getForm()
                     ->add('parent', EntityType::class, array(
                         'class'         => 'AppBundle:Category',
-                        'query_builder' => function (EntityRepository $er) {
-                            return $er->createQueryBuilder('c')
-                                ->where('c.parent is null')
-                                ->andWhere('c.hasProducts is null')
-                                ->orderBy('c.title', 'ASC');
-                        },
+                        'choices'       => $choices,
                         'choice_label'  => 'title',
                         'placeholder'   => 'without parent category',
                         'empty_data'    => null,
@@ -63,5 +64,18 @@ class CategoryType extends AbstractType
     public function getBlockPrefix()
     {
         return "category";
+    }
+
+    protected function getChoices()
+    {
+        /** @var EntityManager $em */
+        $data = $this->em->getRepository('AppBundle:Category')->getCategoryWithCounts();
+        $choices = [];
+        foreach ($data as $item) {
+            if ($item['parentId'] == null && $item['countProducts'] == 0) {
+                $choices[] = $item[0];
+            }
+        }
+        return $choices;
     }
 }

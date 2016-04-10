@@ -23,3 +23,8 @@ doctrine:
        mapping_types:
            enum: string
        path:     "%database_path%"
+
+security:
+    firewalls:
+        main:
+            http_basic: ~

@@ -115,10 +115,27 @@ class ProductController extends Controller
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);
             if ($form->isValid()) {
+                $id = $product->getId();
                 $em->persist($product);
                 $em->flush();
 
-                return $this->redirectToRoute('admin_products');
+                if ($id != null) {
+                    $this->addFlash(
+                        'success',
+                        'Product updated successfully.'
+                    );
+                } else {
+                    $this->addFlash(
+                        'success',
+                        'Product added successfully.'
+                    );
+                    $this->addFlash(
+                        'info',
+                        'Please set attributes.'
+                    );
+                }
+
+                return $this->redirectToRoute('admin_product_edit', ['action' => 'edit', 'id' => $product->getId()]);
             }
         }
 
@@ -171,6 +188,15 @@ class ProductController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($product);
                 $em->flush();
+
+                $this->addFlash(
+                    'tab',
+                    'attributes'
+                );
+                $this->addFlash(
+                    'success',
+                    'Product changed successfully.'
+                );
 
                 return $this->redirectToRoute('admin_product_edit', ['action' => 'edit', 'id' => $id]);
             }

@@ -40,4 +40,17 @@ class CategoryRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getCategoryWithCounts()
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c, count(cc.id) as countChildren, cp.id as parentId, count(cpr.id) as countProducts')
+            ->leftJoin('c.children', 'cc')
+            ->leftJoin('c.parent', 'cp')
+            ->leftJoin('c.products', 'cpr')
+            ->groupBy('c, parentId')
+            ->orderBy('c.title', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 }
