@@ -11,7 +11,11 @@
 {% endblock empty_body %}
 
 {% block login_form %}
-    {% render path('fos_user_security_login', app.request.get('_route_params')|merge({'is_register_path' : 'true'})) %}
+    {{ render(controller(
+    'FOSUserBundle:Security:login',
+    app.request.get('_route_params')|merge({'is_register_path' : 'true'})
+    )) }}
+
 {% endblock login_form %}
 
 {% block register_form %}
