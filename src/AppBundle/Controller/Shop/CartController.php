@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Shop;
 
 use AppBundle\Entity\Product;
 use AppBundle\Form\Type\InvoiceType;

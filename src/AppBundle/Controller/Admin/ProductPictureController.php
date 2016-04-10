@@ -87,10 +87,24 @@ class ProductPictureController extends Controller
                         $picture = new ProductPicture();
                         $picture->setProduct($product)->setFile($file);
                         $em->persist($picture);
+                        $this->addFlash(
+                            'success',
+                            'Picture added successfully.'
+                        );
                     }
+                } else {
+                    $this->addFlash(
+                        'success',
+                        'Product changed successfully.'
+                    );
                 }
 
                 $em->flush();
+
+                $this->addFlash(
+                    'tab',
+                    'pictures'
+                );
 
                 return $this->redirectToRoute('admin_product_edit', ['action' => 'edit', 'id' => $id]);
             }
@@ -132,6 +146,14 @@ class ProductPictureController extends Controller
                 $em->remove($picture);
                 $em->flush();
 
+                $this->addFlash(
+                    'info',
+                    'Picture deleted successfully.'
+                );
+                $this->addFlash(
+                    'tab',
+                    'pictures'
+                );
                 //return $this->redirectToRoute('admin_product_edit', ['action' => 'edit', 'id' => $id]);
             }
         }

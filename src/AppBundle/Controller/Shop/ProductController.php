@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Shop;
 
 use AppBundle\Entity\Product;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -13,7 +13,7 @@ use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class DefaultController extends Controller
+class ProductController extends Controller
 {
     /**
      * @Route("/", name="homepage")
@@ -91,6 +91,7 @@ class DefaultController extends Controller
         /** @var Form $filterForm */
         $filterForm->handleRequest($request);
         if ($filterForm->isValid()) {
+            $params = [];
             $params['name'] = $filterForm->get('input') ? $filterForm->get('input')->getData() : '';
             $em = $this->getDoctrine()->getManager();
             $query = $em->getRepository('AppBundle:Product')->getFilteredProductsWithPictures('search', $params);
@@ -130,7 +131,7 @@ class DefaultController extends Controller
      * @Route("/login1", name="login1")
      * @Template("AppBundle:shop:login.html.twig")
      */
-    public function loginAction(Request $request)
+    public function loginAction()
     {
         return [];
     }
