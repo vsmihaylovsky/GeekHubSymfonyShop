@@ -9,7 +9,7 @@
 
 namespace AppBundle\Entity;
 
-use FOS\UserBundle\Entity\User as BaseUser;
+use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -73,13 +73,6 @@ class User extends BaseUser
         $this->setSubscribe(true);
         $this->invoices = new ArrayCollection();
         $this->reviews = new ArrayCollection();
-    }
-
-    public function setSalt($salt)
-    {
-        $this->salt = $salt;
-
-        return $this;
     }
 
     /**
