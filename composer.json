@@ -24,7 +24,7 @@
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "jms/i18n-routing-bundle": "^2.0",
         "jms/translation-bundle": "^1.1",
-        "hwi/oauth-bundle": "^0.4.0",
+        "hwi/oauth-bundle": "^0.4.1",
         "stof/doctrine-extensions-bundle": "^1.2",
         "liip/imagine-bundle": "^1.5",
         "knplabs/knp-paginator-bundle": "^2.5",
