@@ -50,7 +50,7 @@ class TestBaseWeb extends WebTestCase
         $userManager = $this->client->getContainer()->get('fos_user.user_manager');
         $user = $userManager->findUserByUsername('admin');
         $firewall = 'main';
-        $token = new UsernamePasswordToken($user, null, $firewall, array('ROLE_SUPER_ADMIN'));
+        $token = new UsernamePasswordToken($user, null, $firewall, array('ROLE_ADMIN'));
         $session->set('_security_'.$firewall, serialize($token));
         $session->save();
         $cookie = new Cookie($session->getName(), $session->getId());
