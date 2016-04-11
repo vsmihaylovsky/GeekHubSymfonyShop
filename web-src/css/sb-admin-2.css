@@ -485,15 +485,15 @@ label.rows-per-page select{
     text-align: center;
 }
 
-.dataTable_wrapper table.user-data-table td.user-social_network i.fa-facebook {
+i.fa-facebook {
     color: #3B5998;
 }
 
-.dataTable_wrapper table.user-data-table td.user-social_network i.fa-google {
+i.fa-google {
     color: #DD4B39;
 }
 
-.dataTable_wrapper table.user-data-table td.user-social_network i.fa-vk {
+i.fa-vk {
     color: #587EA3;
 }
 

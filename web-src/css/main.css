@@ -2576,3 +2576,15 @@ table.invoices-table tbody tr td.invoice-amount {
 table.invoices-table tbody tr td.invoice-status {
     text-align: left;
 }
+
+.product-sorting-container {
+    margin-bottom: 15px;
+}
+
+.product-sorting {
+    margin-left: 5px;
+}
+
+a.product-sorting {
+    text-decoration: underline;
+}
