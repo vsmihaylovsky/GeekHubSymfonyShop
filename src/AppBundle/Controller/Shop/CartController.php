@@ -71,7 +71,7 @@ class CartController extends Controller
                 'attr'   => ['name' => 'cart'],
             ])
             ->add('update', SubmitType::class, [
-                'label' => 'Update',
+                'label' => 'form.update',
                 'attr'  => ['class' => 'btn btn-primary']
             ]);
 

@@ -87,19 +87,19 @@ class SearchFormService
                         'label'         => false,
                         'required'      => false
                     ])
-                    ->add('sort', ChoiceType::class, [
-                        'choices'  => [
-                                'date up',
-                                'date down',
-                                'price up',
-                                'price down',
-                        ],
-                        'expanded'          => false,
-                        'multiple'          => false,
-                        'label'             => 'Sort',
-                        'choices_as_values' => true,
-                        'mapped'            => false,
-                    ])
+//                    ->add('sort', ChoiceType::class, [
+//                        'choices'  => [
+//                                'date up',
+//                                'date down',
+//                                'price up',
+//                                'price down',
+//                        ],
+//                        'expanded'          => false,
+//                        'multiple'          => false,
+//                        'label'             => 'Sort',
+//                        'choices_as_values' => true,
+//                        'mapped'            => false,
+//                    ])
                     ->add('filter', SubmitType::class, [
                         'label'         => 'form.filter',
                         'attr'          => ['class' => 'btn btn-primary']

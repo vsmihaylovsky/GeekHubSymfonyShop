@@ -221,3 +221,5 @@ form:
   search_term: Search term
   filter: Filter
   delete: Delete
+  update: Update
+
