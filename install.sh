@@ -12,6 +12,7 @@ echo " 3 - gulp run"
 echo " 4 - database schema:update"
 echo " 5 - load fixtures (dev|test|default:dev)"
 echo " 6 - clear cache (prod|dev|test|all|default:all)"
+echo " 7 - run tests"
 echo " 9 - run all command step by step"
 echo " 0 - exit"
 echo -e -n "\n\033[1m\033[34m Please choose > \033[0m"
@@ -83,6 +84,11 @@ function clear_cache
     esac
 }
 
+function run_tests
+{
+	php bin/phpunit -c app
+}
+
 function all_run
 {
 	echo -e "\n\033[1m\033[34m Run All scripts \033[0m"
@@ -109,6 +115,8 @@ case ${input_command} in
     5 ) load_fixtures
 		;;
     6 ) clear_cache
+		;;
+    7 ) run_tests
 		;;
     9 ) all_run
 		;;

@@ -91,6 +91,7 @@ class ProductController extends Controller
         /** @var Form $filterForm */
         $filterForm->handleRequest($request);
         if ($filterForm->isValid()) {
+            $params = [];
             $params['name'] = $filterForm->get('input') ? $filterForm->get('input')->getData() : '';
             $em = $this->getDoctrine()->getManager();
             $query = $em->getRepository('AppBundle:Product')->getFilteredProductsWithPictures('search', $params);
@@ -130,7 +131,7 @@ class ProductController extends Controller
      * @Route("/login1", name="login1")
      * @Template("AppBundle:shop:login.html.twig")
      */
-    public function loginAction(Request $request)
+    public function loginAction()
     {
         return [];
     }

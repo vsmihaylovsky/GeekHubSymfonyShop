@@ -1,4 +1,0 @@
-AppBundle\Entity\Category:
-  category{1}:
-    title (unique): 'Test'
-    createdAt: <dateTimeBetween('-1 years', 'now')>

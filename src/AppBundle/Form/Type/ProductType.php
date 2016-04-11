@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Form\Type;
 
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -22,6 +23,8 @@ class ProductType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $choices = $this->getChoices($options['em']);
+
         $builder
             ->add('name', TextType::class, array(
                     'attr' => array('placeholder' => 'Enter product name')
@@ -29,11 +32,7 @@ class ProductType extends AbstractType
             )
             ->add('category', EntityType::class, array(
                 'class'         => 'AppBundle:Category',
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('c')
-                        ->where('c.hasChildren is null')
-                        ->orderBy('c.title', 'ASC');
-                },
+                'choices'       => $choices,
                 'choice_label'  => 'title',
                 'placeholder'   => 'Choose category',
                 'required'      => true,
@@ -76,5 +75,18 @@ class ProductType extends AbstractType
     public function getBlockPrefix()
     {
         return "product";
+    }
+
+    protected function getChoices($em)
+    {
+        /** @var EntityManager $em */
+        $data = $em->getRepository('AppBundle:Category')->getCategoryWithCounts();
+        $choices = [];
+        foreach ($data as $item) {
+            if ($item['countChildren'] == 0) {
+                $choices[] = $item[0];
+            }
+        }
+        return $choices;
     }
 }

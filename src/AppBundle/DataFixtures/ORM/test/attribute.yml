@@ -1,11 +1,11 @@
 AppBundle\Entity\AttributeOption:
-  option{1..30}:
+  option{1..10}:
     attribute: "@attribute*"
     attributeOption (unique): <word()>
 
 
 AppBundle\Entity\Attribute:
-  attribute{1..10}:
+  attribute{1..5}:
     name (unique): <word()>
     type: 'select'
     options: 5x @option*

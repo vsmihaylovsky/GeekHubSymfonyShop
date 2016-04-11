@@ -5,6 +5,8 @@
     <link href="{{ asset('css/star-rating.css') }}" rel="stylesheet">
 {% endblock %}
 
+{% block title %}E-Shopper | {{ product.name }}{% endblock %}
+
 {% block content %}
     {{ include( 'AppBundle:shop:details/details.html.twig' ) }}
     {#{{ include( 'AppBundle:shop:details/tabs.html.twig' ) }}#}

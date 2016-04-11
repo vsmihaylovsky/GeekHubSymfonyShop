@@ -23,6 +23,7 @@ if (isset($_SERVER['HTTP_CLIENT_IP'])
  */
 $loader = require __DIR__.'/../app/autoload.php';
 Debug::enable();
+//Debug::enable(E_RECOVERABLE_ERROR & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED & ~E_USER_DEPRECATED, false);
 
 $kernel = new AppKernel('dev', true);
 $kernel->loadClassCache();
