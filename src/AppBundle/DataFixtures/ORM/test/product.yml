@@ -4,7 +4,7 @@ AppBundle\Entity\ProductPicture:
 
 AppBundle\Entity\Product:
   product{1..70}:
-    name (unique): <sentence(2, true)>
+    name: "Product<current()>"
     description: <text(200)>
     pictures: 2x @prodPicture*
     qty: <numberBetween(1, 100)>
@@ -12,7 +12,7 @@ AppBundle\Entity\Product:
     priceSpecial: <randomFloat(2, 0, $price)>
     rating: <randomFloat(2, 0, 5)>
     reviewsCount: <numberBetween(1, 20)>
-    available: <randomElement(array ('0','1'))>
+    available: '1'
     createdAt: <dateTimeBetween('-1 years', 'now')>
     updatedAt: 30%? <dateTimeBetween($createdAt, 'now')>
     deletedAt: 5%? <dateTimeBetween($createdAt, 'now')>

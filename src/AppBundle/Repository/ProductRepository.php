@@ -90,17 +90,21 @@ class ProductRepository extends EntityRepository
             ->leftJoin('p.pictures', 'pic')
             ->leftJoin('p.category', 'cat')
             ->leftJoin('p.attributeValues', 'opt')
+            ->where('p.deletedAt is null')
+            ->andWhere('p.available = 1')
             ->orderBy('p.createdAt', 'DESC');
 
         switch ($filter) {
             case 'category':
                 $query
-                    ->where('cat.slug = ?1')
+                    ->andWhere('cat.slug = ?1')
                     ->setParameter(1, $params['category']);
                 break;
             case 'filter':
-                $query->where('cat.id = :category');
-                $paramsData['category'] = $params['category'];
+                if (isset($params['category'])) {
+                    $query->andWhere('cat.id = :category');
+                    $paramsData['category'] = $params['category'];
+                }
                 if (isset($params['options']) && count($params['options']) > 0) {
                     foreach ($params['options'] as $attributeId => $attributeOptions) {
                         $productAlias = 'p' . $attributeId;
@@ -121,18 +125,15 @@ class ProductRepository extends EntityRepository
                         $query->andWhere($query->expr()->exists($subQuery->getDQL()));
                     }
                 }
-                $query->setParameters($paramsData);
+                if (isset($params['sort'])) {}
+                if (isset($paramsData)) $query->setParameters($paramsData);
                 break;
             case 'search':
                 $query
-                    ->where('p.name like ?1')
+                    ->andWhere('p.name like ?1')
                     ->setParameter(1, '%' . $params['name'] . '%');
                 break;
         }
-
-        $query
-            ->andWhere('p.deletedAt is null')
-            ->andWhere('p.available = 1');
 
         return $query->getQuery();
     }

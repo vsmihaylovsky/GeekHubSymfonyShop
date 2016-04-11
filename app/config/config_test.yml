@@ -24,7 +24,6 @@ doctrine:
            enum: string
        path:     "%database_path%"
 
-security:
-    firewalls:
-        main:
-            http_basic: ~
+#security:
+#    firewalls:
+#        main:http_basic: ~

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- http://phpunit.de/manual/4.1/en/appendixes.configuration.html -->
+<!--convertErrorsToExceptions="false"-->
+<!--convertNoticesToExceptions="false"-->
+<!--convertWarningsToExceptions="false"-->
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.1/phpunit.xsd"
          backupGlobals="false"
          colors="true"
          bootstrap="autoload.php"
-         convertErrorsToExceptions="false"
-         convertNoticesToExceptions="false"
-         convertWarningsToExceptions="false"
 >
     <php>
         <ini name="error_reporting" value="-1" />

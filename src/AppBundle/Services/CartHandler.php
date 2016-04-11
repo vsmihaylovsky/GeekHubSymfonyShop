@@ -49,7 +49,7 @@ class CartHandler
             foreach($cart as $id => $qty) {
                 $product = $this->em->getRepository('AppBundle\Entity\Product')->find($id);
                 if($product instanceof Product && $qty > 0) {
-                    $price = $product->getPrice();
+                    $price = $product->getSale() ? $product->getPriceSpecial() : $product->getPrice();
                     $item = new InvoiceItem();
                     $item
                         ->setProduct($product)
