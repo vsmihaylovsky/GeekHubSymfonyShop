@@ -139,7 +139,6 @@ class ProductRepository extends EntityRepository
                         $query->andWhere($query->expr()->exists($subQuery->getDQL()));
                     }
                 }
-                if (isset($params['sort'])) {}
                 if (isset($paramsData)) $query->setParameters($paramsData);
                 break;
             case 'search':

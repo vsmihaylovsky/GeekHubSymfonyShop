@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * AttributeOption
@@ -32,6 +33,7 @@ class AttributeOption
      * @var string
      *
      * @ORM\Column(name="attributeOption", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $attributeOption;
 

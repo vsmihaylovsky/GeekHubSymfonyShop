@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * AttributeValue
@@ -43,6 +44,7 @@ class AttributeValue
      * @var string
      *
      * @ORM\Column(name="attribute_value", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $attributeValue;
 

@@ -89,12 +89,17 @@
 
         $( "#attribute_type" ).change(function () {
             $("#addOptionBtn").removeClass( "disabled" );
-            if ($( "select option:selected" ).val() == 'text') {
+            if ($( "select[name='attribute[type]'] option:selected" ).val() == 'text') {
                 $(".optionForm").remove();
                 $("#addOptionBtn").addClass( "disabled" );
             } else {
                 addTagForm($collectionHolder, $newLinkDiv);
             }
         });
+
+        if ($( "select[name='attribute[type]'] option:selected" ).val() == 'text') {
+            $("#attribute_options").parents(".form-group").remove();
+            $("#addOptionBtn").addClass( "disabled" );
+        }
     </script>
 {% endblock %}
