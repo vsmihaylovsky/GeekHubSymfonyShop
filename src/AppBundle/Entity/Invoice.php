@@ -40,6 +40,7 @@ class Invoice
      * @var int
      *
      * @ORM\Column(name="quantity", type="integer", nullable=true)
+     * @Assert\Type(type="integer")
      */
     private $quantity;
 
@@ -47,6 +48,7 @@ class Invoice
      * @var string
      *
      * @ORM\Column(name="amount", type="decimal", precision=10, scale=2, nullable=true)
+     * @Assert\Type(type="numeric")
      */
     private $amount;
 
@@ -60,6 +62,7 @@ class Invoice
      * @var string
      *
      * @ORM\Column(name="customerName", type="string", length=100, nullable=true)
+     * @Assert\Length(max = 100)
      */
     private $customerName;
 
@@ -67,6 +70,7 @@ class Invoice
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=100, nullable=true)
+     * @Assert\Length(max = 100)
      */
     private $email;
 
@@ -74,6 +78,7 @@ class Invoice
      * @var string
      *
      * @ORM\Column(name="phone", type="string", length=100, nullable=true)
+     * @Assert\Length(max = 100)
      */
     private $phone;
 
@@ -81,6 +86,7 @@ class Invoice
      * @var string
      *
      * @ORM\Column(name="delivery", type="string", length=100, nullable=true)
+     * @Assert\Length(max = 100)
      */
     private $delivery;
 
@@ -88,6 +94,7 @@ class Invoice
      * @var string
      *
      * @ORM\Column(name="payment", type="string", length=100, nullable=true)
+     * @Assert\Length(max = 100)
      */
     private $payment;
 
@@ -95,6 +102,7 @@ class Invoice
      * @var string
      *
      * @ORM\Column(name="comment", type="text", nullable=true)
+     * @Assert\Length(max = 100)
      */
     private $comment;
 
@@ -102,6 +110,7 @@ class Invoice
      * @var string
      *
      * @ORM\Column(name="status", type="string", length=100, nullable=true)
+     * @Assert\Length(max = 255)
      */
     private $status;
     

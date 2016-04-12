@@ -40,6 +40,7 @@ class InvoiceItem
      * @var string
      *
      * @ORM\Column(name="qty", type="integer", nullable=true)
+     * @Assert\Type(type="integer")
      */
     private $qty;
 
@@ -47,6 +48,7 @@ class InvoiceItem
      * @var int
      *
      * @ORM\Column(name="price", type="decimal", precision=10, scale=2, nullable=true)
+     * @Assert\Type(type="numeric")
      */
     private $price;
 

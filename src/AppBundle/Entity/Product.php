@@ -28,6 +28,8 @@ class Product
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Length(max = 255)
      */
     private $name;
 
@@ -59,6 +61,7 @@ class Product
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=true)
+     * @Assert\Length(max = 500)
      */
     private $description;
 
@@ -66,6 +69,7 @@ class Product
      * @var int
      *
      * @ORM\Column(name="qty", type="integer")
+     * @Assert\Type(type="integer")
      */
     private $qty;
 
@@ -73,6 +77,7 @@ class Product
      * @var float
      *
      * @ORM\Column(name="price", type="decimal", precision=10, scale=2)
+     * @Assert\Type(type="numeric")
      */
     private $price;
 
@@ -80,6 +85,7 @@ class Product
      * @var float
      *
      * @ORM\Column(name="priceSpecial", type="decimal", precision=10, scale=2)
+     * @Assert\Type(type="numeric")
      */
     private $priceSpecial;
 
@@ -87,6 +93,7 @@ class Product
      * @var float
      *
      * @ORM\Column(name="rating", type="float", nullable=true)
+     * @Assert\Type(type="numeric")
      */
     private $rating;
 
@@ -94,6 +101,7 @@ class Product
      * @var integer
      *
      * @ORM\Column(name="reviews_count", type="integer", nullable=true)
+     * @Assert\Type(type="integer")
      */
     private $reviewsCount;
 
@@ -131,6 +139,7 @@ class Product
      * @var \DateTime
      *
      * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
+     * @Assert\DateTime()
      */
     private $deletedAt;
 

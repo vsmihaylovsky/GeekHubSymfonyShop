@@ -90,7 +90,11 @@ class AttributeController extends Controller
                 $em->persist($attribute);
                 $em->flush();
 
-                return $this->redirectToRoute('admin_attribute_edit');
+                if ($attribute->getId()) {
+                    return $this->redirectToRoute('admin_attribute_edit', ['action' => 'edit', 'id' => $attribute->getId()]);
+                } else {
+                    return $this->redirectToRoute('admin_attribute_edit');
+                }
             }
         }
 

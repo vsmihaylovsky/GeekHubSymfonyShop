@@ -28,6 +28,7 @@ class Attribute
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -35,6 +36,7 @@ class Attribute
      * @var string
      *
      * @ORM\Column(name="type", type="string", length=20)
+     * @Assert\NotBlank()
      */
     private $type;
 
@@ -42,6 +44,7 @@ class Attribute
      * @var bool
      *
      * @ORM\Column(name="filterable", type="boolean")
+     * @Assert\NotBlank()
      */
     private $filterable;
 
