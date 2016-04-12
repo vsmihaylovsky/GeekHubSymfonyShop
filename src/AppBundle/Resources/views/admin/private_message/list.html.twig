@@ -1,0 +1,114 @@
+{% extends 'AppBundle:admin:default.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{ 'page.name.private_messages'|trans }}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="dataTable_wrapper">
+                <form action="{{ path('admin_private_messages') }}" method="get">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label class="rows-per-page">
+                                {{ 'DataTable.lengthMenu2_1' | trans }}
+                                <select name="row-per-page" class="form-control" onchange="this.form.submit()">
+                                    <option value="10">10</option>
+                                    <option {% if app.request.get('row-per-page') == 25 %} selected {% endif %} value="25">25</option>
+                                    <option {% if app.request.get('row-per-page') == 50 %} selected {% endif %} value="50">50</option>
+                                    <option {% if app.request.get('row-per-page') == 100 %} selected {% endif %} value="100">100</option>
+                                </select>
+                                {{ 'DataTable.lengthMenu2_2' | trans }}
+                            </label>
+                        </div>
+                        <div class="col-lg-3 col-lg-offset-3">
+                            <div class="input-group">
+                                <input type="text" name="search" class="form-control"
+                                       placeholder="{{ 'DataTable.search2' | trans }}" value="{{ app.request.get('search') }}">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </button>
+                        </span>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="sort" value="{{ pagination.params.sort }}">
+                    <input type="hidden" name="direction" value="{{ pagination.params.direction }}">
+                </form>
+                <table width="100%"
+                       class="table table-striped table-bordered table-hover data-table private-message-data-table">
+                    <thead>
+                    <tr>
+                        <th class="private-message-sender-name">
+                            {{ knp_pagination_sortable(pagination, 'table.private_messages.sender_name'|trans, 's.username') }}
+                        </th>
+                        <th class="private-message-recipient-name">
+                            {{ knp_pagination_sortable(pagination, 'table.private_messages.recipient_name'|trans, 'r.username') }}
+                        </th>
+                        <th class="private-message-title">
+                            {{ knp_pagination_sortable(pagination, 'table.private_messages.title'|trans, 'p.title') }}
+                        </th>
+                        <th class="private-message-message">
+                            {{ knp_pagination_sortable(pagination, 'table.private_messages.message'|trans, 'p.message') }}
+                        </th>
+                        <th class="private-message-sent-time">
+                            {{ knp_pagination_sortable(pagination, 'table.private_messages.sent_time'|trans, 'p.sentTime') }}
+                        </th>
+                        <th class="private-message-edit">
+                            {{ 'table.edit' | trans }}
+                        </th>
+                        <th class="private-message-delete">
+                            {{ 'table.delete' | trans }}
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for private_message in pagination %}
+                        <tr>
+                            <td class="private-message-sender-name">
+                                {{ private_message.sender.username }}
+                            </td>
+                            <td class="private-message-recipient-name">
+                                {{ private_message.recipient.username }}
+                            </td>
+                            <td class="private-message-title">
+                                {{ private_message.title }}
+                            </td>
+                            <td class="private-message-message">
+                                {{ private_message.message }}
+                            </td>
+                            <td class="private-message-sent-time">
+                                {{ private_message.sentTime|date("d.m.Y H:i") }}
+                            </td>
+                            <td class="private-message-edit">
+                                <a class="glyphicon glyphicon-pencil" href="{{ path('edit_private_message', {'id': private_message.id}) }}"></a>
+                            </td>
+                            <td class="private-message-delete">
+                                {{ form_start(delete_forms[private_message.id], {attr: {onsubmit: 'return confirm("' ~ 'table.delete_record'|trans ~ '");' }}) }}
+                                {{ form_widget(delete_forms[private_message.id].submit, {label: ' ', attr: {class: 'glyphicon glyphicon-trash btn-link' }}) }}
+                                {{ form_end(delete_forms[private_message.id]) }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div class="page-count">
+                    {{ 'DataTable.info2_1' | trans }}
+                    {{ pagination.getCurrentPageNumber }}
+                    {{ 'DataTable.info2_2' | trans }}
+                    {% if pagination.getTotalItemCount != 0 %}
+                        {{ (pagination.getTotalItemCount / pagination.getItemNumberPerPage) | round(0, 'ceil') }}
+                    {% else %}
+                        1
+                    {% endif %}
+                </div>
+                <div class="navigation">
+                    {{ knp_pagination_render(pagination) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

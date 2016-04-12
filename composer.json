@@ -12,7 +12,7 @@
         ]
     },
     "require": {
-        "php": ">=5.3.9",
+        "php": ">=5.6",
         "symfony/symfony": "2.8.*",
         "doctrine/orm": "^2.4.8",
         "doctrine/doctrine-bundle": "~1.4",
@@ -20,11 +20,23 @@
         "symfony/monolog-bundle": "~2.4",
         "sensio/distribution-bundle": "~5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
-        "incenteev/composer-parameter-handler": "~2.0"
+        "incenteev/composer-parameter-handler": "~2.0",
+        "friendsofsymfony/user-bundle": "~2.0@dev",
+        "jms/i18n-routing-bundle": "^2.0",
+        "jms/translation-bundle": "^1.1",
+        "hwi/oauth-bundle": "^0.4.1",
+        "stof/doctrine-extensions-bundle": "^1.2",
+        "liip/imagine-bundle": "^1.5",
+        "knplabs/knp-paginator-bundle": "^2.5",
+        "stfalcon/tinymce-bundle": "^2.0",
+        "cspoo/swiftmailer-mailgun-bundle": "^0.2.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",
-        "symfony/phpunit-bridge": "~2.7"
+        "symfony/phpunit-bridge": "~2.7",
+        "doctrine/doctrine-fixtures-bundle": "^2.3",
+        "nelmio/alice": "^2.1",
+        "phpunit/phpunit": "^5.3"
     },
     "scripts": {
         "post-install-cmd": [
@@ -47,7 +59,7 @@
     "config": {
         "bin-dir": "bin",
         "platform": {
-            "php": "5.3.9"
+            "php": "5.6"
         }
     },
     "extra": {

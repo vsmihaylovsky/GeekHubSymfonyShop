@@ -1,0 +1,132 @@
+{% extends 'AppBundle:admin:default.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{ 'page.name.invoices'|trans }}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="dataTable_wrapper">
+                <form action="{{ path('admin_invoices') }}" method="get">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label class="rows-per-page">
+                                {{ 'DataTable.lengthMenu2_1' | trans }}
+                                <select name="row-per-page" class="form-control" onchange="this.form.submit()">
+                                    <option value="10">10</option>
+                                    <option {% if app.request.get('row-per-page') == 25 %} selected {% endif %} value="25">25</option>
+                                    <option {% if app.request.get('row-per-page') == 50 %} selected {% endif %} value="50">50</option>
+                                    <option {% if app.request.get('row-per-page') == 100 %} selected {% endif %} value="100">100</option>
+                                </select>
+                                {{ 'DataTable.lengthMenu2_2' | trans }}
+                            </label>
+                        </div>
+                        {#<div class="col-lg-3 col-lg-offset-3">#}
+                            {#<div class="input-group">#}
+                                {#<input type="text" name="search" class="form-control"#}
+                                       {#placeholder="{{ 'DataTable.search2' | trans }}" value="{{ app.request.get('search') }}">#}
+                        {#<span class="input-group-btn">#}
+                            {#<button class="btn btn-default" type="submit">#}
+                                {#<span class="glyphicon glyphicon-search" aria-hidden="true"></span>#}
+                            {#</button>#}
+                        {#</span>#}
+                            {#</div>#}
+                        {#</div>#}
+                    </div>
+                    <input type="hidden" name="sort" value="{{ pagination.params.sort }}">
+                    <input type="hidden" name="direction" value="{{ pagination.params.direction }}">
+                </form>
+                <table width="100%"
+                       class="table table-striped table-bordered table-hover data-table invoice-data-table">
+                    <thead>
+                    <tr>
+                        <th class="invoice-id">
+                            {{ knp_pagination_sortable(pagination, 'table.invoices.id'|trans, 'i.id') }}
+                        </th>
+                        <th class="invoice-user">
+                            {{ knp_pagination_sortable(pagination, 'table.invoices.username'|trans, 'c.username') }}
+                        </th>
+                        <th class="invoice-created">
+                            {{ knp_pagination_sortable(pagination, 'table.invoices.created_at'|trans, 'i.createdAt') }}
+                        </th>
+                        <th class="invoice-quantity">
+                            {{ knp_pagination_sortable(pagination, 'table.invoices.quantity'|trans, 'i.quantity') }}
+                        </th>
+                        <th class="invoice-amount">
+                            {{ knp_pagination_sortable(pagination, 'table.invoices.amount'|trans, 'i.amount') }}
+                        </th>
+                        <th class="invoice-info">
+                            {{ 'table.invoices.info'|trans }}
+                        </th>
+                        <th class="invoice-status">
+                            {{ knp_pagination_sortable(pagination, 'table.invoices.status'|trans, 'i.status') }}
+                        </th>
+                        <th class="invoice-show">
+                            {{ 'table.show' | trans }}
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for invoice in pagination %}
+                        <tr>
+                            <td class="invoice-id">
+                                № {{ invoice.id }}
+                            </td>
+                            <td class="invoice-user">
+                                {% if invoice.customer != null %}
+                                    {{ invoice.customer.username }}
+                                {% endif %}
+                            </td>
+                            <td class="invoice-created">
+                                {{ invoice.createdAt|date("d.m.Y H:i") }}
+                            </td>
+                            <td class="invoice-quantity">
+                                {{ invoice.quantity }} {{ 'pieces'|trans }}
+                            </td>
+                            <td class="invoice-amount">
+                                {{ invoice.amount }} {{ 'currency'|trans }}
+                            </td>
+                            <td class="invoice-info">
+                                {{ 'invoice.customer_name'|trans }}: {{ invoice.customerName }}
+                                <br>
+                                {{ 'invoice.phone'|trans }}: {{ invoice.phone }}
+                                <br>
+                                {{ 'invoice.email'|trans }}: {{ invoice.email }}
+                                <br>
+                                {{ 'invoice.delivery'|trans }}: {{ invoice.delivery }}
+                                <br>
+                                {{ 'invoice.payment'|trans }}: {{ invoice.payment }}
+                                <br>
+                                {{ 'invoice.comment'|trans }}:
+                                <br>
+                                {{ invoice.comment|nl2br }}
+                            </td>
+                            <td class="invoice-status">
+                                {{ invoice.status|trans }}
+                            </td>
+                            <td class="invoice-show">
+                                <a class="glyphicon glyphicon-pencil" href="{{ path('show_invoice', {'id': invoice.id}) }}"></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div class="page-count">
+                    {{ 'DataTable.info2_1' | trans }}
+                    {{ pagination.getCurrentPageNumber }}
+                    {{ 'DataTable.info2_2' | trans }}
+                    {% if pagination.getTotalItemCount != 0 %}
+                        {{ (pagination.getTotalItemCount / pagination.getItemNumberPerPage) | round(0, 'ceil') }}
+                    {% else %}
+                        1
+                    {% endif %}
+                </div>
+                <div class="navigation">
+                    {{ knp_pagination_render(pagination) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

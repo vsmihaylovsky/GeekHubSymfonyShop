@@ -1,0 +1,97 @@
+<header id="header"><!--header-->
+
+    <div class="header-middle"><!--header-middle-->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="logo pull-left">
+                        <a href="{{ path('homepage') }}"><img src="{{ asset('images/home/logo.png') }}" alt="" /></a>
+                    </div>
+                    <div class="btn-group pull-right">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
+                                {% if app.request.get('_locale') == 'en' %}EN{% else %}UK{% endif %}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale' : 'en'})) }}"
+                                       class="navbar-link">EN</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale' : 'uk'})) }}"
+                                       class="navbar-link">UK</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="shop-menu pull-right">
+                        <ul class="nav navbar-nav">
+                            <li><a href="{{ path('checkout') }}"><i class="fa fa-crosshairs"></i> {{ 'mainmenu.checkout'|trans }}</a></li>
+                            <li><a href="{{ path('cart') }}">
+                                    <i class="fa fa-shopping-cart"></i> {{ 'mainmenu.cart'|trans }}
+                                    <span id="badge-cart-items" class="badge" style="display: none">0</span>
+                                </a>
+                            </li>
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                <li>
+                                    <a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-user"></i>
+                                        {{ app.user.username }}
+                                        {% set unreadPrivateMessagesCount = getUnreadPrivateMessagesCount() %}
+                                        {% if unreadPrivateMessagesCount != 0 %}
+                                            <span class="badge" id="not-viewed-private-messages">{{ unreadPrivateMessagesCount }}</span>
+                                        {% endif %}
+                                    </a>
+                                </li>
+                                {% if is_granted(expression('"ROLE_ADMIN" in roles or "ROLE_SUPER_ADMIN" in roles')) %}
+                                    <li><a href="{{ path('admin_homepage') }}"><i class="fa fa-cogs"></i> {{ 'mainmenu.admin'|trans }}</a></li>
+                                {% endif %}
+                                <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-unlock"></i> {{ 'mainmenu.logout'|trans }}</a></li>
+                            {% else %}
+                                <li><a href="{{ path('fos_user_security_login') }}"><i class="fa fa-lock"></i> {{ 'mainmenu.login_registration'|trans }}</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--/header-middle-->
+
+    <div class="header-bottom"><!--header-bottom-->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-9">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="mainmenu pull-left">
+                        <ul class="nav navbar-nav collapse navbar-collapse">
+                            <li><a href="{{ path('homepage') }}" class="active">{{ 'mainmenu.home'|trans }}</a></li>
+                            <li class="dropdown"><a href="#">{{ 'mainmenu.shop'|trans }}<i class="fa fa-angle-down"></i></a>
+                                <ul role="menu" class="sub-menu">
+                                    <li><a href="{{ path('checkout') }}">{{ 'mainmenu.checkout'|trans }}</a></li>
+                                    <li><a href="{{ path('cart') }}">{{ 'mainmenu.cart'|trans }}</a></li>
+                                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                        <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-unlock"></i> {{ 'mainmenu.logout'|trans }}</a></li>
+                                    {% else %}
+                                        <li><a href="{{ path('fos_user_security_login') }}"><i class="fa fa-lock"></i> {{ 'mainmenu.login_registration'|trans }}</a></li>
+                                    {% endif %}
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    {{ searchForm() }}
+                </div>
+            </div>
+        </div>
+    </div><!--/header-bottom-->
+</header><!--/header-->

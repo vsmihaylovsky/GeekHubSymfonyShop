@@ -1,0 +1,57 @@
+{% extends 'AppBundle:admin:default.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{ 'page.name.newsletters'|trans }}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="well">
+                <a href="{{ path('new_newsletter') }}" class="btn btn-default">{{ 'table.newsletters.create'|trans }}</a>
+            </div>
+            <div class="dataTable_wrapper">
+                <table width="100%"
+                       class="table table-striped table-bordered table-hover data-table newsletter-data-table">
+                    <thead>
+                    <tr>
+                        <th class="newsletter-subject">
+                            {{ 'table.newsletters.subject'|trans }}
+                        </th>
+                        <th class="newsletter-send">
+                            {{ 'table.newsletters.send' | trans }}
+                        </th>
+                        <th class="newsletter-edit">
+                            {{ 'table.edit' | trans }}
+                        </th>
+                        <th class="newsletter-delete">
+                            {{ 'table.delete' | trans }}
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for newsletter in newsletters %}
+                        <tr>
+                            <td class="newsletter-subject">
+                                {{ newsletter.subject }}
+                            </td>
+                            <td class="newsletter-edit">
+                                <a class="glyphicon glyphicon-envelope" href="{{ path('show_newsletter', {'id': newsletter.id}) }}"></a>
+                            </td>
+                            <td class="newsletter-edit">
+                                <a class="glyphicon glyphicon-pencil" href="{{ path('edit_newsletter', {'id': newsletter.id}) }}"></a>
+                            </td>
+                            <td class="newsletter-delete">
+                                {{ form_start(deleteForms[newsletter.id], {attr: {onsubmit: 'return confirm("' ~ 'table.delete_record'|trans ~ '");' }}) }}
+                                {{ form_widget(deleteForms[newsletter.id].submit, {label: ' ', attr: {class: 'glyphicon glyphicon-trash btn-link' }}) }}
+                                {{ form_end(deleteForms[newsletter.id]) }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

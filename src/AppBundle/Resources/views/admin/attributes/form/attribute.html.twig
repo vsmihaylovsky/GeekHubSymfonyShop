@@ -1,0 +1,105 @@
+{% extends 'AppBundle:admin:default.html.twig' %}
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{ 'page.name.attributes.edit'|trans }}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ 'page.name.attributes.edit'|trans }}
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            {{ form_start(form) }}
+                                {{ form_row(form.name) }}
+                                {{ form_row(form.type) }}
+                                {{ form_row(form.filterable) }}
+                                <div class="options" data-prototype="{{ form_widget(form.options.vars.prototype)|e }}">
+                                    {% for option in form.options %}
+                                        <div class="optionForm"><div>{{ form_row(option.attributeOption) }}</div></div>
+                                    {% endfor %}
+                                </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        var $collectionHolder;
+
+        var $addTagLink = $('<div class="form-group"><div class="col-sm-2"></div>' +
+                '<div class="col-sm-10">' +
+                    '<a href="#" id="addOptionBtn" class="btn btn-default">Add option</a>' +
+                '</div></div>');
+        var $newLinkDiv = $('<div class="addedOption"></div>').append($addTagLink);
+
+        jQuery(document).ready(function() {
+            $collectionHolder = $('div.options');
+            $collectionHolder.find('div.optionForm').each(function() {
+                addTagFormDeleteLink($(this));
+            });
+            $collectionHolder.append($newLinkDiv);
+            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+            $addTagLink.on('click', function(e) {
+                e.preventDefault();
+                if ( !$( "#addOptionBtn" ).hasClass( "disabled" ) ) {
+                    addTagForm($collectionHolder, $newLinkDiv);
+                }
+            });
+        });
+
+        function addTagForm($collectionHolder, $newLinkDiv) {
+            var prototype = $collectionHolder.data('prototype');
+            var index = $collectionHolder.data('index');
+            var newForm = prototype.replace(/__name__/g, index).replace(/col-sm-10/g, 'col-sm-8');
+            $collectionHolder.data('index', index + 1);
+            var $newFormDiv = $('<div class="optionForm"></div>').append(newForm);
+            $newLinkDiv.before($newFormDiv);
+            addTagFormDeleteLink($newFormDiv);
+        }
+
+        function addTagFormDeleteLink($tagFormDiv) {
+            $tagFormDiv.children().children(".form-group").children(".col-sm-10").removeClass("col-sm-10").addClass("col-sm-8");
+            var $removeFormA = $('<div class="col-sm-2">' +
+                        '<a href="#" class="btn btn-default" style="text-align: center;">delete</a>' +
+                    '</div>');
+            $tagFormDiv.children().children(".form-group").append($removeFormA);
+            $removeFormA.on('click', function(e) {
+                e.preventDefault();
+                $tagFormDiv.remove();
+            });
+        }
+
+        $( "#attribute_type" ).change(function () {
+            $("#addOptionBtn").removeClass( "disabled" );
+            if ($( "select[name='attribute[type]'] option:selected" ).val() == 'text') {
+                $(".optionForm").remove();
+                $("#addOptionBtn").addClass( "disabled" );
+            } else {
+                addTagForm($collectionHolder, $newLinkDiv);
+            }
+        });
+
+        if ($( "select[name='attribute[type]'] option:selected" ).val() == 'text') {
+            $("#attribute_options").parents(".form-group").remove();
+            $("#addOptionBtn").addClass( "disabled" );
+        }
+    </script>
+{% endblock %}

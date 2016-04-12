@@ -1,0 +1,64 @@
+{% extends 'AppBundle:shop:1-column.html.twig' %}
+
+{% block title %}E-Shopper | Checkout{% endblock %}
+
+{% block content %}
+    <section id="cart_items">
+        <div class="container">
+            <div class="breadcrumbs">
+                <ol class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li class="active">Check out</li>
+                </ol>
+            </div>
+
+            {% if invoice.items.count  > 0 %}
+                <div class="step-one">
+                    <h2 class="heading">Checkout options</h2>
+                </div>
+
+                {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <div class="register-req">
+                        <p>Please use Register And Checkout to easily get access to your order history, or use Checkout as Guest</p>
+                    </div>
+                {% endif %}
+
+                {{ form_start(form) }}
+                <div class="shopper-informations">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="shopper-info">
+                                <p>Shopper Information</p>
+                                {{ form_errors(form.customerName) }}
+                                {{ form_widget(form.customerName) }}
+                                {{ form_errors(form.phone) }}
+                                {{ form_widget(form.phone) }}
+                                {{ form_errors(form.email) }}
+                                {{ form_widget(form.email) }}
+                                {{ form_errors(form.delivery) }}
+                                {{ form_widget(form.delivery) }}
+                                {{ form_errors(form.payment) }}
+                                {{ form_widget(form.payment) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="order-message">
+                                <p>Shipping Order</p>
+                                {{ form_errors(form.comment) }}
+                                {{ form_widget(form.comment) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="float: right; margin-left: 15px;">
+                    {{ form_widget(form.order) }}
+                </div>
+                {{ form_end(form) }}
+            {% else %}
+                <div class="register-req">
+                    <p>Your shopping cart is empty.</p>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

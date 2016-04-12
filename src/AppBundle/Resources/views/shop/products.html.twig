@@ -1,0 +1,33 @@
+{% extends 'AppBundle:shop:2-columns.html.twig' %}
+
+{% block before_content %}
+    {#{{ include( 'AppBundle:shop/products:advertisement.html.twig' ) }}#}
+    <div class="container product-sorting-container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    {{ 'product_sort.sort_by'|trans }}:
+                    {% set productSorting = productSorting() %}
+                    {% for productSort in productSorting %}
+                        {% if productSort.currentSort %}
+                            <span class="product-sorting">
+                            {{ productSort.caption|trans }}
+                            </span>
+                        {% else %}
+                            <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'product_sorting': productSort.parameter})) }}"
+                                class="product-sorting">
+                                {{ productSort.caption|trans }}
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block title %}E-Shopper | {{ title }}{% endblock %}
+
+{% block content %}
+    {{ include( 'AppBundle:shop/products:list.html.twig' ) }}
+{% endblock %}

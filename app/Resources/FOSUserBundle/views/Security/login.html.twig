@@ -1,0 +1,22 @@
+{% if app.request.get('is_register_path') == 'true' %}
+    {% set template  = "FOSUserBundle::empty.html.twig" %}
+{% else %}
+    {% set template  = "FOSUserBundle::login_register.html.twig" %}
+{% endif %}
+
+{% extends template %}
+
+{% block empty_body %}
+    {% include "FOSUserBundle:Security:login_content.html.twig" %}
+{% endblock empty_body %}
+
+{% block login_form %}
+    {% include "FOSUserBundle:Security:login_content.html.twig" %}
+{% endblock login_form %}
+
+{% block register_form %}
+    {{ render(controller(
+    'FOSUserBundle:Registration:register',
+    app.request.get('_route_params')|merge({'is_login_path' : 'true'})
+    )) }}
+{% endblock register_form %}

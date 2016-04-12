@@ -1,0 +1,92 @@
+<div class="product-details"><!--product-details-->
+    <div class="col-sm-5">
+        <div class="view-product">
+            <img src="{{ asset(getProductMainPicture(product)|imagine_filter('full_thumbnail')) }}" alt="">
+            <h3>ZOOM</h3>
+        </div>
+        {% if product.pictures|length > 0 %}
+            <div id="similar-product" class="carousel slide" data-ride="carousel">
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    <div class="item active">
+                        {% for key, picture in product.pictures %}
+                            <a href=""><img src="{{ asset(picture.getWebPath|imagine_filter('mini_thumbnail')) }}"
+                                            alt=""></a>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <a class="left item-control" href="#similar-product" data-slide="prev">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                <a class="right item-control" href="#similar-product" data-slide="next">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+        {% endif %}
+
+    </div>
+    <div class="col-sm-7">
+        <div class="product-information"><!--/product-information-->
+            {% if product.sale == 1 %}
+                <img src="{{ asset('images/product-details/new.jpg') }}" class="newarrival" alt="">
+            {% elseif date(product.createdAt) > date('-7days') %}
+                <img src="{{ asset('images/product-details/new.jpg') }}" class="newarrival" alt="">
+            {% endif %}
+            <h2>{{ product.name }}</h2>
+            <p>Web ID: {{ product.id }}</p>
+            <div class="rating-container rating-gly-star rating-xs" data-content="">
+                <div class="rating-stars" style="width: {{ product.rating * 20 }}%" data-content=""></div>
+            </div>
+            <div>
+                <span>
+                    {% if product.sale == 1 %}
+                        <span class="price-sale">{{ product.priceSpecial }} {{ default_currency }}</span>
+                    {% else %}
+                        <span>{{ product.price }} {{ default_currency }}</span>
+                    {% endif %}
+                    {#<label for="qty">Quantity:</label>#}
+                    {#<input name="qty" id="qty" type="text" value="1">#}
+                    <button formaction="{{ path('addToCart', {'id': product.id}) }}" class="btn btn-default cart add-to-cart">
+                        <i class="fa fa-shopping-cart"></i>{{ 'add_to_cart'|trans }}
+                    </button>
+                </span>
+            </div>
+            <p><b>Availability:</b>
+                {% if product.available %}
+                    In Stock
+                {% else %}
+                    Out of Stock
+                {% endif %}
+            </p>
+            <p><b>Category:</b> {{ product.category.title }}</p>
+            {% for item in product.attributeValues %}
+                <p><b>{{ item.attribute.name }}:</b> {{ item.attributeValue }}</p>
+            {% endfor %}
+        </div><!--/product-information-->
+    </div>
+</div>
+<div class="category-tab shop-details-tab"><!--category-tab-->
+    <div class="col-sm-12">
+        <ul class="nav nav-tabs category-tab">
+            <li {% if tab == 'details' %} class="active" {% endif %}><a
+                        href="{{ path('product_view', {'slug': product.slug, 'tab': 'details'}) }}">Details</a></li>
+            <li {% if tab == 'reviews' %} class="active" {% endif %}><a
+                        href="{{ path('product_view', {'slug': product.slug, 'tab': 'reviews'}) }}">Reviews
+                    ({{ product.reviewsCount }})</a></li>
+        </ul>
+    </div>
+    {% if tab == 'details' %}
+        <div class="col-sm-12">
+            <div style="padding: 0 25px">
+                {{ product.description|nl2br }}
+            </div>
+        </div>
+    {% elseif tab == 'reviews' %}
+        <div class="col-sm-12">
+            {{ render(controller('AppBundle:Shop/Review:showProductReviews', { 'slug': product.slug, 'page': app.request.query.get('page', 1)})) }}
+        </div>
+    {% endif %}
+</div>

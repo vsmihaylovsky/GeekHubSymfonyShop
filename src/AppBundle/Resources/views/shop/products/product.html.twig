@@ -1,0 +1,27 @@
+<div class="col-sm-4">
+    <div class="product-image-wrapper">
+        <div class="single-products">
+            <div class="productinfo text-center">
+
+                <a href="{{ path('product_view', {'slug': product.slug}) }}">
+                    <img src="{{ asset(getProductMainPicture(product)|imagine_filter('list_thumbnail')) }}" alt="">
+                </a>
+
+                {% if product.sale == 1 %}
+                    <h2 class="price-sale">{{ product.priceSpecial }} {{ default_currency }}</h2>
+                {% else %}
+                    <h2>{{ product.price }} {{ default_currency }}</h2>
+                {% endif %}
+                <p>{{ product.name }}</p>
+                <button formaction="{{ path('addToCart', {'id': product.id}) }}" class="btn btn-default add-to-cart">
+                    <i class="fa fa-shopping-cart"></i>{{ 'add_to_cart'|trans }}
+                </button>
+            </div>
+            {% if product.sale == 1 %}
+                <img src="{{ asset('images/home/sale.png') }}" class="new" alt="">
+            {% elseif date(product.createdAt) > date('-7days') %}
+                <img src="{{ asset('images/home/new.png') }}" class="new" alt="">
+            {% endif %}
+        </div>
+    </div>
+</div>

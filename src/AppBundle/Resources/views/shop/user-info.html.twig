@@ -1,0 +1,51 @@
+{% extends 'AppBundle:shop:default.html.twig' %}
+
+{% block body_content %}
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="sidebar-nav">
+                        <div class="navbar navbar-default" role="navigation">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                        data-target=".sidebar-navbar-collapse">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <span class="visible-xs navbar-brand">User menu</span>
+                            </div>
+                            <div class="navbar-collapse collapse sidebar-navbar-collapse">
+                                <ul class="nav navbar-nav">
+                                    {% set active_route = app.request.get('_route') %}
+                                    <li {% if active_route == 'fos_user_profile_show' %}class="active"{% endif %}>
+                                        <a href="{{ path('fos_user_profile_show') }}">{{ 'user_info.personal_info'|trans }}</a>
+                                    </li>
+                                    <li {% if active_route == 'user_info_invoices' %}class="active"{% endif %}>
+                                        <a href="{{ path('user_info_invoices') }}">{{ 'user_info.invoices'|trans }}</a>
+                                    </li>
+                                    <li {% if active_route == 'show_received_private_messages' %}class="active"{% endif %}>
+                                        <a href="{{ path('show_received_private_messages') }}">{{ 'user_info.received_messages'|trans }}
+                                            {% set unreadPrivateMessagesCount = getUnreadPrivateMessagesCount() %}
+                                            {% if unreadPrivateMessagesCount != 0 %}
+                                                <span class="badge" id="not-viewed-private-messages">{{ unreadPrivateMessagesCount }}</span>
+                                            {% endif %}
+                                        </a>
+                                    </li>
+                                    <li {% if active_route == 'show_sent_private_messages' %}class="active"{% endif %}>
+                                        <a href="{{ path('show_sent_private_messages') }}">{{ 'user_info.sent_messages'|trans }}</a>
+                                    </li>
+                                </ul>
+                            </div><!--/.nav-collapse -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-9 padding-right">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

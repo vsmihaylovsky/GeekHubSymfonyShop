@@ -1,0 +1,29 @@
+{% extends 'AppBundle:shop:default.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/star-rating.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block body_content %}
+    <div class="row">
+        <div class="col-sm-4 col-sm-offset-4">
+            <p><b>{{ 'review.form_header'|trans }}</b></p>
+            <section id="form"><!--form-->
+                <div class="shop-form">
+                    {{ form_start(form) }}
+                    {{ form_errors(form.reviewText) }}
+                    {{ form_widget(form.reviewText) }}
+                    {{ form_errors(form.rating) }}
+                    {{ form_widget(form.rating) }}
+                    {{ form_end(form) }}
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/star-rating.js') }}"></script>
+{% endblock javascripts %}

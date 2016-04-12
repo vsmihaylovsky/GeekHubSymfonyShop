@@ -1,0 +1,18 @@
+AppBundle\Entity\ProductPicture:
+  prodPicture{1..10}:
+    path: "product<current()>.jpg"
+
+AppBundle\Entity\Product:
+  product{1..70}:
+    name: "Product<current()>"
+    description: <text(200)>
+    pictures: 2x @prodPicture*
+    qty: <numberBetween(1, 100)>
+    price: <randomFloat(2, 0, 100)>
+    priceSpecial: <randomFloat(2, 0, $price)>
+    rating: <randomFloat(2, 0, 5)>
+    reviewsCount: <numberBetween(1, 20)>
+    available: '1'
+    createdAt: <dateTimeBetween('-1 years', 'now')>
+    updatedAt: 30%? <dateTimeBetween($createdAt, 'now')>
+    deletedAt: 5%? <dateTimeBetween($createdAt, 'now')>

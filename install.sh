@@ -12,6 +12,7 @@ echo " 3 - gulp run"
 echo " 4 - database schema:update"
 echo " 5 - load fixtures (dev|test|default:dev)"
 echo " 6 - clear cache (prod|dev|test|all|default:all)"
+echo " 7 - run tests"
 echo " 9 - run all command step by step"
 echo " 0 - exit"
 echo -e -n "\n\033[1m\033[34m Please choose > \033[0m"
@@ -39,12 +40,15 @@ function gulp_run
 function database_update
 {
 	echo -e "\n\033[1m\033[34m Updating database \033[0m"
-	app/console doctrine:schema:drop --force
+    app/console doctrine:database:drop --force
+    app/console doctrine:database:create
 	app/console doctrine:schema:update --force
 }
 
 function load_fixtures
 {
+	database_update
+
 	echo -e "\n\033[1m\033[34m Loading fixtures \033[0m"
 
 	case ${input_argument} in
@@ -53,6 +57,7 @@ function load_fixtures
             ;;
         * ) echo -e " Used -\033[1m\033[32m dev \033[0m"
             app/console doctrine:fixtures:load -n
+#            app/console fos:user:create admin admin@example.com 123 --super-admin
     esac
 }
 
@@ -74,7 +79,14 @@ function clear_cache
             app/console cache:clear -e prod
             app/console cache:clear -e dev
             app/console cache:clear -e test
+            rm -rf app/cache/*
+            rm -rf app/logs/*
     esac
+}
+
+function run_tests
+{
+	php bin/phpunit -c app
 }
 
 function all_run
@@ -83,7 +95,7 @@ function all_run
 	composer_install
 	npm_bower_install
 	gulp_run
-	database_update
+#	database_update
 	load_fixtures
 	clear_cache
 }
@@ -103,6 +115,8 @@ case ${input_command} in
     5 ) load_fixtures
 		;;
     6 ) clear_cache
+		;;
+    7 ) run_tests
 		;;
     9 ) all_run
 		;;

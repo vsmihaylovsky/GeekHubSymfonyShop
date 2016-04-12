@@ -22,6 +22,7 @@ $debug = getenv('SYMFONY_DEBUG') !== '0' && !$input->hasParameterOption(array('-
 
 if ($debug) {
     Debug::enable();
+    //Debug::enable(E_RECOVERABLE_ERROR & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED, false);
 }
 
 $kernel = new AppKernel($env, $debug);

@@ -1,0 +1,15 @@
+<div class="features_items">
+    <h2 class="title text-center">{{ title }}</h2>
+    {% if products.count  > 0%}
+        {% for product in products %}
+            {{ include('AppBundle:shop/products:product.html.twig', {'product': product}) }}
+        {% endfor %}
+        <div class="col-sm-12" style="text-align: center">
+            {{ knp_pagination_render(products) }}
+        </div>
+    {% else %}
+        <div class="register-req" style="text-align: center">
+            <p>{{ 'search_empty'|trans }}</p>
+        </div>
+    {% endif %}
+</div>
