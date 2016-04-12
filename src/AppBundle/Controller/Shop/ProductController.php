@@ -9,7 +9,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
-use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -60,8 +59,9 @@ class ProductController extends Controller
             $params = $searchService->prepareFiltersData($filterForm->getData());
         }
 
+        $productSorting = $this->get('app.product_sorting_service')->getCurrentProductSorting();
         $em = $this->getDoctrine()->getManager();
-        $query = $em->getRepository('AppBundle:Product')->getFilteredProductsWithPictures($filter, $params, $this->get('app.product_sorting_service')->getCurrentProductSorting());
+        $query = $em->getRepository('AppBundle:Product')->getFilteredProductsWithPictures($filter, $params, $productSorting['orderField'], $productSorting['orderDirection']);
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate($query, $page, $limit = 9);
 
@@ -93,8 +93,9 @@ class ProductController extends Controller
         if ($filterForm->isValid()) {
             $params = [];
             $params['name'] = $filterForm->get('input') ? $filterForm->get('input')->getData() : '';
+            $productSorting = $this->get('app.product_sorting_service')->getCurrentProductSorting();
             $em = $this->getDoctrine()->getManager();
-            $query = $em->getRepository('AppBundle:Product')->getFilteredProductsWithPictures('search', $params, $this->get('app.product_sorting_service')->getCurrentProductSorting());
+            $query = $em->getRepository('AppBundle:Product')->getFilteredProductsWithPictures('search', $params, $productSorting['orderField'], $productSorting['orderDirection']);
             $paginator  = $this->get('knp_paginator');
             $pagination = $paginator->paginate($query, $page, $limit = 9);
 

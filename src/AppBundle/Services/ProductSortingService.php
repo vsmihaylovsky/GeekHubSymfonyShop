@@ -13,14 +13,34 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class ProductSortingService
 {
-    const SORT_KEY = 'product_sorting';
-    const DEFAULT_SORT_INDEX = 'rating';
+    const SORT_PARAMETER_NAME = 'product_sorting';
+    const DEFAULT_SORT_INDEX = 2;
     const SORT_TYPES =
         [
-            'cheap' => 'product_sort.cheap',
-            'expensive' => 'product_sort.expensive',
-            'rating' => 'product_sort.rating',
-            'novelty' => 'product_sort.novelty',
+            [
+                'parameter' => 'cheap',
+                'caption' => 'product_sort.cheap',
+                'orderField' => 'p.price',
+                'orderDirection' => 'ASC',
+            ],
+            [
+                'parameter' => 'expensive',
+                'caption' => 'product_sort.expensive',
+                'orderField' => 'p.price',
+                'orderDirection' => 'DESC',
+            ],
+            [
+                'parameter' => 'rating',
+                'caption' => 'product_sort.rating',
+                'orderField' => 'p.rating',
+                'orderDirection' => 'DESC',
+            ],
+            [
+                'parameter' => 'novelty',
+                'caption' => 'product_sort.novelty',
+                'orderField' => 'p.createdAt',
+                'orderDirection' => 'DESC',
+            ],
         ];
     
     private $requestStack;
@@ -33,24 +53,38 @@ class ProductSortingService
         $this->session = $session;
 
         $request = $this->requestStack->getCurrentRequest();
-        if (($request !== null) && $request->query->has(self::SORT_KEY)) {
-            $this->session->set(self::SORT_KEY, $request->query->get(self::SORT_KEY));
+        if (($request !== null) && $request->query->has(self::SORT_PARAMETER_NAME)) {
+            $this->session->set(self::SORT_PARAMETER_NAME, $request->query->get(self::SORT_PARAMETER_NAME));
         }
-        $this->currentProductSorting = $this->session->get(self::SORT_KEY, self::DEFAULT_SORT_INDEX);
+
+        $this->setCurrentProductSorting();
     }
 
-    public function getCurrentProductSorting() {
+    private function setCurrentProductSorting()
+    {
+        $this->currentProductSorting = self::SORT_TYPES[self::DEFAULT_SORT_INDEX];
+
+        $currentProductSortingParameter = $this->session->get(self::SORT_PARAMETER_NAME, self::SORT_TYPES[self::DEFAULT_SORT_INDEX]['parameter']);
+        foreach (self::SORT_TYPES as $sortType) {
+            if ($sortType['parameter'] === $currentProductSortingParameter) {
+                $this->currentProductSorting = $sortType;
+            }
+        }
+    }
+
+    public function getCurrentProductSorting()
+    {
         return $this->currentProductSorting;
     }
-        
+
     public function getProductSorting()
     {
         $productSorting = [];
-        foreach (self::SORT_TYPES as $sortType => $sortName) {
+        foreach (self::SORT_TYPES as $sortType) {
             $productSorting[] =
                 [
-                    'sortType' => $sortType,
-                    'sortName' => $sortName,
+                    'parameter' => $sortType['parameter'],
+                    'caption' => $sortType['caption'],
                     'currentSort' => $sortType === $this->currentProductSorting,
                 ];
         }
