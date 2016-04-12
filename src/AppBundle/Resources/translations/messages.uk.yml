@@ -220,3 +220,10 @@ form:
   filter: Фільтрувати
   delete: Видалити
   update: Оновити
+
+product_sort:
+  sort_by: Сортувати
+  cheap: Від дешевих до дорогих
+  expensive: Від дорогих до дешевих
+  rating: За рейтингом
+  novelty: Новинки

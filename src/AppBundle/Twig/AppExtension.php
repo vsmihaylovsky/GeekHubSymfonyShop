@@ -9,6 +9,7 @@
 
 namespace AppBundle\Twig;
 
+use AppBundle\Services\ProductSortingService;
 use AppBundle\Services\SearchFormService;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductPicture;
@@ -23,18 +24,30 @@ use Symfony\Component\Routing\Router;
 
 class AppExtension extends Twig_Extension
 {
+    const SORT_KEY = 'product_sorting';
+    const DEFAULT_SORT_INDEX = 'rating';
+    const SORT_TYPES =
+        [
+            'cheap' => 'product_sort.cheap',
+            'expensive' => 'product_sort.expensive',
+            'rating' => 'product_sort.rating',
+            'novelty' => 'product_sort.novelty',
+        ];
+
     private $em;
     private $tokenStorage;
     private $comingSoonPicture;
     private $formFactory;
     private $router;
     private $search;
+    private $productSortingService;
 
     public function __construct(EntityManager $entityManager,
                                 TokenStorage $tokenStorage,
                                 FormFactory $formFactory,
                                 Router $router,
                                 SearchFormService $search,
+                                ProductSortingService $productSortingService,
                                 $comingSoonPicture)
     {
         $this->em = $entityManager;
@@ -43,6 +56,7 @@ class AppExtension extends Twig_Extension
         $this->formFactory = $formFactory;
         $this->router = $router;
         $this->search = $search;
+        $this->productSortingService = $productSortingService;
     }
 
     public function getFunctions()
@@ -62,6 +76,7 @@ class AppExtension extends Twig_Extension
                 [$this, 'getSearchForm'],
                 ['needs_environment' => true, 'is_safe' => ['html']]
             ),
+            new Twig_SimpleFunction('productSorting', [$this, 'getProductSorting']),
         ];
     }
 
@@ -141,5 +156,10 @@ class AppExtension extends Twig_Extension
         } else {
             return $this->comingSoonPicture;
         }
+    }
+
+    public function getProductSorting()
+    {
+        return $this->productSortingService->getProductSorting();
     }
 }

@@ -61,7 +61,7 @@ class ProductController extends Controller
         }
 
         $em = $this->getDoctrine()->getManager();
-        $query = $em->getRepository('AppBundle:Product')->getFilteredProductsWithPictures($filter, $params);
+        $query = $em->getRepository('AppBundle:Product')->getFilteredProductsWithPictures($filter, $params, $this->get('app.product_sorting_service')->getCurrentProductSorting());
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate($query, $page, $limit = 9);
 
@@ -94,7 +94,7 @@ class ProductController extends Controller
             $params = [];
             $params['name'] = $filterForm->get('input') ? $filterForm->get('input')->getData() : '';
             $em = $this->getDoctrine()->getManager();
-            $query = $em->getRepository('AppBundle:Product')->getFilteredProductsWithPictures('search', $params);
+            $query = $em->getRepository('AppBundle:Product')->getFilteredProductsWithPictures('search', $params, $this->get('app.product_sorting_service')->getCurrentProductSorting());
             $paginator  = $this->get('knp_paginator');
             $pagination = $paginator->paginate($query, $page, $limit = 9);
 

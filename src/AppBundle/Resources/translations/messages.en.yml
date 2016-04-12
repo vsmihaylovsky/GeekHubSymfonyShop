@@ -223,3 +223,9 @@ form:
   delete: Delete
   update: Update
 
+product_sort:
+  sort_by: Sort by
+  cheap: From cheap to expensive
+  expensive: From expensive to cheap
+  rating: By rating
+  novelty: Novelty

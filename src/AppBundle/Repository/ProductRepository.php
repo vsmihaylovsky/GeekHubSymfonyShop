@@ -83,7 +83,7 @@ class ProductRepository extends EntityRepository
             ->getResult();
     }
 
-    public function getFilteredProductsWithPictures($filter, $params)
+    public function getFilteredProductsWithPictures($filter, $params, $sorting = 'rating')
     {
         $query = $this->createQueryBuilder('p')
             ->select('p, pic, cat, opt')
@@ -91,8 +91,22 @@ class ProductRepository extends EntityRepository
             ->leftJoin('p.category', 'cat')
             ->leftJoin('p.attributeValues', 'opt')
             ->where('p.deletedAt is null')
-            ->andWhere('p.available = 1')
-            ->orderBy('p.createdAt', 'DESC');
+            ->andWhere('p.available = 1');
+
+        switch ($sorting) {
+            case 'cheap':
+                $query = $query->orderBy('p.price', 'ASC');
+                break;
+            case 'expensive':
+                $query = $query->orderBy('p.price', 'DESC');
+                break;
+            case 'rating':
+                $query = $query->orderBy('p.rating', 'DESC');
+                break;
+            case 'novelty':
+                $query = $query->orderBy('p.createdAt', 'DESC');
+                break;
+        }
 
         switch ($filter) {
             case 'category':
