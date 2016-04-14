@@ -9,6 +9,7 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\InvoiceStatus;
+use AppBundle\Entity\User;
 use AppBundle\Form\Type\InvoiceStatusType;
 use AppBundle\Form\Type\InvoiceType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -35,7 +36,7 @@ class InvoiceController extends Controller
     public function showAllAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $query = $em->getRepository('AppBundle:Invoice')->getAllQuery($request->query->get('search'));
+        $query = $em->getRepository('AppBundle:Invoice')->getAllQuery();
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -51,11 +52,11 @@ class InvoiceController extends Controller
     /**
      * @param Request $request
      * @param Invoice $invoice
-     * @return array
      * @Route("/edit/{id}", requirements={"id": "\d+"}, name="show_invoice")
      * @ParamConverter("invoice", class="AppBundle:Invoice", options={"repository_method" = "getInvoice"})
      * @Method({"GET", "POST", "PUT"})
      * @Template("AppBundle:admin/invoice:show.html.twig")
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function showAction(Request $request, Invoice $invoice)
     {
@@ -84,6 +85,7 @@ class InvoiceController extends Controller
         $invoiceStatusForm->handleRequest($request);
         if ($invoiceStatusForm->isValid()) {
             $invoiceStatus->setInvoice($invoice);
+            /** @var User $user */
             $user = $this->getUser();
             $invoiceStatus->setManager($user);
             $em = $this->getDoctrine()->getManager();

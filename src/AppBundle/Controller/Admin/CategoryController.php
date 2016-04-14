@@ -12,7 +12,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Route("/admin")
@@ -20,10 +19,9 @@ use Symfony\Component\HttpFoundation\Response;
 class CategoryController extends Controller
 {
     /**
-     * @param Request $request
      * @Route("/categories", name="admin_categories")
      * @Template("AppBundle:admin/categories:categories.html.twig")
-     * @return Response
+     * @return array
      */
     public function indexAction()
     {
@@ -49,8 +47,7 @@ class CategoryController extends Controller
      *     })
      * @Method({"GET", "POST"})
      * @Template("AppBundle:admin/categories/form:category.html.twig")
-     *
-     * @return Response
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function categoryEditAction($id, $action, Request $request)
     {
@@ -99,7 +96,7 @@ class CategoryController extends Controller
      * @Method({"POST"})
      * @ParamConverter("category", class="AppBundle:Category")
      * @Template("AppBundle:admin:messages.html.twig")
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteCategoryAction(Category $category, Request $request)
     {

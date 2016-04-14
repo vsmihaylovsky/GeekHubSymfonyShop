@@ -12,7 +12,7 @@ use AppBundle\Entity\Newsletter;
 use AppBundle\Entity\User;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
@@ -52,7 +52,7 @@ class NewsletterService
      */
     public function getSendNewsletterForm(Newsletter $newsletter)
     {
-        /** @var FormBuilder $formBuilder */
+        /** @var FormBuilderInterface $formBuilder */
         $formBuilder = $this->formFactory->createBuilder();
 
         return $formBuilder

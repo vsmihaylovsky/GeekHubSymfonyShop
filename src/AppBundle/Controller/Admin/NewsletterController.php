@@ -10,7 +10,6 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\User;
 use AppBundle\Form\Type\NewsletterType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -66,7 +65,6 @@ class NewsletterController extends Controller
      * @param Newsletter $newsletter
      * @return array
      * @Route("/edit/{id}", requirements={"id": "\d+"}, name="edit_newsletter")
-     * @ParamConverter("newsletter", class="AppBundle:Newsletter")
      * @Method("GET")
      * @Template("AppBundle:admin/newsletter:form.html.twig")
      */
@@ -83,10 +81,10 @@ class NewsletterController extends Controller
 
     /**
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("/", name="create_newsletter")
      * @Method("POST")
      * @Template("AppBundle:admin/newsletter:form.html.twig")
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function createAction(Request $request)
     {
@@ -112,11 +110,10 @@ class NewsletterController extends Controller
     /**
      * @param Request $request
      * @param Newsletter $newsletter
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("/{id}", requirements={"id": "\d+"}, name="update_newsletter")
-     * @ParamConverter("newsletter", class="AppBundle:Newsletter")
      * @Method("PUT")
      * @Template("AppBundle:admin/newsletter:form.html.twig")
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function updateAction(Request $request, Newsletter $newsletter)
     {
@@ -141,7 +138,6 @@ class NewsletterController extends Controller
      * @param Newsletter $newsletter
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("/{id}", requirements={"id": "\d+"}, name="delete_newsletter")
-     * @ParamConverter("newsletter", class="AppBundle:Newsletter")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Newsletter $newsletter)
@@ -161,11 +157,10 @@ class NewsletterController extends Controller
 
     /**
      * @param Newsletter $newsletter
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("/show/{id}", requirements={"id": "\d+"}, name="show_newsletter")
-     * @ParamConverter("newsletter", class="AppBundle:Newsletter")
      * @Method("GET")
      * @Template("AppBundle:admin/newsletter:send.html.twig")
+     * @return array
      */
     public function showAction(Newsletter $newsletter)
     {
@@ -183,7 +178,6 @@ class NewsletterController extends Controller
      * @param Newsletter $newsletter
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("/send/{id}", requirements={"id": "\d+"}, name="send_newsletter")
-     * @ParamConverter("newsletter", class="AppBundle:Newsletter")
      * @Method("POST")
      */
     public function sendAction(Request $request, Newsletter $newsletter)

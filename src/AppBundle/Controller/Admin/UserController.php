@@ -9,7 +9,6 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\User;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -49,9 +48,8 @@ class UserController extends Controller
     /**
      * @param Request $request
      * @param User $user
-     * @return array
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("/set_user_role/{id}", requirements={"id": "\d+"}, name="set_user_role")
-     * @ParamConverter("user", class="AppBundle:User")
      * @Method("GET")
      */
     public function setUserRoleAction(Request $request, User $user)
@@ -65,9 +63,8 @@ class UserController extends Controller
     /**
      * @param Request $request
      * @param User $user
-     * @return array
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("/set_admin_role/{id}", requirements={"id": "\d+"}, name="set_admin_role")
-     * @ParamConverter("user", class="AppBundle:User")
      * @Method("GET")
      */
     public function setAdminRoleAction(Request $request, User $user)
@@ -81,9 +78,8 @@ class UserController extends Controller
     /**
      * @param Request $request
      * @param User $user
-     * @return array
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("/switch_active/{id}", requirements={"id": "\d+"}, name="switch_active")
-     * @ParamConverter("user", class="AppBundle:User")
      * @Method("GET")
      */
     public function switchActiveAction(Request $request, User $user)

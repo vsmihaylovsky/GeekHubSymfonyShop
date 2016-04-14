@@ -9,7 +9,6 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Form\Type\ReviewType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -56,7 +55,6 @@ class ReviewController extends Controller
      * @param Review $review
      * @return array
      * @Route("/edit/{id}", requirements={"id": "\d+"}, name="edit_review")
-     * @ParamConverter("review", class="AppBundle:Review")
      * @Method("GET")
      * @Template("AppBundle:admin/review:form.html.twig")
      */
@@ -74,11 +72,10 @@ class ReviewController extends Controller
     /**
      * @param Request $request
      * @param Review $review
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("/{id}", requirements={"id": "\d+"}, name="update_review")
-     * @ParamConverter("review", class="AppBundle:Review")
      * @Method("PUT")
      * @Template("AppBundle:admin/review:form.html.twig")
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function updateAction(Request $request, Review $review)
     {
@@ -103,7 +100,6 @@ class ReviewController extends Controller
      * @param Review $review
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("/{id}", requirements={"id": "\d+"}, name="delete_review")
-     * @ParamConverter("review", class="AppBundle:Review")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Review $review)
