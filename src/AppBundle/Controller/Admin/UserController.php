@@ -51,7 +51,6 @@ class UserController extends Controller
      * @param User $user
      * @return array
      * @Route("/set_user_role/{id}", requirements={"id": "\d+"}, name="set_user_role")
-     * @ParamConverter("user", class="AppBundle:User")
      * @Method("GET")
      */
     public function setUserRoleAction(Request $request, User $user)
@@ -67,7 +66,6 @@ class UserController extends Controller
      * @param User $user
      * @return array
      * @Route("/set_admin_role/{id}", requirements={"id": "\d+"}, name="set_admin_role")
-     * @ParamConverter("user", class="AppBundle:User")
      * @Method("GET")
      */
     public function setAdminRoleAction(Request $request, User $user)
@@ -83,7 +81,6 @@ class UserController extends Controller
      * @param User $user
      * @return array
      * @Route("/switch_active/{id}", requirements={"id": "\d+"}, name="switch_active")
-     * @ParamConverter("user", class="AppBundle:User")
      * @Method("GET")
      */
     public function switchActiveAction(Request $request, User $user)

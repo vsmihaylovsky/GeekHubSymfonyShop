@@ -65,7 +65,6 @@ class ReviewController extends Controller
      * @param Product $product
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("/{slug}", name="create_review")
-     * @ParamConverter("product", class="AppBundle:Product")
      * @Method("POST")
      * @Security("has_role('ROLE_USER')")
      * @Template("AppBundle:shop/Review:form.html.twig")

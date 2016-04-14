@@ -56,7 +56,6 @@ class PrivateMessageController extends Controller
      * @param User $recipient
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("/{id}", requirements={"id": "\d+"}, name="create_private_message")
-     * @ParamConverter("recipient", class="AppBundle:User")
      * @Method("POST")
      * @Template("AppBundle:shop/PrivateMessage:form.html.twig")
      */
@@ -140,7 +139,6 @@ class PrivateMessageController extends Controller
 
     /**
      * @Route("/{id}", requirements={"id": "\d+"}, name="show_private_message")
-     * @ParamConverter("privateMessage", class="AppBundle:PrivateMessage")
      * @Method("GET")
      * @Security("is_granted('read_message', privateMessage)")
      * @Template("AppBundle:shop/PrivateMessage:show.html.twig")
