@@ -36,7 +36,7 @@ class InvoiceController extends Controller
     public function showAllAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $query = $em->getRepository('AppBundle:Invoice')->getAllQuery($request->query->get('search'));
+        $query = $em->getRepository('AppBundle:Invoice')->getAllQuery();
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
