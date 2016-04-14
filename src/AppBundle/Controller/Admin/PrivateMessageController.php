@@ -56,7 +56,6 @@ class PrivateMessageController extends Controller
      * @param PrivateMessage $privateMessage
      * @return array
      * @Route("/edit/{id}", requirements={"id": "\d+"}, name="edit_private_message")
-     * @ParamConverter("privateMessage", class="AppBundle:PrivateMessage")
      * @Method("GET")
      * @Template("AppBundle:admin/private_message:form.html.twig")
      */
@@ -76,7 +75,6 @@ class PrivateMessageController extends Controller
      * @param PrivateMessage $privateMessage
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("/{id}", requirements={"id": "\d+"}, name="update_private_message")
-     * @ParamConverter("privateMessage", class="AppBundle:PrivateMessage")
      * @Method("PUT")
      * @Template("AppBundle:admin/private_message:form.html.twig")
      */
@@ -103,7 +101,6 @@ class PrivateMessageController extends Controller
      * @param PrivateMessage $privateMessage
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("/{id}", requirements={"id": "\d+"}, name="delete_private_message")
-     * @ParamConverter("privateMessage", class="AppBundle:PrivateMessage")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, PrivateMessage $privateMessage)
