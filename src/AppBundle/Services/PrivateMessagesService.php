@@ -11,7 +11,7 @@ namespace AppBundle\Services;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Routing\Router;
 use AppBundle\Entity\PrivateMessage;
@@ -37,7 +37,7 @@ class PrivateMessagesService
 
     public function createPrivateMessagesForm($actionRoute, $privateMessages)
     {
-        /** @var FormBuilder $formBuilder */
+        /** @var FormBuilderInterface $formBuilder */
         $formBuilder = $this->formFactory->createBuilder();
 
         return $formBuilder

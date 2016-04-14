@@ -9,7 +9,7 @@
 namespace AppBundle\Services;
 
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Routing\Router;
 
@@ -30,7 +30,7 @@ class DeleteFormService
      */
     public function createEntityDeleteForm($id, $deleteEntityRoute)
     {
-        /** @var FormBuilder $formBuilder */
+        /** @var FormBuilderInterface $formBuilder */
         $formBuilder = $this->formFactory->createBuilder();
 
         return $formBuilder

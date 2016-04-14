@@ -49,17 +49,14 @@ class InvoiceRepository extends EntityRepository
     }
 
     /**
-     * @param $search
      * @return \Doctrine\ORM\Query
      */
-    public function getAllQuery($search)
+    public function getAllQuery()
     {
         return $this->createQueryBuilder('i')
             ->select('i, c, s')
             ->leftJoin('i.customer', 'c')
             ->leftJoin('i.statuses', 's')
-//            ->where('r.reviewText like :review_text or p.name like :product_name or u.username like :username')
-//            ->setParameters(['review_text' => "%$search%", 'product_name' => "%$search%", 'username' => "%$search%"])
             ->getQuery();
     }
 }
