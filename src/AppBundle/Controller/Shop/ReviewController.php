@@ -62,11 +62,11 @@ class ReviewController extends Controller
     /**
      * @param Request $request
      * @param Product $product
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse | array
      * @Route("/{slug}", name="create_review")
      * @Method("POST")
      * @Security("has_role('ROLE_USER')")
      * @Template("AppBundle:shop/Review:form.html.twig")
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function createAction(Request $request, Product $product)
     {

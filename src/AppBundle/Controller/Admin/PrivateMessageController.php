@@ -72,10 +72,10 @@ class PrivateMessageController extends Controller
     /**
      * @param Request $request
      * @param PrivateMessage $privateMessage
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse | array
      * @Route("/{id}", requirements={"id": "\d+"}, name="update_private_message")
      * @Method("PUT")
      * @Template("AppBundle:admin/private_message:form.html.twig")
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function updateAction(Request $request, PrivateMessage $privateMessage)
     {

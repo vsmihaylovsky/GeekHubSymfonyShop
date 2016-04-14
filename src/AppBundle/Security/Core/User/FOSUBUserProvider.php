@@ -14,7 +14,6 @@ use HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider as BaseClass;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class FOSUBUserProvider extends BaseClass
-
 {
     /**
      * {@inheritDoc}
@@ -61,9 +60,7 @@ class FOSUBUserProvider extends BaseClass
             //modify here with relevant data
             $user->setUsername($response->getRealName());
             $user->setEmail($response->getEmail());
-//            $user->setUsername($username);
-//            $user->setEmail($username);
-            $user->setPassword($username);
+            $user->setPlainPassword($username);
             $user->setEnabled(true);
             $this->userManager->updateUser($user);
             return $user;

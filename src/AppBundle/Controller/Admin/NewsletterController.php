@@ -81,10 +81,10 @@ class NewsletterController extends Controller
 
     /**
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse | array
      * @Route("/", name="create_newsletter")
      * @Method("POST")
      * @Template("AppBundle:admin/newsletter:form.html.twig")
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function createAction(Request $request)
     {
@@ -110,10 +110,10 @@ class NewsletterController extends Controller
     /**
      * @param Request $request
      * @param Newsletter $newsletter
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse | array
      * @Route("/{id}", requirements={"id": "\d+"}, name="update_newsletter")
      * @Method("PUT")
      * @Template("AppBundle:admin/newsletter:form.html.twig")
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function updateAction(Request $request, Newsletter $newsletter)
     {
@@ -157,10 +157,10 @@ class NewsletterController extends Controller
 
     /**
      * @param Newsletter $newsletter
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("/show/{id}", requirements={"id": "\d+"}, name="show_newsletter")
      * @Method("GET")
      * @Template("AppBundle:admin/newsletter:send.html.twig")
+     * @return array
      */
     public function showAction(Newsletter $newsletter)
     {
