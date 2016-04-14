@@ -54,7 +54,7 @@ class PrivateMessageController extends Controller
     /**
      * @param Request $request
      * @param User $recipient
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse | array
      * @Route("/{id}", requirements={"id": "\d+"}, name="create_private_message")
      * @Method("POST")
      * @Template("AppBundle:shop/PrivateMessage:form.html.twig")

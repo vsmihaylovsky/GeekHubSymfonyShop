@@ -18,6 +18,7 @@ class ProductController extends Controller
      * @Route("/", name="homepage")
      * @Method("GET")
      * @Template("AppBundle:shop:index.html.twig")
+     * @return array
      */
     public function indexAction()
     {
@@ -34,7 +35,6 @@ class ProductController extends Controller
      * @param $param
      * @param $page
      * @param Request $request
-     * @return Response
      * @Route("/products/{filter}/{param}/{pager}/{page}", name="products_filtered",
      *     defaults={"filter": "none", "param": "none", "pager": "page", "page": 1},
      *     requirements={
@@ -44,6 +44,7 @@ class ProductController extends Controller
      *     })
      * @Method("GET")
      * @Template("AppBundle:shop:products.html.twig")
+     * @return array
      */
     public function productsFilteredAction($filter, $param, $page, Request $request)
     {
@@ -74,7 +75,6 @@ class ProductController extends Controller
     /**
      * @param $page
      * @param Request $request
-     * @return Response
      * @Route("/search/{pager}/{page}", name="products_search",
      *     defaults={"pager": "page", "page": 1},
      *     requirements={
@@ -83,6 +83,7 @@ class ProductController extends Controller
      *     })
      * @Method("GET")
      * @Template("AppBundle:shop:products.html.twig")
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function searchAction($page, Request $request)
     {
@@ -131,6 +132,7 @@ class ProductController extends Controller
     /**
      * @Route("/login1", name="login1")
      * @Template("AppBundle:shop:login.html.twig")
+     * @return array
      */
     public function loginAction()
     {

@@ -12,7 +12,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Route("/admin")
@@ -23,7 +22,7 @@ class AttributeController extends Controller
      * @Route("/attributes", name="admin_attributes")
      * @Template("AppBundle:admin/attributes:attributes.html.twig")
      */
-    public function indexAction(Request $request)
+    public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
         $attributes = $em->getRepository('AppBundle:Attribute')
@@ -46,8 +45,7 @@ class AttributeController extends Controller
      *     })
      * @Method({"GET", "POST"})
      * @Template("AppBundle:admin/attributes/form:attribute.html.twig")
-     *
-     * @return Response
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function attributeEditAction($id, $action, Request $request)
     {
@@ -105,7 +103,4 @@ class AttributeController extends Controller
             'form'  => $formData,
         ];
     }
-
-
-
 }

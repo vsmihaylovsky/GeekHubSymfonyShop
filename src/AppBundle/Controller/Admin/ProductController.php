@@ -6,7 +6,6 @@ use AppBundle\Entity\Product;
 use AppBundle\Form\Type\DeleteType;
 use AppBundle\Form\Type\ProductType;
 use AppBundle\Form\Type\ProductAttributesType;
-use Faker\Provider\DateTime;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -50,7 +49,7 @@ class ProductController extends Controller
     /**
      * @param $filter
      * @param $param
-     * @return Response
+     * @return array
      * @Route("/products/{filter}/{param}", name="admin_products_filtered",
      *     defaults={"filter": "none", "param": "none"},
      *     requirements={
@@ -88,8 +87,7 @@ class ProductController extends Controller
      *     })
      * @Method({"GET", "POST"})
      * @Template("AppBundle:admin/products/form:product.html.twig")
-     *
-     * @return Response
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function productEditAction($id, $action, Request $request)
     {
@@ -158,8 +156,7 @@ class ProductController extends Controller
      * @Method({"GET", "POST"})
      * @Template("AppBundle:admin/products/form:attributes.html.twig")
      * @ParamConverter("picture", class="AppBundle:Product")
-     *
-     * @return Response
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function productAttributesAction($id, Product $product, Request $request)
     {

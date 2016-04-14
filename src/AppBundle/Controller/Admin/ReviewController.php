@@ -9,7 +9,6 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Form\Type\ReviewType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -73,7 +72,7 @@ class ReviewController extends Controller
     /**
      * @param Request $request
      * @param Review $review
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse | array
      * @Route("/{id}", requirements={"id": "\d+"}, name="update_review")
      * @Method("PUT")
      * @Template("AppBundle:admin/review:form.html.twig")

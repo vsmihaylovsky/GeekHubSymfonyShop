@@ -10,7 +10,6 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\User;
 use AppBundle\Form\Type\NewsletterType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -82,7 +81,7 @@ class NewsletterController extends Controller
 
     /**
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse | array
      * @Route("/", name="create_newsletter")
      * @Method("POST")
      * @Template("AppBundle:admin/newsletter:form.html.twig")
@@ -111,7 +110,7 @@ class NewsletterController extends Controller
     /**
      * @param Request $request
      * @param Newsletter $newsletter
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse | array
      * @Route("/{id}", requirements={"id": "\d+"}, name="update_newsletter")
      * @Method("PUT")
      * @Template("AppBundle:admin/newsletter:form.html.twig")
