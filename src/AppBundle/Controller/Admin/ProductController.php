@@ -14,7 +14,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Route("/admin")
@@ -25,8 +24,7 @@ class ProductController extends Controller
      * @param Request $request
      * @Route("/products", name="admin_products")
      * @Template("AppBundle:admin/products:products.html.twig")
-     *
-     * @return Response
+     * @return array
      */
     public function indexAction(Request $request)
     {
@@ -49,6 +47,7 @@ class ProductController extends Controller
     /**
      * @param $filter
      * @param $param
+     * @param Request $request
      * @return array
      * @Route("/products/{filter}/{param}", name="admin_products_filtered",
      *     defaults={"filter": "none", "param": "none"},
@@ -209,7 +208,6 @@ class ProductController extends Controller
 
     /**
      * @param Product $product
-     * @param Request $request
      * @Route("/product/delete/{id}", name="admin_product_delete",
      *     requirements={
      *      "id": "\d+"
@@ -219,7 +217,7 @@ class ProductController extends Controller
      * @Template("AppBundle:admin:messages.html.twig")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteProductAction(Product $product, Request $request)
+    public function deleteProductAction(Product $product)
     {
         $product->setDeletedAt(new \DateTime('now'));
         $em = $this->getDoctrine()->getManager();

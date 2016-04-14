@@ -96,7 +96,7 @@ class CategoryController extends Controller
      * @Method({"POST"})
      * @ParamConverter("category", class="AppBundle:Category")
      * @Template("AppBundle:admin:messages.html.twig")
-     * @return \Symfony\Component\HttpFoundation\Response | array
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteCategoryAction(Category $category, Request $request)
     {
