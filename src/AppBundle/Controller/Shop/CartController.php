@@ -19,6 +19,8 @@ class CartController extends Controller
     /**
      * @Route("/checkout", name="checkout")
      * @Template("AppBundle:shop:checkout.html.twig")
+     * @param Request $request
+     * @return array|RedirectResponse
      */
     public function checkoutAction(Request $request)
     {
@@ -58,6 +60,8 @@ class CartController extends Controller
     /**
      * @Route("/cart", name="cart")
      * @Template("AppBundle:shop:cart.html.twig")
+     * @param Request $request
+     * @return array|RedirectResponse
      */
     public function cartAction(Request $request)
     {

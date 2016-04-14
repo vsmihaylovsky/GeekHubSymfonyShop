@@ -9,6 +9,7 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\InvoiceStatus;
+use AppBundle\Entity\User;
 use AppBundle\Form\Type\InvoiceStatusType;
 use AppBundle\Form\Type\InvoiceType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -84,6 +85,7 @@ class InvoiceController extends Controller
         $invoiceStatusForm->handleRequest($request);
         if ($invoiceStatusForm->isValid()) {
             $invoiceStatus->setInvoice($invoice);
+            /** @var User $user */
             $user = $this->getUser();
             $invoiceStatus->setManager($user);
             $em = $this->getDoctrine()->getManager();

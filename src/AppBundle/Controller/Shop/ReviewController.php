@@ -12,7 +12,6 @@ use AppBundle\Entity\Product;
 use AppBundle\Entity\Review;
 use AppBundle\Form\Type\ReviewType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -29,10 +28,10 @@ class ReviewController extends Controller
     /**
      * @param $slug
      * @param $page
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("/{slug}/{page}", defaults={"page" = 1}, name="show_product_reviews")
      * @Method("GET")
      * @Template("AppBundle:shop/Review:product_reviews.html.twig")
+     * @return array
      */
     public function showProductReviewsAction($slug, $page)
     {
@@ -63,7 +62,7 @@ class ReviewController extends Controller
     /**
      * @param Request $request
      * @param Product $product
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse | array
      * @Route("/{slug}", name="create_review")
      * @Method("POST")
      * @Security("has_role('ROLE_USER')")

@@ -9,7 +9,6 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Form\Type\PrivateMessageType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -73,7 +72,7 @@ class PrivateMessageController extends Controller
     /**
      * @param Request $request
      * @param PrivateMessage $privateMessage
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse | array
      * @Route("/{id}", requirements={"id": "\d+"}, name="update_private_message")
      * @Method("PUT")
      * @Template("AppBundle:admin/private_message:form.html.twig")
